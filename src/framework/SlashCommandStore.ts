@@ -1,4 +1,4 @@
-import { env } from '../lib'
+import type { GuildApplicationCommandPermissionData } from 'discord.js'
 import { SlashCommand } from './SlashCommand'
 import { Store } from '@sapphire/pieces'
 
@@ -21,17 +21,23 @@ export class SlashCommandStore extends Store<SlashCommand> {
 		const guilds = await client.guilds.fetch() // retrieves Snowflake & Oauth2Guilds
 		for ( const [ id ] of guilds ) {
 			const guild = await client.guilds.fetch( id ) // gets the guild instances from the cache (fetched before)
-			if ( env.NODE_ENV === 'development' ) {
-				await guild.commands.set( slashCommands.map( c => c.commandData ) )
-			} else {
-				await guild.commands.set( guildCmds.map( c => c.commandData ) )
-			}
+			const setCommands = await guild.commands.set( guildCmds.map( c => c.commandData ) )
+			const fullPermissions: GuildApplicationCommandPermissionData[] = []
+			setCommands.forEach( ( command, commandId ) => {
+				const piece = this.get( command.name )
+				if ( !piece?.commandData.permissions || piece.commandData.permissions.length === 0 ) return
+				fullPermissions.push( {
+					id: commandId,
+					permissions: piece.commandData.permissions
+				} )
+			} )
+			await guild.commands.permissions.set( { fullPermissions } )
 		}
 
 		// Global commands will update over the span of an hour and is discouraged to update on development mode.
 		// https://canary.discord.com/developers/docs/interactions/slash-commands#registering-a-command
 		// https://discord.com/developers/docs/interactions/application-commands#making-a-global-command
-		if ( env.NODE_ENV === 'development' ) {
+		if ( process.env.NODE_ENV === 'development' ) {
 			this.container.logger.info( 'Skipped global commands because we\'re in development mode' )
 			return
 		}
