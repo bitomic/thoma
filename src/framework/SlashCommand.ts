@@ -1,4 +1,4 @@
-import type { ApplicationCommandData, ApplicationCommandOptionData, ApplicationCommandPermissionData, CommandInteraction, Guild, InteractionReplyOptions, TextBasedChannels } from 'discord.js'
+import type { ApplicationCommandData, ApplicationCommandOptionData, ApplicationCommandPermissionData, CommandInteraction, Guild, InteractionReplyOptions, TextBasedChannel } from 'discord.js'
 import type { Awaitable } from '@sapphire/utilities'
 import { env } from '../lib'
 import { Piece } from '@sapphire/framework'
@@ -24,7 +24,7 @@ export abstract class SlashCommand extends Piece {
 
 	public abstract run( interaction: CommandInteraction ): Awaitable<unknown>
 
-	protected inGuildChannel( interaction: CommandInteraction ): interaction is CommandInteraction<'present'> & { channel: TextBasedChannels, guild: Guild } {
+	protected inGuildChannel( interaction: CommandInteraction ): interaction is CommandInteraction<'present'> & { channel: TextBasedChannel, guild: Guild } {
 		if ( !interaction.inGuild() || !interaction.channel || !interaction.guild ) {
 			void this.reply( interaction, {
 				content: 'You can only use this command in a guild.'
