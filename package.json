@@ -24,6 +24,7 @@
     "discord.js": "^13.4.0",
     "dotenv": "^10.0.0",
     "node-cron": "^3.0.0",
+    "node-fetch": "2.6.1",
     "sequelize": "^6.12.4",
     "sqlite3": "^5.0.2"
   },
@@ -33,6 +34,7 @@
     "@types/color-thief-node": "^1.0.1",
     "@types/node": "^16.11.17",
     "@types/node-cron": "^3.0.0",
+    "@types/node-fetch": "2.5.8",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
     "eslint": "^8.5.0",
