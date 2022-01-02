@@ -20,7 +20,7 @@
     "@sapphire/plugin-logger": "^2.1.1",
     "@sapphire/utilities": "^3.1.0",
     "color-thief-node": "^1.0.4",
-    "discord-api-types": "^0.26.0",
+    "discord-api-types": "^0.26.1",
     "discord.js": "^13.4.0",
     "dotenv": "^10.0.0",
     "imgur": "^2.0.1",
