@@ -6,6 +6,7 @@ const environmentVariables = [
 	'DISCORD_OWNER',
 	'DISCORD_PREFIX',
 	'DISCORD_TOKEN',
+	'IMGUR_ID',
 	'NODE_ENV'
 ] as const
 type Env = typeof environmentVariables[ number ]
