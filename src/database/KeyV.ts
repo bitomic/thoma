@@ -3,6 +3,7 @@ import type { Model } from 'sequelize'
 import { sequelize } from '../lib'
 
 interface IKeyV {
+	guild: string
 	key: string
 	value: string
 }
@@ -10,12 +11,23 @@ interface IKeyV {
 interface IKeyVInterface extends Model<IKeyV, IKeyV>, IKeyV {
 }
 
-export const KeyV = sequelize.define<IKeyVInterface>( 'KeyV', {
-	key: {
-		primaryKey: true,
-		type: DataTypes.STRING
+export const KeyV = sequelize.define<IKeyVInterface>(
+	'KeyV',
+	{
+		guild: {
+			primaryKey: true,
+			type: DataTypes.STRING
+		},
+		key: {
+			primaryKey: true,
+			type: DataTypes.STRING
+		},
+		value: {
+			type: DataTypes.STRING
+		}
 	},
-	value: {
-		type: DataTypes.STRING
+	{
+		tableName: 'KeyV',
+		timestamps: false
 	}
-} )
+)
