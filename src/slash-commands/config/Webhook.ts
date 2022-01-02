@@ -47,10 +47,15 @@ const TYPES: Array<IWebhook[ 'type' ]> = [
 } )
 export class UserSlash extends SlashCommand {
 	public async run( interaction: CommandInteraction ): Promise<void> {
-		if ( !interaction.inGuild() ) return
 		await interaction.deferReply( {
 			ephemeral: true
 		} )
+		if ( !interaction.inGuild() || !interaction.memberPermissions.has( 'MANAGE_GUILD' ) ) {
+			await interaction.editReply( {
+				content: 'Este comando sólo puede ser usado en servidores por miembros con permiso para gestionar el servidor.'
+			} )
+			return
+		}
 
 		const webhookType = interaction.options.getString( 'tipo', true ) as unknown as IWebhook[ 'type' ]
 		const name = interaction.options.getString( 'nombre', true )
