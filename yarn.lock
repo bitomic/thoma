@@ -578,7 +578,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node-cron@npm:^3.0.0":
+"@types/node-cron@npm:^3.0.1":
   version: 3.0.1
   resolution: "@types/node-cron@npm:3.0.1"
   checksum: c93887daef8064b92122c3baf5a3f058bafb70a600f432665dd2684ef8539f7796fd731b3b35b54daad7faef88f87b56fc3236b8e69ce021a364ba2e8f30e51e
@@ -3970,7 +3970,7 @@ __metadata:
     "@sapphire/utilities": ^3.1.0
     "@types/color-thief-node": ^1.0.1
     "@types/node": ^16.11.17
-    "@types/node-cron": ^3.0.0
+    "@types/node-cron": ^3.0.1
     "@types/node-fetch": 2.5.12
     "@typescript-eslint/eslint-plugin": ^5.8.1
     "@typescript-eslint/parser": ^5.8.1
