@@ -585,17 +585,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node-fetch@npm:2.5.8":
-  version: 2.5.8
-  resolution: "@types/node-fetch@npm:2.5.8"
-  dependencies:
-    "@types/node": "*"
-    form-data: ^3.0.0
-  checksum: 74ccad81eb6c6899cf2e262030f4e2efc1050a66d9edc589e98a1dbdb57b722d8dd27964f1ac2e21187535c3292da2ce18963e2b362f70ea00584f6ca84b5aca
-  languageName: node
-  linkType: hard
-
-"@types/node-fetch@npm:^2.5.12":
+"@types/node-fetch@npm:2.5.12, @types/node-fetch@npm:^2.5.12":
   version: 2.5.12
   resolution: "@types/node-fetch@npm:2.5.12"
   dependencies:
@@ -3222,14 +3212,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.1":
-  version: 2.6.1
-  resolution: "node-fetch@npm:2.6.1"
-  checksum: 91075bedd57879117e310fbcc36983ad5d699e522edb1ebcdc4ee5294c982843982652925c3532729fdc86b2d64a8a827797a745f332040d91823c8752ee4d7c
-  languageName: node
-  linkType: hard
-
-"node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.5":
+"node-fetch@npm:2.6.6, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.5":
   version: 2.6.6
   resolution: "node-fetch@npm:2.6.6"
   dependencies:
@@ -4002,7 +3985,7 @@ __metadata:
     "@types/color-thief-node": ^1.0.1
     "@types/node": ^16.11.17
     "@types/node-cron": ^3.0.0
-    "@types/node-fetch": 2.5.8
+    "@types/node-fetch": 2.5.12
     "@typescript-eslint/eslint-plugin": ^5.8.1
     "@typescript-eslint/parser": ^5.8.1
     color-thief-node: ^1.0.4
@@ -4014,7 +3997,7 @@ __metadata:
     imgur: ^2.0.1
     lint-staged: ^12.1.4
     node-cron: ^3.0.0
-    node-fetch: 2.6.1
+    node-fetch: 2.6.6
     rimraf: ^3.0.2
     sequelize: ^6.12.4
     sqlite3: ^5.0.2
