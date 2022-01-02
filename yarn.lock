@@ -1012,6 +1012,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^0.24.0":
+  version: 0.24.0
+  resolution: "axios@npm:0.24.0"
+  dependencies:
+    follow-redirects: ^1.14.4
+  checksum: 468cf496c08a6aadfb7e699bebdac02851e3043d4e7d282350804ea8900e30d368daa6e3cd4ab83b8ddb5a3b1e17a5a21ada13fc9cebd27b74828f47a4236316
+  languageName: node
+  linkType: hard
+
 "balanced-match@npm:^1.0.0":
   version: 1.0.2
   resolution: "balanced-match@npm:1.0.2"
@@ -1973,6 +1982,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"follow-redirects@npm:^1.14.4":
+  version: 1.14.6
+  resolution: "follow-redirects@npm:1.14.6"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 7fcdb089a733d2aa39041880790e9f772df009fcd0b243fee7e10acf0e14a8dab5208cf79eb1de35b9cc6033d4dde7f95becadfaa360c50d460b4c730b375e80
+  languageName: node
+  linkType: hard
+
 "forever-agent@npm:~0.6.1":
   version: 0.6.1
   resolution: "forever-agent@npm:0.6.1"
@@ -2406,6 +2425,16 @@ __metadata:
   version: 5.2.0
   resolution: "ignore@npm:5.2.0"
   checksum: 6b1f926792d614f64c6c83da3a1f9c83f6196c2839aa41e1e32dd7b8d174cef2e329d75caabb62cb61ce9dc432f75e67d07d122a037312db7caa73166a1bdb77
+  languageName: node
+  linkType: hard
+
+"imgur@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "imgur@npm:2.0.1"
+  dependencies:
+    axios: ^0.24.0
+    form-data: ^4.0.0
+  checksum: c90007da5cb8b3e4f32b50e01219805672d1077bb938b71ad494a78e821f31656d0460939c985387dd8948e2aea370e2b7110026f10be611efc0d3657c26981f
   languageName: node
   linkType: hard
 
@@ -3975,6 +4004,7 @@ __metadata:
     dotenv: ^10.0.0
     eslint: ^8.5.0
     husky: ^7.0.4
+    imgur: ^2.0.1
     lint-staged: ^12.1.4
     node-cron: ^3.0.0
     node-fetch: 2.6.1
