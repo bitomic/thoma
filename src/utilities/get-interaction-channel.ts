@@ -2,7 +2,9 @@ import type { AnyChannel, CommandInteraction, NewsChannel, TextChannel } from 'd
 import { getInteractionGuild } from './get-interaction-guild'
 
 export const getInteractionChannel = async ( interaction: CommandInteraction<'present'> ): Promise<NewsChannel | TextChannel | null> => {
-	let { channel } = interaction
+	let { channel }: {
+		channel: AnyChannel | null
+	} = interaction
 	if ( !channel ) {
 		const guild = await getInteractionGuild( interaction )
 		if ( !guild ) return null
