@@ -1540,7 +1540,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord-api-types@npm:*, discord-api-types@npm:^0.26.0":
+"discord-api-types@npm:*":
   version: 0.26.0
   resolution: "discord-api-types@npm:0.26.0"
   checksum: 5c2a3f7309fec3830a8da5e98e5260b25304512ae856c770d783492aa4a8c514a64025bb30ceda0c4381bc749db9545c0d7d5573fa0d60bb1718add27c8b4d7d
@@ -1558,6 +1558,13 @@ __metadata:
   version: 0.25.2
   resolution: "discord-api-types@npm:0.25.2"
   checksum: bb80a9db706d8ae391ab5eae4536827832ffe744b69659029597aaf90d9b9ece6e9642bd44eb3f38b32a3783ad1eebce378403fc785ca5405f8b71d8d32678a5
+  languageName: node
+  linkType: hard
+
+"discord-api-types@npm:^0.26.1":
+  version: 0.26.1
+  resolution: "discord-api-types@npm:0.26.1"
+  checksum: e53bfa7589b24108e6b403dbe213da34c4592f72e2b8fde6800dcb6c703065887ecbd644e1cdf694e4c7796954bc51462ced868f26ec45dc1e0dc4fa8d3c723c
   languageName: node
   linkType: hard
 
@@ -3999,7 +4006,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.8.1
     "@typescript-eslint/parser": ^5.8.1
     color-thief-node: ^1.0.4
-    discord-api-types: ^0.26.0
+    discord-api-types: ^0.26.1
     discord.js: ^13.4.0
     dotenv: ^10.0.0
     eslint: ^8.5.0
