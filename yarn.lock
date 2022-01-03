@@ -3211,6 +3211,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mwparser@npm:^1.3.3":
+  version: 1.3.3
+  resolution: "mwparser@npm:1.3.3"
+  dependencies:
+    peggy: ^1.2.0
+  checksum: a763e467aa61421dfc164f3f3b618c6c7317f9a54c58cfeec178e882e14ac07b871b0976832f99b9e60a9eaa0dc9e360969f6795478aa30d9b9749f6535533b5
+  languageName: node
+  linkType: hard
+
 "nan@npm:^2.14.0":
   version: 2.15.0
   resolution: "nan@npm:2.15.0"
@@ -3707,6 +3716,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"peggy@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "peggy@npm:1.2.0"
+  bin:
+    peggy: bin/peggy
+  checksum: 658c985df8175cb7e90990f663ec5f84d25db6d05adb7f2ffcbcc86c7cddc8de0b818c8d1eb64e78c84ae848e921ff54acabb39da4fb5e497c1dcfdcbfc50b47
+  languageName: node
+  linkType: hard
+
 "performance-now@npm:^2.1.0":
   version: 2.1.0
   resolution: "performance-now@npm:2.1.0"
@@ -4110,6 +4128,7 @@ __metadata:
     imgur: ^2.0.1
     lint-staged: ^12.1.4
     mw.js: ^1.5.2
+    mwparser: ^1.3.3
     node-cron: ^3.0.0
     node-fetch: 2.6.6
     rimraf: ^3.0.2
