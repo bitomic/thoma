@@ -1,7 +1,7 @@
+import { SlashCommandStore, UserCommandStore } from '../framework'
 import { env } from './environment'
 import { Intents } from 'discord.js'
 import { SapphireClient } from '@sapphire/framework'
-import { SlashCommandStore } from '../framework'
 
 export class Client extends SapphireClient {
 	public constructor() {
@@ -14,6 +14,7 @@ export class Client extends SapphireClient {
 			loadDefaultErrorListeners: true
 		} )
 		this.stores.register( new SlashCommandStore() )
+		this.stores.register( new UserCommandStore() )
 	}
 
 	public async start(): Promise<void> {
