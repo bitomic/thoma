@@ -75,7 +75,6 @@ export class UserSlash extends SlashCommand {
 			clientId: env.IMGUR_ID
 		} )
 		const response = await imgur.upload( {
-			// @ts-expect-error - faulty typings
 			image
 		} )
 		const result = Array.isArray( response ) ? response[ 0 ] : response
