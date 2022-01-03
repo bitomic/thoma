@@ -23,7 +23,10 @@ export const UIDs = sequelize.define<IUIDInterface>(
 			primaryKey: true,
 			type: DataTypes.STRING
 		},
-		uid: DataTypes.STRING,
+		uid: {
+			type: DataTypes.STRING,
+			unique: true
+		},
 		username: DataTypes.STRING
 	},
 	{
