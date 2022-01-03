@@ -2437,12 +2437,12 @@ __metadata:
   linkType: hard
 
 "imgur@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "imgur@npm:2.0.1"
+  version: 2.0.3
+  resolution: "imgur@npm:2.0.3"
   dependencies:
     axios: ^0.24.0
     form-data: ^4.0.0
-  checksum: c90007da5cb8b3e4f32b50e01219805672d1077bb938b71ad494a78e821f31656d0460939c985387dd8948e2aea370e2b7110026f10be611efc0d3657c26981f
+  checksum: 3ffbc0c889dc0e2498d28666f4c3664ba015bcdda85c5653246e74158c50efa3a3d080932a584f72cfd20a0b7fd12e1fca7906bae9ffa8e4823903041aa14868
   languageName: node
   linkType: hard
 
