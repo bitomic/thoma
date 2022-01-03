@@ -17,7 +17,7 @@ import { SlashPermissions } from '../../../decorators'
 } )
 @ApplyOptions<SlashCommandOptions>( {
 	defaultPermission: false,
-	description: 'Actualiza las rarezas de los objetos.',
+	description: 'Actualiza la rareza de los objetos.',
 	enabled: true,
 	guilds: [ '768261477345525781' ],
 	name: 'rarezas'
