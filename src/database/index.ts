@@ -1,3 +1,4 @@
+export * from './FandomUser'
 export * from './KeyV'
 export * from './Role'
 export * from './RoleMessages'
