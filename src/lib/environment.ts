@@ -7,6 +7,8 @@ const environmentVariables = [
 	'DISCORD_PREFIX',
 	'DISCORD_TOKEN',
 	'IMGUR_ID',
+	'FANDOM_PASSWORD',
+	'FANDOM_USERNAME',
 	'NODE_ENV'
 ] as const
 type Env = typeof environmentVariables[ number ]
