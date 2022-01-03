@@ -1,5 +1,5 @@
 import { container } from '@sapphire/framework'
-import { Webhooks } from '../database'
+import { Webhooks } from '../../database'
 
 export interface IWebhookData {
 	avatarURL: string
