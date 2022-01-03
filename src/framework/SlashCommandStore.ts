@@ -15,11 +15,15 @@ export class SlashCommandStore extends Store<SlashCommand> {
 
 		// This will split the slash commands between global and guild only.
 		const slashCommands = this.container.stores.get( 'slash-commands' )
+		const userCommands = this.container.stores.get( 'user-commands' )
 		await client.guilds.fetch() // retrieves Snowflake & Oauth2Guilds
 
 		if ( env.NODE_ENV === 'development' ) {
 			const guild = await client.guilds.fetch( env.DISCORD_DEVELOPMENT_SERVER )
-			await this.setGuildCommands( guild, slashCommands.map( command => command.commandData ) )
+			await this.setGuildCommands( guild, [
+				...slashCommands.map( command => command.commandData ),
+				...userCommands.map( command => command.commandData )
+			] )
 			return
 		}
 
@@ -38,7 +42,11 @@ export class SlashCommandStore extends Store<SlashCommand> {
 			const guild = await client.guilds.fetch( id )
 			const commands = guildCmds.filter( cmd => cmd.guilds.includes( id ) )
 				.map( cmd => cmd.commandData )
-			await this.setGuildCommands( guild, commands )
+			const userCmds = userCommands.filter( cmd => cmd.guilds.includes( id ) )
+				.map( cmd => cmd.commandData )
+			await this.setGuildCommands( guild, [
+				...commands, ...userCmds
+			] )
 		}
 
 		// This will register global commands.
