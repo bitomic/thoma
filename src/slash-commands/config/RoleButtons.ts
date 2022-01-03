@@ -1,4 +1,4 @@
-import { chunkify, getInteractionChannel, getInteractionGuild, getWebhook, getWebhookData } from '../../utilities'
+import { chunkify, Colors, getInteractionChannel, getInteractionGuild, getWebhook, getWebhookData } from '../../utilities'
 import type { CommandInteraction, MessageActionRowOptions, MessageButtonOptions, NewsChannel, NonThreadGuildBasedChannel, TextChannel, Webhook } from 'discord.js'
 import type { IKeyVInterface, IRole } from '../../database'
 import { KeyV, RoleMessages, Roles } from '../../database'
@@ -126,7 +126,7 @@ export class UserSlash extends SlashCommand {
 			const record = await this.getChannel( interaction.guildId ) as IKeyVInterface | null
 			if ( !record ) {
 				const embed = new MessageEmbed( {
-					color: 0xb71c1c,
+					color: Colors.amber[ 10 ],
 					description: 'Necesitas especificar un canal usando `/roles canal`.'
 				} )
 				await interaction.editReply( {
@@ -149,7 +149,7 @@ export class UserSlash extends SlashCommand {
 			} )
 			if ( !record ) {
 				const embed = new MessageEmbed( {
-					color: 0xb71c1c,
+					color: Colors.amber[ 10 ],
 					description: 'Necesitas especificar un mensaje usando `/roles mensaje`.'
 				} )
 				await interaction.editReply( {
@@ -179,7 +179,7 @@ export class UserSlash extends SlashCommand {
 			.catch( () => null )
 		if ( !message ) {
 			const embed = new MessageEmbed( {
-				color: 0xff6f00,
+				color: Colors.red[ 10 ],
 				description: 'No he podido encontrar el mensaje proporcionado. Asegúrate de que no haya sido borrado y estés usando el comando en el mismo canal donde está el mensaje.'
 			} )
 			await interaction.editReply( {
@@ -201,7 +201,7 @@ export class UserSlash extends SlashCommand {
 				.catch( () => null )
 			if ( !existingMessage ) {
 				const embed = new MessageEmbed( {
-					color: 0xff6f00,
+					color: Colors.red[ 10 ],
 					description: 'No he podido encontrar el mensaje a editar. Asegúrate de que no haya sido borrado y que tenga acceso a los mensajes del canal.'
 				} )
 				await interaction.editReply( {
@@ -250,7 +250,7 @@ export class UserSlash extends SlashCommand {
 		}
 
 		const embed = new MessageEmbed( {
-			color: 0x1b5e20,
+			color: Colors.green[ 10 ],
 			description: `Se ha ${ messageToEdit ? 'editado' : 'enviado' } el mensaje exitosamente. Ahora puedes añadir botones para roles en él.`
 		} )
 		await interaction.editReply( {
@@ -266,7 +266,7 @@ export class UserSlash extends SlashCommand {
 			value: channel.id
 		} )
 		const embed = new MessageEmbed( {
-			color: 0x1b5e20,
+			color: Colors.green[ 10 ],
 			description: `Se ha configurado el canal exitosamente: <#${ channel.id }>`
 		} )
 		await interaction.editReply( {
@@ -286,7 +286,7 @@ export class UserSlash extends SlashCommand {
 
 		if ( !message ) {
 			const embed = new MessageEmbed( {
-				color: 0xff6f00,
+				color: Colors.red[ 10 ],
 				description: 'No he podido encontrar el mensaje especificado. Asegúrate de que no haya sido borrado y que tenga acceso a los mensajes del canal.'
 			} )
 			await interaction.editReply( {
@@ -301,7 +301,7 @@ export class UserSlash extends SlashCommand {
 
 		if ( !isOwnedWebhook ) {
 			const embed = new MessageEmbed( {
-				color: 0xff6f00,
+				color: Colors.red[ 10 ],
 				description: 'Este mensaje no fue enviado por el bot, por lo que no es posible editarlo.\nPuedes copiarlo y re-enviarlo usando `/roles copiar-mensaje`.'
 			} )
 			await interaction.editReply( {
@@ -316,7 +316,7 @@ export class UserSlash extends SlashCommand {
 			value: message.id
 		} )
 		const embed = new MessageEmbed( {
-			color: 0x1b5e20,
+			color: Colors.green[ 10 ],
 			description: 'Se ha configurado el mensaje exitosamente.'
 		} )
 		await interaction.editReply( {
@@ -331,7 +331,7 @@ export class UserSlash extends SlashCommand {
 
 		if ( role.position === 0 || role.managed ) {
 			const embed = new MessageEmbed( {
-				color: 0xff6f00,
+				color: Colors.red[ 10 ],
 				description: `<@&${ role.id }> es un rol que pertenece a un bot o @everyone, y no puede ser asignado.`
 			} )
 			await interaction.editReply( {
@@ -347,7 +347,7 @@ export class UserSlash extends SlashCommand {
 		} )
 		if ( buttonsCount >= 25 ) {
 			const embed = new MessageEmbed( {
-				color: 0xff6f00,
+				color: Colors.red[ 10 ],
 				description: 'Solo puede haber un máximo de 25 botones por mensaje.'
 			} )
 			await interaction.editReply( {
@@ -364,7 +364,7 @@ export class UserSlash extends SlashCommand {
 		} )
 		if ( alreadyExists ) {
 			const embed = new MessageEmbed( {
-				color: 0xff6f00,
+				color: Colors.red[ 10 ],
 				description: `Solo puede haber un botón por rol, y parece que <@&${ role.id }> ya está configurado en el mensaje actual.`
 			} )
 			await interaction.editReply( {
@@ -375,7 +375,7 @@ export class UserSlash extends SlashCommand {
 
 		if ( !label && !emoji ) {
 			const embed = new MessageEmbed( {
-				color: 0xff6f00,
+				color: Colors.red[ 10 ],
 				description: 'Debes de especificar un valor al menos para la etiqueta o el emoji.'
 			} )
 			await interaction.editReply( {
@@ -421,7 +421,7 @@ export class UserSlash extends SlashCommand {
 		} )
 		if ( !record ) {
 			const embed = new MessageEmbed( {
-				color: 0xff6f00,
+				color: Colors.red[ 10 ],
 				description: `El rol <@&${ role.id }> no se encontraba configurado en el mensaje actual.`
 			} )
 			await interaction.editReply( {
@@ -454,7 +454,7 @@ export class UserSlash extends SlashCommand {
 	private isValidChannel( interaction: CommandInteraction<'present'>, channel: NonThreadGuildBasedChannel | null | undefined ): channel is NewsChannel | TextChannel {
 		if ( !channel ) {
 			const embed = new MessageEmbed( {
-				color: 0xff6f00,
+				color: Colors.red[ 10 ],
 				description: 'No he podido encontrar el canal configurado, es posible que haya sido borrado.'
 			} )
 			void interaction.editReply( {
@@ -463,7 +463,7 @@ export class UserSlash extends SlashCommand {
 			return false
 		} else if ( channel.type !== 'GUILD_NEWS' && channel.type !== 'GUILD_TEXT' ) {
 			const embed = new MessageEmbed( {
-				color: 0xff6f00,
+				color: Colors.red[ 10 ],
 				description: `No puedo usar <#${ channel.id }> porque no es un canal de texto o de noticias.`
 			} )
 			void interaction.editReply( {
