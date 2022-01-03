@@ -9,7 +9,6 @@ import type { SlashCommandOptions } from '../../framework'
 @ApplyOptions<SlashCommandOptions>( {
 	description: 'Configura el rol recibido al verificar la cuenta de Fandom.',
 	enabled: true,
-	guildOnly: true,
 	name: 'rol-fandom',
 	options: [
 		{

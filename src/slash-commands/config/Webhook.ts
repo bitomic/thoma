@@ -18,7 +18,6 @@ const TYPES: Array<IWebhook[ 'type' ]> = [
 @ApplyOptions<SlashCommandOptions>( {
 	description: 'Configura el webhook del servidor o canal.',
 	enabled: true,
-	guildOnly: true,
 	name: 'webhook',
 	options: [
 		{
