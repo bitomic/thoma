@@ -1,4 +1,4 @@
-import { KeyV, FandomUsers } from '../../database'
+import { FandomUsers, KeyV } from '../../database'
 import { ApplyOptions } from '@sapphire/decorators'
 import { Constants } from 'discord.js'
 import type { GuildMember } from 'discord.js'

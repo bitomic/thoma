@@ -11,7 +11,6 @@ import type { SlashCommandOptions } from '../../framework'
 @ApplyOptions<SlashCommandOptions>( {
 	description: 'Configura un mensaje con botones para elegir roles.',
 	enabled: true,
-	guildOnly: true,
 	name: 'roles',
 	options: [
 		{

@@ -11,7 +11,6 @@ import type { SlashCommandOptions } from '../../framework'
 @ApplyOptions<SlashCommandOptions>( {
 	description: 'Obtén estadísticas de las contribuciones de un usuario en un wiki.',
 	enabled: true,
-	guildOnly: true,
 	name: 'contribuciones',
 	options: [
 		{

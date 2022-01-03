@@ -18,7 +18,6 @@ const TYPES: Array<IWebhook[ 'type' ]> = [
 @ApplyOptions<SlashCommandOptions>( {
 	description: 'Configura el webhook del servidor o canal.',
 	enabled: true,
-	guildOnly: true,
 	name: 'webhook',
 	options: [
 		{
@@ -75,7 +74,6 @@ export class UserSlash extends SlashCommand {
 			clientId: env.IMGUR_ID
 		} )
 		const response = await imgur.upload( {
-			// @ts-expect-error - faulty typings
 			image
 		} )
 		const result = Array.isArray( response ) ? response[ 0 ] : response

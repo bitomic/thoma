@@ -1,5 +1,7 @@
-import type { GuildApplicationCommandPermissionData } from 'discord.js'
+import type { Guild, GuildApplicationCommandPermissionData } from 'discord.js'
+import { env } from '../lib'
 import { SlashCommand } from './SlashCommand'
+import type { SlashCommandOptions } from './SlashCommand'
 import { Store } from '@sapphire/pieces'
 
 export class SlashCommandStore extends Store<SlashCommand> {
@@ -13,37 +15,48 @@ export class SlashCommandStore extends Store<SlashCommand> {
 
 		// This will split the slash commands between global and guild only.
 		const slashCommands = this.container.stores.get( 'slash-commands' )
-		const [
-			guildCmds, globalCmds
-		] = slashCommands.partition( c => c.guildOnly )
+		await client.guilds.fetch() // retrieves Snowflake & Oauth2Guilds
 
-		// iterate to all connected guilds and apply the commands.
-		const guilds = await client.guilds.fetch() // retrieves Snowflake & Oauth2Guilds
-		for ( const [ id ] of guilds ) {
-			const guild = await client.guilds.fetch( id ) // gets the guild instances from the cache (fetched before)
-			const setCommands = await guild.commands.set( guildCmds.map( c => c.commandData ) )
-			const fullPermissions: GuildApplicationCommandPermissionData[] = []
-			setCommands.forEach( ( command, commandId ) => {
-				const piece = this.get( command.name )
-				if ( !piece?.commandData.permissions || piece.commandData.permissions.length === 0 ) return
-				fullPermissions.push( {
-					id: commandId,
-					permissions: piece.commandData.permissions
-				} )
-			} )
-			await guild.commands.permissions.set( { fullPermissions } )
+		if ( env.NODE_ENV === 'development' ) {
+			const guild = await client.guilds.fetch( env.DISCORD_DEVELOPMENT_SERVER )
+			await this.setGuildCommands( guild, slashCommands.map( command => command.commandData ) )
+			return
 		}
 
-		// Global commands will update over the span of an hour and is discouraged to update on development mode.
-		// https://canary.discord.com/developers/docs/interactions/slash-commands#registering-a-command
-		// https://discord.com/developers/docs/interactions/application-commands#making-a-global-command
-		if ( process.env.NODE_ENV === 'development' ) {
-			this.container.logger.info( 'Skipped global commands because we\'re in development mode' )
-			return
+		const [
+			guildCmds, globalCmds
+		] = slashCommands.partition( c => c.guilds.length !== 0 )
+		const guilds = guildCmds.reduce( ( accumulator, command ) => {
+			for ( const guild of command.guilds ) {
+				accumulator.add( guild )
+			}
+			return accumulator
+		}, new Set<string>() )
+
+		// iterate to all connected guilds and apply the commands.
+		for ( const id of guilds ) {
+			const guild = await client.guilds.fetch( id )
+			const commands = guildCmds.filter( cmd => cmd.guilds.includes( id ) )
+				.map( cmd => cmd.commandData )
+			await this.setGuildCommands( guild, commands )
 		}
 
 		// This will register global commands.
 		await client.application?.commands.set( globalCmds.map( c => c.commandData ) )
+	}
+
+	private async setGuildCommands( guild: Guild, commands: SlashCommandOptions[] ): Promise<void> {
+		const setCommands = await guild.commands.set( commands )
+		const fullPermissions: GuildApplicationCommandPermissionData[] = []
+		setCommands.forEach( ( command, commandId ) => {
+			const piece = this.get( command.name )
+			if ( !piece?.commandData.permissions || piece.commandData.permissions.length === 0 ) return
+			fullPermissions.push( {
+				id: commandId,
+				permissions: piece.commandData.permissions
+			} )
+		} )
+		await guild.commands.permissions.set( { fullPermissions } )
 	}
 }
 

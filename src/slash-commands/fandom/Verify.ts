@@ -10,7 +10,6 @@ import type { SlashCommandOptions } from '../../framework'
 @ApplyOptions<SlashCommandOptions>( {
 	description: 'Verifícate usando tu cuenta de Fandom.',
 	enabled: true,
-	guildOnly: true,
 	name: 'verificar',
 	options: [
 		{
