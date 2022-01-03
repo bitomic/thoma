@@ -96,12 +96,12 @@ export class UserSlash extends SlashCommand {
 			// eslint-disable-next-line prefer-destructuring
 			embed.color = Colors.green[ 10 ]
 			embed.description = 'Se ha verificado tu cuenta exitosamente.'
+
+			await roles.add( role.value )
 		}
 
 		await interaction.editReply( {
 			embeds: [ embed ]
 		} )
-
-		await roles.add( role.value )
 	}
 }
