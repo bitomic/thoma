@@ -2443,7 +2443,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"imgur@npm:^2.0.1":
+"imgur@npm:^2.0.3":
   version: 2.0.3
   resolution: "imgur@npm:2.0.3"
   dependencies:
@@ -4152,7 +4152,7 @@ __metadata:
     dotenv: ^10.0.0
     eslint: ^8.6.0
     husky: ^7.0.4
-    imgur: ^2.0.1
+    imgur: ^2.0.3
     lint-staged: ^12.1.4
     lua-json: ^1.0.0
     mw.js: ^1.5.2
