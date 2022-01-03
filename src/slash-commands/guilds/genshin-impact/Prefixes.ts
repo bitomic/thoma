@@ -5,10 +5,18 @@ import { env } from '../../../lib'
 import { Fandom } from 'mw.js'
 import type { FandomWiki } from 'mw.js'
 import { format } from 'lua-json'
-import { parse } from 'mwparser'
 import { SlashCommand } from '../../../framework'
 import type { SlashCommandOptions } from '../../../framework'
 import { SlashPermissions } from '../../../decorators'
+
+enum PageType {
+	Personaje = 'Personaje',
+	Arma = 'Arma',
+	Artefacto = 'Artefacto',
+	Enemigo = 'Enemigo',
+	Comida = 'Comida',
+	Vestuario = 'Vestuario'
+}
 
 @SlashPermissions( {
 	ids: [ '787145860134993920' ],
@@ -17,10 +25,10 @@ import { SlashPermissions } from '../../../decorators'
 } )
 @ApplyOptions<SlashCommandOptions>( {
 	defaultPermission: false,
-	description: 'Actualiza la rareza de los objetos.',
+	description: 'Actualiza los prefijos de los objetos.',
 	enabled: true,
 	guilds: [ '768261477345525781' ],
-	name: 'rarezas'
+	name: 'prefijos'
 } )
 export class UserSlash extends SlashCommand {
 	public async run( interaction: CommandInteraction<'present'> ): Promise<void> {
@@ -37,9 +45,41 @@ export class UserSlash extends SlashCommand {
 		try {
 			const fandom = new Fandom()
 			const wiki = fandom.getWiki( 'es.genshin-impact' )
-			const titles = await this.getPages( wiki )
-			const rarities = await this.getRarities( { titles, wiki } )
-			const lua = format( rarities )
+			const pagetypes: Array<[ string, PageType ]> = [
+				[
+					'Arma', PageType.Arma
+				],
+				[
+					'Artefacto', PageType.Artefacto
+				],
+				[
+					'Comida', PageType.Comida
+				],
+				[
+					'Enemigo', PageType.Enemigo
+				],
+				[
+					'Personaje jugable', PageType.Personaje
+				],
+				[
+					'Vestuario', PageType.Vestuario
+				]
+			]
+
+			const pages: Record<string, PageType> = {}
+			for ( const pagetype of pagetypes ) {
+				const [
+					infobox, type
+				] = pagetype
+				const result = await this.getPagesByType( {
+					infobox,
+					type,
+					wiki
+				} )
+				Object.assign( pages, result )
+			}
+
+			const lua = format( pages )
 
 			const bot = await fandom.login( {
 				password: env.FANDOM_PASSWORD,
@@ -50,7 +90,7 @@ export class UserSlash extends SlashCommand {
 			await bot.edit( {
 				bot: true,
 				text: lua,
-				title: 'Module:Rarezas'
+				title: 'Module:Prefijo/datos'
 			} )
 
 			await interaction.followUp( {
@@ -74,39 +114,11 @@ export class UserSlash extends SlashCommand {
 		}
 	}
 
-	public async getPages( wiki: FandomWiki ): Promise<string[]> {
-		const pages: string[] = []
-		const templates = [
-			'Plantilla:Infobox Arma',
-			'Plantilla:Infobox Comida',
-			'Plantilla:Infobox Objeto',
-			'Plantilla:Infobox Personaje jugable'
-		]
-
-		for ( const template of templates ) {
-			const transclusions = await wiki.getTransclusions( template )
-			pages.push( ...transclusions )
-		}
-
-		return pages
-	}
-
-	public async getRarities( { titles, wiki }: { titles: string[], wiki: FandomWiki } ): Promise<Record<string, number>> {
-		const rarities: Record<string, number> = {}
-
-		for await ( const page of wiki.iterPages( titles ) ) {
-			const content = page.revisions[ 0 ]?.slots.main.content
-			if ( !content ) continue
-			const parsed = parse( content )
-			const infoboxName = parsed.templates.map( t => t.name ).find( t => t.startsWith( 'Infobox' ) )
-			if ( !infoboxName ) continue
-			const [ infobox ] = parsed.findTemplate( infoboxName ).nodes
-			if ( !infobox ) continue
-			const rarity = Number( infobox.getParameter( 'rareza' )?.value )
-			if ( isNaN( rarity ) ) continue
-			rarities[ page.title ] = rarity
-		}
-
-		return rarities
+	public async getPagesByType( { infobox, type, wiki }: { infobox: string, type: PageType, wiki: FandomWiki } ): Promise<Record<string, PageType>> {
+		const pages = await wiki.getTransclusions( `Plantilla:Infobox ${ infobox }` )
+		return pages.reduce( ( collection, title ) => {
+			collection[ title ] = type
+			return collection
+		}, {} as Record<string, PageType> )
 	}
 }
