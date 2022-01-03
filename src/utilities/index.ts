@@ -1,3 +1,4 @@
+export * from './chunkify'
 export * from './get-interaction-channel'
 export * from './get-interaction-guild'
 export * from './get-member-roles'
