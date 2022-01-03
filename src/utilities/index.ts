@@ -1,4 +1,4 @@
-export * from './Constants'
+export * from './constants'
 export * from './chunkify'
 export * from './get-interaction-channel'
 export * from './get-interaction-guild'
