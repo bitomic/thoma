@@ -2,13 +2,13 @@ import { DataTypes } from 'sequelize'
 import type { Model } from 'sequelize'
 import { sequelize } from '../lib'
 
-interface IKeyV {
+export interface IKeyV {
 	guild: string
 	key: string
 	value: string
 }
 
-interface IKeyVInterface extends Model<IKeyV, IKeyV>, IKeyV {
+export interface IKeyVInterface extends Model<IKeyV, IKeyV>, IKeyV {
 }
 
 export const KeyV = sequelize.define<IKeyVInterface>(
