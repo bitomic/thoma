@@ -6,8 +6,8 @@ import type { UserCommandOptions } from '../framework'
 import type { UserContextMenuInteraction } from 'discord.js'
 
 @ApplyOptions<UserCommandOptions>( {
-	guilds: [ '768261477345525781' ],
 	enabled: true,
+	guilds: [ '768261477345525781' ],
 	name: 'UID'
 } )
 export class UserApplicationCommand extends UserCommand {
