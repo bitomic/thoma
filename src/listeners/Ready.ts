@@ -2,6 +2,7 @@ import type { Guild, GuildApplicationCommandPermissionData } from 'discord.js'
 import type { FullUserCommandOptions, SlashCommandOptions } from '../framework'
 import { ApplyOptions } from '@sapphire/decorators'
 import { env } from '../lib'
+import { Guilds } from '../utilities'
 import { Listener } from '@sapphire/framework'
 import type { ListenerOptions } from '@sapphire/framework'
 import path from 'path'
@@ -44,7 +45,7 @@ export class UserEvent extends Listener {
 		await client.guilds.fetch() // retrieves Snowflake & Oauth2Guilds
 
 		if ( env.NODE_ENV === 'development' ) {
-			const guild = await client.guilds.fetch( env.DISCORD_DEVELOPMENT_SERVER )
+			const guild = await client.guilds.fetch( Guilds.Development )
 			await setGuildCommands( guild, [
 				...slashCommands.map( command => command.commandData ),
 				...userCommands.map( command => command.commandData )

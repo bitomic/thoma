@@ -2,7 +2,6 @@ import 'dotenv/config'
 import { MissingEnvError } from '../errors'
 
 const environmentVariables = [
-	'DISCORD_DEVELOPMENT_SERVER',
 	'DISCORD_OWNER',
 	'DISCORD_PREFIX',
 	'DISCORD_TOKEN',
