@@ -11,7 +11,7 @@ import type { SlashCommandOptions } from '../../../framework'
 import { SlashPermissions } from '../../../decorators'
 
 @SlashPermissions( {
-	ids: [ '787145860134993920' ],
+	ids: [ 'contentCreator' ],
 	permission: true,
 	type: 'ROLE'
 } )
