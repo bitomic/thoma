@@ -16,7 +16,7 @@ export abstract class UserCommand extends Piece {
 			type: 'USER'
 		}
 
-		this.guilds = ( options.guilds || [] ).map( i => Guilds[ i ] )
+		this.guilds = ( options.guilds || [] ).map( i => Guilds[ i ].id )
 	}
 
 	public abstract run( interaction: UserContextMenuInteraction ): Awaitable<unknown>

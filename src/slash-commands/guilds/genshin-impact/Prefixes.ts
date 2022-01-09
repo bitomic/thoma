@@ -1,5 +1,5 @@
+import { Colors, Guilds } from '../../../utilities'
 import { ApplyOptions } from '@sapphire/decorators'
-import { Colors } from '../../../utilities'
 import type { CommandInteraction } from 'discord.js'
 import { env } from '../../../lib'
 import { Fandom } from 'mw.js'
@@ -19,7 +19,7 @@ enum PageType {
 }
 
 @SlashPermissions( {
-	ids: [ 'contentCreator' ],
+	ids: [ Guilds.genshinImpact.roles.contentCreator ],
 	permission: true,
 	type: 'ROLE'
 } )

@@ -19,7 +19,7 @@ export abstract class SlashCommand extends Piece {
 			permissions: options.permissions ?? []
 		}
 
-		this.guilds = ( options.guilds || [] ).map( i => Guilds[ i ] )
+		this.guilds = ( options.guilds || [] ).map( i => Guilds[ i ].id )
 	}
 
 	public abstract run( interaction: CommandInteraction ): Awaitable<unknown>

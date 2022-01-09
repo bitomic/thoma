@@ -1,11 +1,10 @@
 import { createClassDecorator, createProxy } from '@sapphire/decorators'
 import type { ApplicationCommandPermissionData } from 'discord.js'
 import type { Ctor } from '@sapphire/utilities'
-import { Roles } from '../utilities'
 import type { SlashCommand } from '../framework'
 
 interface ISlashAllowOptions {
-	ids: keyof typeof Roles | Array<keyof typeof Roles>
+	ids: `${ number }` | Array<`${ number }`>
 	permission: boolean
 	type: 'ROLE'
 }
@@ -13,7 +12,7 @@ interface ISlashAllowOptions {
 export function SlashPermissions( { ids, permission, type }: ISlashAllowOptions ): ClassDecorator {
 	ids = Array.isArray( ids ) ? ids : [ ids ]
 	const permissions: ApplicationCommandPermissionData[] = ids.map( id => ( {
-		id: Roles[ id ],
+		id,
 		permission,
 		type
 	} ) )
