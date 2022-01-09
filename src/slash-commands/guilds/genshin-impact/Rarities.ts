@@ -19,7 +19,7 @@ import { SlashPermissions } from '../../../decorators'
 	defaultPermission: false,
 	description: 'Actualiza la rareza de los objetos.',
 	enabled: true,
-	guilds: [ '768261477345525781' ],
+	guilds: [ 'GenshinImpact' ],
 	name: 'rarezas'
 } )
 export class UserSlash extends SlashCommand {

@@ -7,7 +7,7 @@ import type { UserContextMenuInteraction } from 'discord.js'
 
 @ApplyOptions<UserCommandOptions>( {
 	enabled: true,
-	guilds: [ '768261477345525781' ],
+	guilds: [ 'GenshinImpact' ],
 	name: 'UID'
 } )
 export class UserApplicationCommand extends UserCommand {

@@ -1,5 +1,6 @@
 import type { ApplicationCommandData, ApplicationCommandOptionData, ApplicationCommandPermissionData, CommandInteraction, Guild, InteractionReplyOptions, TextBasedChannel } from 'discord.js'
 import type { Awaitable } from '@sapphire/utilities'
+import { Guilds } from '../utilities'
 import { Piece } from '@sapphire/framework'
 import type { PieceContext } from '@sapphire/framework'
 
@@ -18,7 +19,7 @@ export abstract class SlashCommand extends Piece {
 			permissions: options.permissions ?? []
 		}
 
-		this.guilds = options.guilds || []
+		this.guilds = ( options.guilds || [] ).map( i => Guilds[ i ] )
 	}
 
 	public abstract run( interaction: CommandInteraction ): Awaitable<unknown>
@@ -45,7 +46,7 @@ export type SlashCommandOptions = ApplicationCommandData & {
 	defaultPermission?: boolean
 	description?: string
 	enabled?: boolean
-	guilds?: string[]
+	guilds?: Array<keyof typeof Guilds>
 	options?: ApplicationCommandOptionData[]
 	permissions?: ApplicationCommandPermissionData[]
 }
