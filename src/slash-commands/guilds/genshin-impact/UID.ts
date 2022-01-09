@@ -13,7 +13,7 @@ const SERVERS: Array<IUID[ 'server' ]> = [
 @ApplyOptions<SlashCommandOptions>( {
 	description: 'UID de Genshin Impact.',
 	enabled: true,
-	guilds: [ 'GenshinImpact' ],
+	guilds: [ 'genshinImpact' ],
 	name: 'uid',
 	options: [
 		{

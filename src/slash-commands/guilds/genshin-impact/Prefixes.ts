@@ -27,7 +27,7 @@ enum PageType {
 	defaultPermission: false,
 	description: 'Actualiza los prefijos de los objetos.',
 	enabled: true,
-	guilds: [ 'GenshinImpact' ],
+	guilds: [ 'genshinImpact' ],
 	name: 'prefijos'
 } )
 export class UserSlash extends SlashCommand {

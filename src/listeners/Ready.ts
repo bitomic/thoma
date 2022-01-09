@@ -45,7 +45,7 @@ export class UserEvent extends Listener {
 		await client.guilds.fetch() // retrieves Snowflake & Oauth2Guilds
 
 		if ( env.NODE_ENV === 'development' ) {
-			const guild = await client.guilds.fetch( Guilds.Development )
+			const guild = await client.guilds.fetch( Guilds.development )
 			await setGuildCommands( guild, [
 				...slashCommands.map( command => command.commandData ),
 				...userCommands.map( command => command.commandData )
