@@ -1,5 +1,5 @@
-import type { Guild, GuildApplicationCommandPermissionData } from 'discord.js'
 import type { FullUserCommandOptions, SlashCommandOptions } from '../framework'
+import type { Guild, GuildApplicationCommandPermissionData } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
 import { env } from '../lib'
 import { Guilds } from '../utilities'
@@ -21,7 +21,7 @@ export class UserEvent extends Listener {
 	}
 
 	public async loadApplicationCommands(): Promise<void> {
-		const setGuildCommands = async ( guild: Guild, commands: (SlashCommandOptions | FullUserCommandOptions)[] ): Promise<void> => {
+		const setGuildCommands = async ( guild: Guild, commands: Array<SlashCommandOptions | FullUserCommandOptions> ): Promise<void> => {
 			const setCommands = await guild.commands.set( commands )
 			const fullPermissions: GuildApplicationCommandPermissionData[] = []
 
@@ -50,7 +50,7 @@ export class UserEvent extends Listener {
 				...slashCommands.map( command => command.commandData ),
 				...userCommands.map( command => command.commandData )
 			] )
-			this.container.logger.info( `Loaded application commands only in development server.` )
+			this.container.logger.info( 'Loaded application commands only in development server.' )
 			return
 		}
 
@@ -60,7 +60,9 @@ export class UserEvent extends Listener {
 		const [
 			guildUserCmds, globalUserCmds
 		] = userCommands.partition( c => c.guilds.length !== 0 )
-		const guilds = [ ...guildSlashCmds.values(), ...guildUserCmds.values() ].reduce( ( accumulator, command ) => {
+		const guilds = [
+			...guildSlashCmds.values(), ...guildUserCmds.values()
+		].reduce( ( accumulator, command ) => {
 			for ( const guild of command.guilds ) {
 				accumulator.add( guild )
 			}
