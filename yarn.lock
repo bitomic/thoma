@@ -430,7 +430,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/framework@npm:*, @sapphire/framework@npm:^2.2.2":
+"@sapphire/framework@npm:*, @sapphire/framework@npm:^2.3.0":
   version: 2.3.0
   resolution: "@sapphire/framework@npm:2.3.0"
   dependencies:
@@ -4157,7 +4157,7 @@ __metadata:
     "@commitlint/config-conventional": ^16.0.0
     "@discordjs/rest": ^0.1.0-canary.0
     "@sapphire/decorators": ^3.1.4
-    "@sapphire/framework": ^2.2.2
+    "@sapphire/framework": ^2.3.0
     "@sapphire/pieces": ^3.2.0
     "@sapphire/plugin-logger": ^2.1.1
     "@sapphire/utilities": ^3.1.0
