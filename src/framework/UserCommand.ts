@@ -25,3 +25,5 @@ export type UserCommandOptions = Omit<UserApplicationCommandData, 'type'> & {
 	enabled?: boolean
 	guilds?: string[]
 }
+
+export type FullUserCommandOptions = UserApplicationCommandData & UserCommandOptions
