@@ -2,7 +2,7 @@ import { Colors, Events, getInteractionGuild } from '../../utilities'
 import { ApplyOptions } from '@sapphire/decorators'
 import type { CommandInteraction } from 'discord.js'
 import { GuildChannels } from '../../database'
-import type { ITimeoutEventOptions } from '../../listeners/Timeout'
+import type { ITimeoutEventOptions } from '../../listeners/moderation/Timeout'
 import { SlashCommand } from '../../framework'
 import type { SlashCommandOptions } from '../../framework'
 
