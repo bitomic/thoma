@@ -5,6 +5,7 @@ import { env } from '../../../lib'
 import { Fandom } from 'mw.js'
 import type { FandomWiki } from 'mw.js'
 import { format } from 'lua-json'
+import { parse } from 'mwparser'
 import { SlashCommand } from '../../../framework'
 import type { SlashCommandOptions } from '../../../framework'
 import { SlashPermissions } from '../../../decorators'
@@ -78,6 +79,7 @@ export class UserSlash extends SlashCommand {
 				} )
 				Object.assign( pages, result )
 			}
+			Object.assign( pages, await this.getArtifactPieces( wiki ) )
 
 			const lua = format( pages )
 
@@ -118,6 +120,33 @@ export class UserSlash extends SlashCommand {
 		const pages = await wiki.getTransclusions( `Plantilla:Infobox ${ infobox }` )
 		return pages.reduce( ( collection, title ) => {
 			collection[ title ] = type
+			return collection
+		}, {} as Record<string, PageType> )
+	}
+
+	public async getArtifactPieces( wiki: FandomWiki ): Promise<Record<string, PageType>> {
+		const pages = await wiki.getTransclusions( 'Plantilla:Infobox Artefacto' )
+		const artifacts: string[] = []
+		const parts = [
+			'flor', 'pluma', 'arenas', 'cáliz', 'tiara'
+		]
+
+		for await ( const page of wiki.iterPages( pages ) ) {
+			const content = page.revisions[ 0 ]?.slots.main.content
+			if ( !content ) continue
+			const parsed = parse( content )
+			const infobox = parsed.templates.find( t => t.name === 'Infobox Artefacto' )
+			if ( !infobox ) continue
+
+			for ( const part of parts ) {
+				const piece = infobox.getParameter( part )
+				if ( !piece ) continue
+				artifacts.push( piece.value )
+			}
+		}
+
+		return artifacts.reduce( ( collection, item ) => {
+			collection[ item ] = PageType.Artefacto
 			return collection
 		}, {} as Record<string, PageType> )
 	}
