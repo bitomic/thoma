@@ -1,4 +1,5 @@
 export * from './FandomUser'
+export * from './GuildChannel'
 export * from './KeyV'
 export * from './Role'
 export * from './RoleMessages'
