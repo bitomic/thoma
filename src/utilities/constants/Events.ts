@@ -1,3 +1,3 @@
 export const Events = {
-	TIMEOUT: 'timeout'
+	TIMEOUT: 'moderation-timeout'
 }
