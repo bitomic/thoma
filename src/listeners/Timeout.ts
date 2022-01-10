@@ -1,7 +1,7 @@
 import { Colors, sendWebhook } from '../utilities'
+import { GuildChannels, UserLogs } from '../database'
 import { ApplyOptions } from '@sapphire/decorators'
 import { Events } from '../utilities'
-import { GuildChannels } from '../database'
 import { isGuildBasedChannel } from '@sapphire/discord.js-utilities'
 import { Listener } from '@sapphire/framework'
 import type { ListenerOptions } from '@sapphire/framework'
@@ -19,6 +19,16 @@ export interface ITimeoutEventOptions {
 } )
 export class UserEvent extends Listener {
 	public async run( options: ITimeoutEventOptions ): Promise<void> {
+		options.reason ??= 'No especificado.'
+
+		const log = await UserLogs.create( {
+			author: options.authorId,
+			guild: options.guildId,
+			reason: options.reason,
+			type: 'timeout',
+			user: options.targetId
+		} )
+
 		const channelId = ( await GuildChannels.findOne( {
 			where: {
 				guild: options.guildId,
@@ -40,7 +50,7 @@ export class UserEvent extends Listener {
 			return
 		}
 
-		await sendWebhook( channel, {
+		const message = await sendWebhook( channel, {
 			embeds: [
 				{
 					color: Colors.amber[ 10 ],
@@ -48,7 +58,7 @@ export class UserEvent extends Listener {
 					fields: [
 						{
 							name: 'Motivo',
-							value: options.reason ?? 'No especificado.'
+							value: options.reason
 						},
 						{
 							inline: true,
@@ -64,5 +74,7 @@ export class UserEvent extends Listener {
 				}
 			]
 		} )
+		log.setDataValue( 'messageId', message.id )
+		await log.save()
 	}
 }
