@@ -27,7 +27,7 @@ export abstract class SlashCommand extends Piece {
 	protected inGuildChannel( interaction: CommandInteraction ): interaction is CommandInteraction<'present'> & { channel: TextBasedChannel, guild: Guild } {
 		if ( !interaction.inGuild() || !interaction.channel || !interaction.guild ) {
 			void this.reply( interaction, {
-				content: 'You can only use this command in a guild.'
+				content: 'Este comando solo puede ser usado en servidores.'
 			} )
 			return false
 		}

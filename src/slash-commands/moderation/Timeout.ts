@@ -32,6 +32,7 @@ import type { SlashCommandOptions } from '../../framework'
 } )
 export class UserSlash extends SlashCommand {
 	public async run( interaction: CommandInteraction<'present'> ): Promise<void> {
+		if ( !this.inGuildChannel( interaction ) ) return
 		if ( !interaction.memberPermissions.has( 'MODERATE_MEMBERS' ) ) {
 			await interaction.reply( {
 				content: 'No tienes permisos para aislar temporalmente a otros miembros.',

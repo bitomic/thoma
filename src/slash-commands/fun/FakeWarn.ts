@@ -26,6 +26,7 @@ import type { SlashCommandOptions } from '../../framework'
 } )
 export class UserSlash extends SlashCommand {
 	public async run( interaction: CommandInteraction<'present'> ): Promise<void> {
+		if ( !this.inGuildChannel( interaction ) ) return
 		const lastWarnDate = ( await FakeWarns.findOne( {
 			order: [
 				[

@@ -27,13 +27,7 @@ import type { SlashCommandOptions } from '../../framework'
 } )
 export class UserSlash extends SlashCommand {
 	public async run( interaction: CommandInteraction ): Promise<void> {
-		if ( !interaction.inGuild() ) {
-			await interaction.reply( {
-				content: 'Este comando sólo puede ser usado en servidores.',
-				ephemeral: true
-			} )
-			return
-		}
+		if ( !this.inGuildChannel( interaction ) ) return
 		await interaction.deferReply()
 
 		const role = await KeyV.findOne( {

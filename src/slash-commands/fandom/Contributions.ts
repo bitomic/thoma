@@ -35,6 +35,7 @@ import type { SlashCommandOptions } from '../../framework'
 } )
 export class UserSlash extends SlashCommand {
 	public async run( interaction: CommandInteraction ): Promise<void> {
+		if ( !this.inGuildChannel( interaction ) ) return
 		await interaction.deferReply()
 
 		const interwiki = interaction.options.getString( 'interwiki' )
