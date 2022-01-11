@@ -6,7 +6,7 @@ import type { SlashCommand } from '../framework'
 interface ISlashAllowOptions {
 	ids: `${ number }` | Array<`${ number }`>
 	permission: boolean
-	type: 'ROLE'
+	type: 'ROLE' | 'USER'
 }
 
 export function SlashPermissions( { ids, permission, type }: ISlashAllowOptions ): ClassDecorator {

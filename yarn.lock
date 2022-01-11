@@ -32,6 +32,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@bitomic/utilities@https://github.com/bitomic/utilities.git":
+  version: 1.0.0
+  resolution: "@bitomic/utilities@https://github.com/bitomic/utilities.git#commit=3302b8534ae5e7ad93bf4344837b250d2f6209f8"
+  dependencies:
+    typescript: ^4.5.4
+  checksum: f447767ebfd8f27c0a7a9f423e0dfc0e3611e7b9834ac11685aeaefc625ce1bcc963ae7b33d154a91aabc689475bc0c86f8d11ab2d55cf86da9a02fe523cb7c7
+  languageName: node
+  linkType: hard
+
 "@commitlint/cli@npm:^16.0.2":
   version: 16.0.2
   resolution: "@commitlint/cli@npm:16.0.2"
@@ -4153,6 +4162,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sapphire-template@workspace:."
   dependencies:
+    "@bitomic/utilities": "https://github.com/bitomic/utilities.git"
     "@commitlint/cli": ^16.0.2
     "@commitlint/config-conventional": ^16.0.0
     "@discordjs/rest": ^0.1.0-canary.0

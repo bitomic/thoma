@@ -7,7 +7,6 @@ export const getInteractionChannel = async ( interaction: CommandInteraction<'pr
 	} = interaction
 	if ( !channel ) {
 		const guild = await getInteractionGuild( interaction )
-		if ( !guild ) return null
 		const guildChannel = await guild.channels.fetch( interaction.guildId )
 		channel = guildChannel
 	}

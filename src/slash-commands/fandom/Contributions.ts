@@ -41,8 +41,14 @@ export class UserSlash extends SlashCommand {
 		const interwiki = interaction.options.getString( 'interwiki' )
 		const username = interaction.options.getString( 'usuario' )
 		const datestring = Date.parse( interaction.options.getString( 'fecha' ) ?? '' )
-		if ( !interwiki ) return void interaction.editReply( 'Interwiki inválido.' )
-		if ( !username ) return void interaction.editReply( 'Nombre de usuario inválido.' )
+		if ( !interwiki ) {
+			await interaction.editReply( 'Interwiki inválido.' )
+			return
+		}
+		if ( !username ) {
+			await interaction.editReply( 'Nombre de usuario inválido.' )
+			return
+		}
 
 		const date = isNaN( datestring ) ? subMonths( Date.now(), 1 ) : new Date( datestring )
 
@@ -51,7 +57,10 @@ export class UserSlash extends SlashCommand {
 			const wiki = fandom.getWiki( interwiki )
 			const exists = await wiki.exists()
 
-			if ( !exists ) return void interaction.editReply( 'El wiki no existe.' )
+			if ( !exists ) {
+				await interaction.editReply( 'El wiki no existe.' )
+				return
+			}
 
 			const contributions =  await wiki.query( {
 				list: 'usercontribs',
@@ -108,7 +117,5 @@ export class UserSlash extends SlashCommand {
 			this.container.logger.error( e )
 			void interaction.editReply( 'Ha ocurrido un error inesperado.' )
 		}
-
-		return undefined
 	}
 }

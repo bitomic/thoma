@@ -13,6 +13,7 @@
     "start": "yarn node --enable-source-maps dist/main.js"
   },
   "dependencies": {
+    "@bitomic/utilities": "https://github.com/bitomic/utilities.git",
     "@discordjs/rest": "^0.1.0-canary.0",
     "@sapphire/decorators": "^3.1.4",
     "@sapphire/discord.js-utilities": "^4.1.5",

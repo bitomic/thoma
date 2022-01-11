@@ -190,7 +190,7 @@ export class UserSlash extends SlashCommand {
 		const guild = await getInteractionGuild( interaction )
 
 		const rolesChannelId = ( await this.getChannel( interaction.guildId ) ).getDataValue( 'value' )
-		const rolesChannel = await guild?.channels.fetch( rolesChannelId )
+		const rolesChannel = await guild.channels.fetch( rolesChannelId )
 			.catch( () => null )
 		if ( !this.isValidChannel( interaction, rolesChannel ) ) return
 
@@ -276,7 +276,7 @@ export class UserSlash extends SlashCommand {
 	private async setMessage( interaction: CommandInteraction<'present'> ): Promise<void> {
 		const messageId = interaction.options.getString( 'mensaje', true )
 		const guild = await getInteractionGuild( interaction )
-		const channel = await guild?.channels.fetch( ( await this.getChannel( interaction.guildId ) ).getDataValue( 'value' ) )
+		const channel = await guild.channels.fetch( ( await this.getChannel( interaction.guildId ) ).getDataValue( 'value' ) )
 			.catch( () => null )
 		if ( !this.isValidChannel( interaction, channel ) ) return
 
@@ -496,7 +496,7 @@ export class UserSlash extends SlashCommand {
 		const guild = await getInteractionGuild( interaction )
 		const channelId = ( await RoleMessages.findByPk( messageId ) )?.getDataValue( 'channel' )
 		const channel = channelId
-			? await guild?.channels.fetch( channelId )
+			? await guild.channels.fetch( channelId )
 				.catch( () => null )
 			: null
 
