@@ -3210,16 +3210,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mw.js@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "mw.js@npm:2.0.0"
+"mw.js@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "mw.js@npm:2.0.2"
   dependencies:
     form-data: ^4.0.0
     fs-extra: ^10.0.0
     node-fetch: ^2.6.6
     tmp-promise: ^3.0.3
     tough-cookie: ^4.0.0
-  checksum: a87b23e8e19eaf0e2608a916bb27bd5aaa4a2db20a21a620b610724972282dff1efaea683bcde66832b5875332ef891f6a6c252505d0b9477e9663925061c90a
+  checksum: 0737a7d45103901db9ecac4464150fe1be4eb26eb54f3144c29fdc7aa27e5552da5e77b4d480ce7eb5748b6244e94482a53bc7545efef4ccea1f7375abd3d346
   languageName: node
   linkType: hard
 
@@ -4090,7 +4090,7 @@ __metadata:
     imgur: ^2.1.0
     lint-staged: ^12.1.7
     lua-json: ^1.0.0
-    mw.js: ^2.0.0
+    mw.js: ^2.0.2
     mwparser: ^1.3.3
     node-cron: ^3.0.0
     node-fetch: 2.6.6
