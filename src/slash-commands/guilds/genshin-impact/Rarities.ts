@@ -84,8 +84,18 @@ export class UserSlash extends SlashCommand {
 		]
 
 		for ( const template of templates ) {
-			const transclusions = await wiki.getTransclusions( template )
-			pages.push( ...transclusions )
+			const generator = wiki.iterQueryProp( {
+				prop: 'transcludedin',
+				tilimit: 'max',
+				tinamespace: 0,
+				tiprop: [ 'title' ],
+				titles: template
+			} )
+			for await ( const tmp of generator ) {
+				for ( const page of tmp.transcludedin ) {
+					pages.push( page.title )
+				}
+			}
 		}
 
 		return pages
@@ -95,8 +105,8 @@ export class UserSlash extends SlashCommand {
 		const rarities: Record<string, number> = {}
 
 		for await ( const page of wiki.iterPages( titles ) ) {
-			const content = page.revisions[ 0 ]?.slots.main.content
-			if ( !content ) continue
+			if ( 'missing' in page ) continue
+			const { content } = page.revisions[ 0 ].slots.main
 			const parsed = parse( content )
 			const infoboxName = parsed.templates.map( t => t.name ).find( t => t.startsWith( 'Infobox' ) )
 			if ( !infoboxName ) continue

@@ -117,7 +117,21 @@ export class UserSlash extends SlashCommand {
 	}
 
 	public async getPagesByType( { infobox, type, wiki }: { infobox: string, type: PageType, wiki: FandomWiki } ): Promise<Record<string, PageType>> {
-		const pages = await wiki.getTransclusions( `Plantilla:Infobox ${ infobox }` )
+		const generator = wiki.iterQueryProp( {
+			prop: 'transcludedin',
+			tilimit: 'max',
+			tinamespace: 0,
+			tiprop: [ 'title' ],
+			titles: `Plantilla:Infobox ${ infobox }`
+		} )
+		const pages: string[] = []
+
+		for await ( const template of generator ) {
+			for ( const item of template.transcludedin ) {
+				pages.push( item.title )
+			}
+		}
+
 		return pages.reduce( ( collection, title ) => {
 			collection[ title ] = type
 			return collection
@@ -125,15 +139,29 @@ export class UserSlash extends SlashCommand {
 	}
 
 	public async getArtifactPieces( wiki: FandomWiki ): Promise<Record<string, PageType>> {
-		const pages = await wiki.getTransclusions( 'Plantilla:Infobox Artefacto' )
+		const generator = wiki.iterQueryProp( {
+			prop: 'transcludedin',
+			tilimit: 'max',
+			tinamespace: 0,
+			tiprop: [ 'title' ],
+			titles: 'Plantilla:Infobox Artefacto'
+		} )
+		const pages: string[] = []
+
+		for await ( const template of generator ) {
+			for ( const page of template.transcludedin ) {
+				pages.push( page.title )
+			}
+		}
+
 		const artifacts: string[] = []
 		const parts = [
 			'flor', 'pluma', 'arenas', 'cáliz', 'tiara'
 		]
 
 		for await ( const page of wiki.iterPages( pages ) ) {
-			const content = page.revisions[ 0 ]?.slots.main.content
-			if ( !content ) continue
+			if ( 'missing' in page ) continue
+			const { content } = page.revisions[ 0 ].slots.main
 			const parsed = parse( content )
 			const infobox = parsed.templates.find( t => t.name === 'Infobox Artefacto' )
 			if ( !infobox ) continue

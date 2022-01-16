@@ -62,7 +62,7 @@ export class UserSlash extends SlashCommand {
 				return
 			}
 
-			const contributions =  await wiki.query( {
+			const contributions =  await wiki.queryList( {
 				list: 'usercontribs',
 				ucend: date.toISOString(),
 				uclimit: 'max',
