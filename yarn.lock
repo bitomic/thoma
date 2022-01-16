@@ -3210,16 +3210,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mw.js@npm:2.0.2":
-  version: 2.0.2
-  resolution: "mw.js@npm:2.0.2"
+"mw.js@npm:2.1.1":
+  version: 2.1.1
+  resolution: "mw.js@npm:2.1.1"
   dependencies:
     form-data: ^4.0.0
     fs-extra: ^10.0.0
-    node-fetch: ^2.6.6
+    node-fetch: ^2.6.7
     tmp-promise: ^3.0.3
     tough-cookie: ^4.0.0
-  checksum: 0737a7d45103901db9ecac4464150fe1be4eb26eb54f3144c29fdc7aa27e5552da5e77b4d480ce7eb5748b6244e94482a53bc7545efef4ccea1f7375abd3d346
+  checksum: ce15b910c2d7f003e49f06988f3bc01ebc4175ea36eaa79a7680258ac4de5543dc0d53ae32e2f7c950370b38a87f1bc97bd69bae6ad42e1571c21d6aa3ffc43a
   languageName: node
   linkType: hard
 
@@ -3286,12 +3286,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.6, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.5, node-fetch@npm:^2.6.6":
+"node-fetch@npm:2.6.6, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.5":
   version: 2.6.6
   resolution: "node-fetch@npm:2.6.6"
   dependencies:
     whatwg-url: ^5.0.0
   checksum: ee8290626bdb73629c59722b75dcf4b9b6a67c1ed7eb9102e368479c4a13b56a48c2bb3ad71571e378e98c8b2c64c820e11f9cd39e4b8557dd138ad571ef9a42
+  languageName: node
+  linkType: hard
+
+"node-fetch@npm:^2.6.7":
+  version: 2.6.7
+  resolution: "node-fetch@npm:2.6.7"
+  dependencies:
+    whatwg-url: ^5.0.0
+  peerDependencies:
+    encoding: ^0.1.0
+  peerDependenciesMeta:
+    encoding:
+      optional: true
+  checksum: 8d816ffd1ee22cab8301c7756ef04f3437f18dace86a1dae22cf81db8ef29c0bf6655f3215cb0cdb22b420b6fe141e64b26905e7f33f9377a7fa59135ea3e10b
   languageName: node
   linkType: hard
 
@@ -4090,7 +4104,7 @@ __metadata:
     imgur: ^2.1.0
     lint-staged: ^12.1.7
     lua-json: ^1.0.0
-    mw.js: 2.0.2
+    mw.js: 2.1.1
     mwparser: ^1.3.3
     node-cron: ^3.0.0
     node-fetch: 2.6.6

@@ -229,6 +229,13 @@ export class UserSlash extends SlashCommand {
 		}
 
 		while ( titles.length !== 0 ) {
+			const params = {
+				action: 'query',
+				lllang: targetLanguage,
+				lllimit: 'max',
+				prop: 'langlinks',
+				titles: titles.splice( 0, 25 ).join( '|' )
+			} as const
 			const res = await sourceWiki.get<{
 				query: {
 					pages: Array<{
@@ -240,14 +247,7 @@ export class UserSlash extends SlashCommand {
 						title: string
 					}>
 				}
-			}>( {
-				action: 'query',
-				format: 'json',
-				lllang: targetLanguage,
-				lllimit: 'max',
-				prop: 'langlinks',
-				titles: titles.splice( 0, 25 ).join( '|' )
-			} )
+			}, typeof params>( params )
 
 			for ( const page of res.query.pages ) {
 				const interwikiName: string | undefined = page.missing === true
