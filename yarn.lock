@@ -427,7 +427,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/discord.js-utilities@npm:*, @sapphire/discord.js-utilities@npm:^4.1.5, @sapphire/discord.js-utilities@npm:^4.2.0":
+"@sapphire/discord.js-utilities@npm:*, @sapphire/discord.js-utilities@npm:^4.1.5":
   version: 4.2.0
   resolution: "@sapphire/discord.js-utilities@npm:4.2.0"
   dependencies:
@@ -436,6 +436,18 @@ __metadata:
     "@sapphire/utilities": ^3.2.0
     tslib: ^2.3.1
   checksum: 7f868effc5d49f95cbe2e484216d0375f5986ecd702a7ed8490d95018c918d39c6db62ad76bcbbf21f981c038fabbd50496b6703da1ae95c05ba95a17ff3de60
+  languageName: node
+  linkType: hard
+
+"@sapphire/discord.js-utilities@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "@sapphire/discord.js-utilities@npm:4.3.0"
+  dependencies:
+    "@sapphire/discord-utilities": ^2.5.0
+    "@sapphire/time-utilities": ^1.5.1
+    "@sapphire/utilities": ^3.2.0
+    tslib: ^2.3.1
+  checksum: 3410fa3ca1a6f36ad03d482a3c13a17ec4d96b7f173c44481f9da1f7407d7061f49615692575bd497509382ec7b831f156ec2694983050225b6232003061f4e7
   languageName: node
   linkType: hard
 
@@ -4082,7 +4094,7 @@ __metadata:
     "@commitlint/config-conventional": ^16.0.0
     "@discordjs/rest": ^0.1.0-canary.0
     "@sapphire/decorators": ^3.1.6
-    "@sapphire/discord.js-utilities": ^4.2.0
+    "@sapphire/discord.js-utilities": ^4.3.0
     "@sapphire/framework": ^2.3.0
     "@sapphire/pieces": ^3.2.0
     "@sapphire/plugin-logger": ^2.1.2
