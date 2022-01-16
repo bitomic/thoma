@@ -28,7 +28,7 @@ export class UserSlash extends SlashCommand {
 		await interaction.editReply( {
 			embeds: [
 				{
-					color: Colors.green[ 10 ],
+					color: Colors.amber[ 10 ],
 					description: 'Se está realizando la tarea. Notificaré cuando haya terminado, a menos que ocurra algún error.'
 				}
 			]
@@ -53,7 +53,7 @@ export class UserSlash extends SlashCommand {
 				title: 'Module:Rarezas'
 			} )
 
-			await interaction.followUp( {
+			await interaction.editReply( {
 				embeds: [
 					{
 						color: Colors.green[ 10 ],
