@@ -2458,13 +2458,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"imgur@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "imgur@npm:2.1.0"
+"imgur@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "imgur@npm:2.1.2"
   dependencies:
     axios: ^0.24.0
     form-data: ^4.0.0
-  checksum: 7d9bab87f329cb97797684004a025916e72faa8b95d296586a6a4a0a6078c2147168c6fe284293f6c8b4d98c6cad5ca29a93f273257b28ca00f9fa8810f7ff6c
+  checksum: e818cea8a7d3eeff8848888a9624d1e567201da86455336c3129f754b984c588bc9411eb8c7f9c0ed659ccd4e3c9d9f9376ca1067685c3313abc7a11e14dbc42
   languageName: node
   linkType: hard
 
@@ -4094,7 +4094,7 @@ __metadata:
     dotenv: ^14.2.0
     eslint: ^8.7.0
     husky: ^7.0.4
-    imgur: ^2.1.0
+    imgur: ^2.1.2
     lint-staged: ^12.1.7
     lua-json: ^1.0.0
     mw.js: 2.1.1
