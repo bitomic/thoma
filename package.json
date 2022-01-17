@@ -25,7 +25,7 @@
     "date-fns": "^2.28.0",
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.6.0",
-    "dotenv": "^11.0.0",
+    "dotenv": "^13.0.1",
     "imgur": "^2.1.0",
     "lua-json": "^1.0.0",
     "mw.js": "2.1.1",
