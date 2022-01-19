@@ -1040,12 +1040,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.24.0":
-  version: 0.24.0
-  resolution: "axios@npm:0.24.0"
+"axios@npm:^0.25.0":
+  version: 0.25.0
+  resolution: "axios@npm:0.25.0"
   dependencies:
-    follow-redirects: ^1.14.4
-  checksum: 468cf496c08a6aadfb7e699bebdac02851e3043d4e7d282350804ea8900e30d368daa6e3cd4ab83b8ddb5a3b1e17a5a21ada13fc9cebd27b74828f47a4236316
+    follow-redirects: ^1.14.7
+  checksum: 2a8a3787c05f2a0c9c3878f49782357e2a9f38945b93018fb0c4fd788171c43dceefbb577988628e09fea53952744d1ecebde234b561f1e703aa43e0a598a3ad
   languageName: node
   linkType: hard
 
@@ -2012,7 +2012,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.14.4":
+"follow-redirects@npm:^1.14.7":
   version: 1.14.7
   resolution: "follow-redirects@npm:1.14.7"
   peerDependenciesMeta:
@@ -2458,13 +2458,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"imgur@npm:^2.1.2":
-  version: 2.1.2
-  resolution: "imgur@npm:2.1.2"
+"imgur@npm:^2.1.3":
+  version: 2.1.3
+  resolution: "imgur@npm:2.1.3"
   dependencies:
-    axios: ^0.24.0
+    axios: ^0.25.0
     form-data: ^4.0.0
-  checksum: e818cea8a7d3eeff8848888a9624d1e567201da86455336c3129f754b984c588bc9411eb8c7f9c0ed659ccd4e3c9d9f9376ca1067685c3313abc7a11e14dbc42
+  checksum: f3e965c558b342e32fb649129ba79226829d2ddd030af85992752e96158f11e22ca87ead6a07665aef859976858afbe4187156a1a349f84a70e63fd80a6c66d4
   languageName: node
   linkType: hard
 
@@ -4094,7 +4094,7 @@ __metadata:
     dotenv: ^14.2.0
     eslint: ^8.7.0
     husky: ^7.0.4
-    imgur: ^2.1.2
+    imgur: ^2.1.3
     lint-staged: ^12.2.0
     lua-json: ^1.0.0
     mw.js: 2.1.1
