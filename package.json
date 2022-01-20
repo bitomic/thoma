@@ -8,6 +8,7 @@
     "lint:all": "yarn workspaces foreach -pv run lint",
     "lintfix:all": "yarn workspaces foreach -pv run lint:fix",
     "prepare": "husky install .github/husky",
+    "amqp": "yarn workspace @sacarosa/amqp",
     "discord": "yarn workspace @sacarosa/discord",
     "shared": "yarn workspace @sacarosa/shared"
   },
