@@ -8,7 +8,8 @@ const environmentVariables = [
 	'IMGUR_ID',
 	'FANDOM_PASSWORD',
 	'FANDOM_USERNAME',
-	'NODE_ENV'
+	'NODE_ENV',
+	'RABBITMQ_URL'
 ] as const
 type Env = typeof environmentVariables[ number ]
 
