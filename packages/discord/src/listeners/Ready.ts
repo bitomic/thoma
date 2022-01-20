@@ -1,7 +1,7 @@
 import type { FullUserCommandOptions, SlashCommandOptions } from '../framework'
 import type { Guild, GuildApplicationCommandPermissionData } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
-import { env } from '../lib'
+import { env } from '@sacarosa/shared'
 import { Guilds } from '../utilities'
 import { Listener } from '@sapphire/framework'
 import type { ListenerOptions } from '@sapphire/framework'

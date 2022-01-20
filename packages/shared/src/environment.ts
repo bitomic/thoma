@@ -1,5 +1,14 @@
-import 'dotenv/config'
-import { MissingEnvError } from '../errors'
+import dotenv from 'dotenv'
+import { MissingEnvError } from './errors'
+import path from 'path'
+import workspaceRoot from 'find-yarn-workspace-root'
+
+const root = workspaceRoot()
+if ( root ) {
+	dotenv.config( {
+		path: path.resolve( root, '.env' )
+	} )
+}
 
 const environmentVariables = [
 	'DISCORD_OWNER',

@@ -1,7 +1,8 @@
 import '@sapphire/plugin-logger/register'
 import './database'
-import { Client, env, sequelize } from './lib'
+import { Client, sequelize } from './lib'
 import { container } from '@sapphire/framework'
+import { env } from '@sacarosa/shared'
 
 ( async () => {
 	await sequelize.sync()

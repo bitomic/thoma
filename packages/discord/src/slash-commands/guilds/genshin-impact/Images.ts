@@ -1,7 +1,7 @@
 import { Colors, getInteractionChannel, Guilds } from '../../../utilities'
 import { ApplyOptions } from '@sapphire/decorators'
 import type { CommandInteraction } from 'discord.js'
-import { env } from '../../../lib'
+import { env } from '@sacarosa/shared'
 import { Fandom } from 'mw.js'
 import type { FandomWiki } from 'mw.js'
 import fetch from 'node-fetch'

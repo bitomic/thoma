@@ -1,6 +1,6 @@
 import type { PreconditionOptions, PreconditionResult } from '@sapphire/framework'
 import { ApplyOptions } from '@sapphire/decorators'
-import { env } from '../lib'
+import { env } from '@sacarosa/shared'
 import type { Message } from 'discord.js'
 import { Precondition } from '@sapphire/framework'
 

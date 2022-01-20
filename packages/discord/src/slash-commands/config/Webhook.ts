@@ -1,7 +1,7 @@
 import { getInteractionChannel, getWebhook, getWebhookData } from '../../utilities'
 import { ApplyOptions } from '@sapphire/decorators'
 import type { CommandInteraction } from 'discord.js'
-import { env } from '../../lib'
+import { env } from '@sacarosa/shared'
 import fetch from 'node-fetch'
 import { getColorFromURL } from 'color-thief-node'
 import { ImgurClient } from 'imgur'

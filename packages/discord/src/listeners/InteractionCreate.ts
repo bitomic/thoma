@@ -1,7 +1,7 @@
 import type { CommandInteraction, Interaction, UserContextMenuInteraction } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
 import { Constants } from 'discord.js'
-import { env } from '../lib'
+import { env } from '@sacarosa/shared'
 import { Listener } from '@sapphire/framework'
 import type { ListenerOptions } from '@sapphire/framework'
 

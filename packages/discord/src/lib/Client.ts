@@ -1,5 +1,5 @@
 import { SlashCommandStore, UserCommandStore } from '../framework'
-import { env } from './environment'
+import { env } from '@sacarosa/shared'
 import { Intents } from 'discord.js'
 import { SapphireClient } from '@sapphire/framework'
 

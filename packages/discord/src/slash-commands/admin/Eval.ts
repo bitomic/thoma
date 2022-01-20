@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators'
 import type { CommandInteraction } from 'discord.js'
 import { Constants } from 'discord.js'
-import { env } from '../../lib'
+import { env } from '@sacarosa/shared'
 import { getInteractionChannel } from '../../utilities'
 import { SlashCommand } from '../../framework'
 import type { SlashCommandOptions } from '../../framework'
