@@ -8,6 +8,7 @@
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+cookies.json
 databases
 demo
 dist
