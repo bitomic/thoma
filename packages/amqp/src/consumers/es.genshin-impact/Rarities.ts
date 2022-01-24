@@ -14,21 +14,16 @@ export class Consumer extends AMQPConsumer {
 	}
 
 	public async consume(): Promise<boolean> {
-		try {
-			const bot = await this.getFandomBot()
-			await bot.setWiki( this.wiki )
-			const rarities = await this.getRarities()
-			const lua = format( rarities )
-			await bot.edit( {
-				bot: true,
-				text: lua,
-				title: 'Module:Rarezas'
-			} )
-		} catch ( e ) {
-			// eslint-disable-next-line no-console
-			console.error( e )
-			return false
-		}
+		const bot = await this.getFandomBot()
+		await bot.setWiki( this.wiki )
+		const rarities = await this.getRarities()
+		const lua = format( rarities )
+		await bot.edit( {
+			bot: true,
+			text: lua,
+			title: 'Module:Rarezas'
+		} )
+
 		return true
 	}
 

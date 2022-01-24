@@ -33,7 +33,13 @@ export interface IAMQPMessage {
 			if ( consumer ) {
 				console.info( `Running task: ${ data.task }` )
 				const t1 = Date.now()
-				const success = await consumer.consume( message )
+				let success: boolean
+				try {
+					success = await consumer.consume( message )
+				} catch ( e ) {
+					console.error( e )
+					success = false
+				}
 				const t2 = Date.now()
 				console.info( `Finished task: ${ data.task } (${ t2 - t1 }ms)` )
 
