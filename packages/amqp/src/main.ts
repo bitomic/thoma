@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-import { AMQPConsumer, Store } from './lib'
 import amqp from 'amqplib'
 import { env } from '@sacarosa/shared'
 import path from 'path'
+import { Store } from './lib'
 
 export interface IAMQPMessage {
 	task: string
@@ -17,10 +17,10 @@ export interface IAMQPMessage {
 
 	const conn = await amqp.connect( env.RABBITMQ_URL )
 	const ch = await conn.createChannel()
-	await ch.assertQueue( AMQPConsumer.QUEUE_NAME )
+	await ch.assertQueue( env.RABBITMQ_QUEUE )
 	await ch.prefetch( 1 )
 	await ch.consume(
-		AMQPConsumer.QUEUE_NAME,
+		env.RABBITMQ_QUEUE,
 		// eslint-disable-next-line @typescript-eslint/no-misused-promises
 		async message => {
 			if ( !message ) {
@@ -43,10 +43,9 @@ export interface IAMQPMessage {
 				const t2 = Date.now()
 				console.info( `Finished task: ${ data.task } (${ t2 - t1 }ms)` )
 
-				const outputQueue = `${ AMQPConsumer.QUEUE_NAME }.output`
-				await ch.assertQueue( outputQueue )
+				await ch.assertQueue( env.RABBITMQ_QUEUE_OUTPUT )
 				ch.sendToQueue(
-					outputQueue,
+					env.RABBITMQ_QUEUE_OUTPUT,
 					Buffer.from( JSON.stringify( {
 						...data,
 						success

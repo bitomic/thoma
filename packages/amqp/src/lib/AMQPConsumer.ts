@@ -8,8 +8,6 @@ export interface IAMQPConsumerOptions {
 }
 
 export abstract class AMQPConsumer {
-	public static readonly QUEUE_NAME = 'botomic'
-
 	protected readonly fandom: Fandom
 	public readonly name: string
 
