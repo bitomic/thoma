@@ -18,6 +18,8 @@ const environmentVariables = [
 	'FANDOM_PASSWORD',
 	'FANDOM_USERNAME',
 	'NODE_ENV',
+	'RABBITMQ_QUEUE',
+	'RABBITMQ_QUEUE_OUTPUT',
 	'RABBITMQ_URL'
 ] as const
 type Env = typeof environmentVariables[ number ]
