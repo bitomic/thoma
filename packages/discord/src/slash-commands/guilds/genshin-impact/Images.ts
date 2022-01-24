@@ -17,7 +17,7 @@ import { SlashPermissions } from '../../../decorators'
 @ApplyOptions<SlashCommandOptions>( {
 	defaultPermission: false,
 	description: 'Sube las imágenes de objetos faltantes.',
-	enabled: true,
+	enabled: false,
 	guilds: [ 'genshinImpact' ],
 	name: 'imágenes',
 	options: [
