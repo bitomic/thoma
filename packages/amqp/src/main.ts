@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import amqp from 'amqplib'
 import { env } from '@sacarosa/shared'
+import type { IAMQPConsumerResult } from './lib'
 import path from 'path'
 import { Store } from './lib'
 
@@ -33,21 +34,25 @@ export interface IAMQPMessage {
 			if ( consumer ) {
 				console.info( `Running task: ${ data.task }` )
 				const t1 = Date.now()
-				let success: boolean
+				let result: IAMQPConsumerResult
 				try {
-					success = await consumer.consume( message )
+					result = await consumer.consume( message )
 				} catch ( e ) {
 					console.error( e )
-					success = false
+					result = {
+						success: false
+					}
 				}
 				const t2 = Date.now()
 				console.info( `Finished task: ${ data.task } (${ t2 - t1 }ms)` )
 
+				const { message: details, success } = result
 				await ch.assertQueue( env.RABBITMQ_QUEUE_OUTPUT )
 				ch.sendToQueue(
 					env.RABBITMQ_QUEUE_OUTPUT,
 					Buffer.from( JSON.stringify( {
 						...data,
+						message: details,
 						success
 					} ) )
 				)

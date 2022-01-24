@@ -7,6 +7,11 @@ export interface IAMQPConsumerOptions {
 	name: string
 }
 
+export interface IAMQPConsumerResult {
+	message?: string
+	success: boolean
+}
+
 export abstract class AMQPConsumer {
 	protected readonly fandom: Fandom
 	public readonly name: string
@@ -18,7 +23,7 @@ export abstract class AMQPConsumer {
 		this.name = options.name
 	}
 
-	public abstract consume( message: amqp.Message ): boolean | Promise<boolean>
+	public abstract consume( message: amqp.Message ): IAMQPConsumerResult | Promise<IAMQPConsumerResult>
 
 	protected getFandomBot(): Promise<FandomBot> {
 		return this.fandom.login( {

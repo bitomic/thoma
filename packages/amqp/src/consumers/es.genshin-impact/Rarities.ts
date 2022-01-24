@@ -1,6 +1,7 @@
 import { AMQPConsumer } from '../../lib'
 import type { FandomWiki } from 'mw.js'
 import { format } from 'lua-json'
+import type { IAMQPConsumerResult } from '../../lib'
 import { parse } from 'mwparser'
 
 export class Consumer extends AMQPConsumer {
@@ -13,7 +14,7 @@ export class Consumer extends AMQPConsumer {
 		this.wiki = this.fandom.getWiki( 'es.genshin-impact' )
 	}
 
-	public async consume(): Promise<boolean> {
+	public async consume(): Promise<IAMQPConsumerResult> {
 		const bot = await this.getFandomBot()
 		await bot.setWiki( this.wiki )
 		const rarities = await this.getRarities()
@@ -24,7 +25,9 @@ export class Consumer extends AMQPConsumer {
 			title: 'Module:Rarezas'
 		} )
 
-		return true
+		return {
+			success: true
+		}
 	}
 
 	protected async getPages(): Promise<string[]> {
