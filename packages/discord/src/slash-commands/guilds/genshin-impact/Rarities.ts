@@ -1,11 +1,8 @@
-import { Colors, Guilds } from '../../../utilities'
+import { Colors, Events, getInteractionChannel, Guilds } from '../../../utilities'
 import { ApplyOptions } from '@sapphire/decorators'
 import type { CommandInteraction } from 'discord.js'
-import { env } from '@sacarosa/shared'
-import { Fandom } from 'mw.js'
-import type { FandomWiki } from 'mw.js'
-import { format } from 'lua-json'
-import { parse } from 'mwparser'
+import type { IAMQPMessageData } from '../../../utilities'
+import { Message } from 'discord.js'
 import { SlashCommand } from '../../../framework'
 import type { SlashCommandOptions } from '../../../framework'
 import { SlashPermissions } from '../../../decorators'
@@ -16,7 +13,7 @@ import { SlashPermissions } from '../../../decorators'
 	type: 'ROLE'
 } )
 @ApplyOptions<SlashCommandOptions>( {
-	defaultPermission: false,
+	defaultPermission: true,
 	description: 'Actualiza la rareza de los objetos.',
 	enabled: true,
 	guilds: [ 'genshinImpact' ],
@@ -24,99 +21,34 @@ import { SlashPermissions } from '../../../decorators'
 } )
 export class UserSlash extends SlashCommand {
 	public async run( interaction: CommandInteraction<'present'> ): Promise<void> {
-		await interaction.deferReply()
-		await interaction.editReply( {
+		await interaction.reply( {
 			embeds: [
 				{
-					color: Colors.amber[ 10 ],
-					description: 'Se está realizando la tarea. Notificaré cuando haya terminado, a menos que ocurra algún error.'
+					color: Colors.lime[ 10 ],
+					description: 'Se ha registrado una tarea.'
 				}
 			]
 		} )
 
-		try {
-			const fandom = new Fandom()
-			const wiki = fandom.getWiki( 'es.genshin-impact' )
-			const titles = await this.getPages( wiki )
-			const rarities = await this.getRarities( { titles, wiki } )
-			const lua = format( rarities )
 
-			const bot = await fandom.login( {
-				password: env.FANDOM_PASSWORD,
-				username: env.FANDOM_USERNAME,
-				wiki
-			} )
-
-			await bot.edit( {
-				bot: true,
-				text: lua,
-				title: 'Module:Rarezas'
-			} )
-
-			await interaction.editReply( {
-				embeds: [
-					{
-						color: Colors.green[ 10 ],
-						description: 'Tarea finalizada exitosamente.'
-					}
-				]
-			} )
-		} catch ( e ) {
-			await interaction.followUp( {
-				content: `<@!${ env.DISCORD_OWNER }>`,
-				embeds: [
-					{
-						color: Colors.red[ 10 ],
-						description: `Ha ocurrido un error inesperado. Vuelve a intentarlo más tarde o espera a que <@!${ env.DISCORD_OWNER }> revise los registros.`
-					}
-				]
-			} )
-		}
-	}
-
-	public async getPages( wiki: FandomWiki ): Promise<string[]> {
-		const pages: string[] = []
-		const templates = [
-			'Plantilla:Infobox Arma',
-			'Plantilla:Infobox Comida',
-			'Plantilla:Infobox Objeto',
-			'Plantilla:Infobox Personaje jugable'
-		]
-
-		for ( const template of templates ) {
-			const generator = wiki.iterQueryProp( {
-				prop: 'transcludedin',
-				tilimit: 'max',
-				tinamespace: 0,
-				tiprop: [ 'title' ],
-				titles: template
-			} )
-			for await ( const tmp of generator ) {
-				for ( const page of tmp.transcludedin ) {
-					pages.push( page.title )
-				}
-			}
+		let message = await interaction.fetchReply()
+		if ( !( message instanceof Message ) ) {
+			const channel = await getInteractionChannel( interaction )
+			if ( !channel ) return
+			message = await channel.messages.fetch( message.id )
 		}
 
-		return pages
-	}
+		const thread = await message.startThread( {
+			name: `Rarezas @ ${ Date.now().toString( 16 ) }`
+		} )
 
-	public async getRarities( { titles, wiki }: { titles: string[], wiki: FandomWiki } ): Promise<Record<string, number>> {
-		const rarities: Record<string, number> = {}
 
-		for await ( const page of wiki.iterPages( titles ) ) {
-			if ( 'missing' in page ) continue
-			const { content } = page.revisions[ 0 ].slots.main
-			const parsed = parse( content )
-			const infoboxName = parsed.templates.map( t => t.name ).find( t => t.startsWith( 'Infobox' ) )
-			if ( !infoboxName ) continue
-			const [ infobox ] = parsed.findTemplate( infoboxName ).nodes
-			if ( !infobox ) continue
-			const rarity = Number( infobox.getParameter( 'rareza' )?.value )
-			if ( isNaN( rarity ) ) continue
-			rarities[ page.title ] = rarity
+		const data: IAMQPMessageData = {
+			channelId: interaction.channelId,
+			guildId: interaction.guildId,
+			task: 'rarities',
+			threadId: thread.id
 		}
-
-		return rarities
+		this.container.client.emit( Events.AMQP_SEND, data )
 	}
 }

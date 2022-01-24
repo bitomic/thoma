@@ -1,8 +1,9 @@
+import { Events, Guilds } from '../utilities'
 import type { FullUserCommandOptions, SlashCommandOptions } from '../framework'
 import type { Guild, GuildApplicationCommandPermissionData } from 'discord.js'
+import amqp from 'amqplib'
 import { ApplyOptions } from '@sapphire/decorators'
 import { env } from '@sacarosa/shared'
-import { Guilds } from '../utilities'
 import { Listener } from '@sapphire/framework'
 import type { ListenerOptions } from '@sapphire/framework'
 import path from 'path'
@@ -18,6 +19,7 @@ export class UserEvent extends Listener {
 
 		await this.loadApplicationCommands()
 		await this.loadTasks()
+		await this.loadAMQP()
 	}
 
 	public async loadApplicationCommands(): Promise<void> {
@@ -93,5 +95,21 @@ export class UserEvent extends Listener {
 		taskStore.container.client = this.container.client
 		this.container.client.stores.register( taskStore )
 		await taskStore.loadAll()
+	}
+
+	public async loadAMQP(): Promise<void> {
+		this.container.amqp = await amqp.connect( env.RABBITMQ_URL )
+		const ch = await this.container.amqp.createChannel()
+		await ch.assertQueue( env.RABBITMQ_QUEUE_OUTPUT )
+		void ch.consume(
+			env.RABBITMQ_QUEUE_OUTPUT,
+			message => {
+				if ( !message ) return
+				this.container.client.emit( Events.AMQP_CONSUME, message )
+			},
+			{
+				noAck: true
+			}
+		)
 	}
 }
