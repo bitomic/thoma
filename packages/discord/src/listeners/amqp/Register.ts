@@ -14,7 +14,7 @@ export class UserEvent extends Listener {
 		await interaction.reply( {
 			embeds: [
 				{
-					color: Colors.lime[ 10 ],
+					color: Colors.teal[ 10 ],
 					description: 'Se ha registrado una tarea.'
 				}
 			]
