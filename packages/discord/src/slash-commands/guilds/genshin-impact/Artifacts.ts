@@ -11,7 +11,7 @@ import { SlashPermissions } from '../../../decorators'
 	type: 'ROLE'
 } )
 @ApplyOptions<SlashCommandOptions>( {
-	defaultPermission: true,
+	defaultPermission: false,
 	description: 'Actualiza la lista de artefactos y crea las redirecciones necesarias.',
 	enabled: true,
 	guilds: [ 'genshinImpact' ],
