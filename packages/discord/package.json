@@ -27,6 +27,7 @@
 		"discord-api-types": "^0.26.1",
 		"discord.js": "^13.6.0",
 		"dotenv": "^14.3.2",
+		"find-yarn-workspace-root": "^2.0.0",
 		"imgur": "^2.1.4",
 		"lua-json": "^1.0.0",
 		"mw.js": "2.2.1",

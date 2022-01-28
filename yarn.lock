@@ -34,10 +34,10 @@ __metadata:
 
 "@bitomic/utilities@https://github.com/bitomic/utilities, @bitomic/utilities@https://github.com/bitomic/utilities.git":
   version: 1.0.0
-  resolution: "@bitomic/utilities@https://github.com/bitomic/utilities.git#commit=84e4e8a06a1525ee9849b30cac9d77174b12c6b7"
+  resolution: "@bitomic/utilities@https://github.com/bitomic/utilities.git#commit=bf28eb3173e8b521fdffc0ba65d4902dbb93ee66"
   dependencies:
-    typescript: ^4.5.4
-  checksum: 1fdbd2008c377583680c00649773a66ad862550334bf50f0b65324daffacc179ab44ce99cee7836ed3605eab30e9f0285c816a01cd9553c4f6d56cfbaaa540ea
+    typescript: ^4.5.5
+  checksum: 66f1e19cf1d11950a12358b9cc38195208a79f0578ae4e614a6c7ba72fae87fc247325066a55250029db6513951fe63310e7814090362c3fb1a3bb7035522f55
   languageName: node
   linkType: hard
 
@@ -319,13 +319,13 @@ __metadata:
   linkType: hard
 
 "@humanwhocodes/config-array@npm:^0.9.2":
-  version: 0.9.2
-  resolution: "@humanwhocodes/config-array@npm:0.9.2"
+  version: 0.9.3
+  resolution: "@humanwhocodes/config-array@npm:0.9.3"
   dependencies:
     "@humanwhocodes/object-schema": ^1.2.1
     debug: ^4.1.1
     minimatch: ^3.0.4
-  checksum: 28a9e2974c50a86765cb6cc96e03d29187ea33fdaba62c4f35db89002e3cfbd340e64c9f6cf869e33e2e5cdcc06e78763458f4178d38a6f30aea1308787ca706
+  checksum: 6e5d7d274941c459bab0a14a87e372206d89fad3e4879d982edc942e8cc34da6510ea3644b8535a2a9edaa6527e91dccceabc6837ffa8ee506d66bca5d269ebc
   languageName: node
   linkType: hard
 
@@ -453,6 +453,7 @@ __metadata:
     discord.js: ^13.6.0
     dotenv: ^14.3.2
     eslint: ^8.6.0
+    find-yarn-workspace-root: ^2.0.0
     imgur: ^2.1.4
     lua-json: ^1.0.0
     mw.js: 2.2.1
@@ -588,9 +589,9 @@ __metadata:
   linkType: hard
 
 "@sindresorhus/is@npm:^4.2.0":
-  version: 4.3.0
-  resolution: "@sindresorhus/is@npm:4.3.0"
-  checksum: 27dc822fd6962eb174de128fa5212e9a0b4b0672d810d6d5226e922db65ea779143e6cfda8ee10a3e5be7f744af0a65d69a761f3fb3d11ce83587ed1b19c9bf8
+  version: 4.4.0
+  resolution: "@sindresorhus/is@npm:4.4.0"
+  checksum: 1d2471a75e03ce2182c3a3d014d027addeaeae1a7a2adfdb03c91cce17900b207e493db012e35ffa21808c563ce3b8e2e7c24646b3d5c27467e08bef8b0e16f0
   languageName: node
   linkType: hard
 
@@ -715,9 +716,9 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 17.0.10
-  resolution: "@types/node@npm:17.0.10"
-  checksum: 979e83d642a2b4f18fa1a4233f884822c05abc7acd0836024aa964187f8446432b21f7913e72fe2b3927c4a811c27a0b6cd60ac7c4ac6a6762cfbab70782aa6a
+  version: 17.0.13
+  resolution: "@types/node@npm:17.0.13"
+  checksum: 8b87c850c1604c65e3474bd03d122914464b7970caed20f65f4a7706ab429353b896a3916be4d2581164eccda9e3dd95c338fbccf686ff85a824c40d15e8f3fa
   languageName: node
   linkType: hard
 
@@ -2147,9 +2148,9 @@ __metadata:
   linkType: hard
 
 "flatted@npm:^3.1.0":
-  version: 3.2.4
-  resolution: "flatted@npm:3.2.4"
-  checksum: 7d33846428ab337ec81ef9b8b9103894c1c81f5f67feb32bd4ed106fbc47da60d56edb42efd36c9f1f30a010272aeccd34ec1ffacfe9dfdff19673b1d4df481b
+  version: 3.2.5
+  resolution: "flatted@npm:3.2.5"
+  checksum: 3c436e9695ccca29620b4be5671dd72e5dd0a7500e0856611b7ca9bd8169f177f408c3b9abfa78dfe1493ee2d873e2c119080a8a9bee4e1a186a9e60ca6c89f1
   languageName: node
   linkType: hard
 
