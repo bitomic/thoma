@@ -451,7 +451,7 @@ __metadata:
     date-fns: ^2.28.0
     discord-api-types: ^0.26.1
     discord.js: ^13.6.0
-    dotenv: ^14.3.2
+    dotenv: ^15.0.1
     eslint: ^8.6.0
     find-yarn-workspace-root: ^2.0.0
     imgur: ^2.1.4
@@ -474,7 +474,7 @@ __metadata:
     "@types/node": ^16.11.19
     "@typescript-eslint/eslint-plugin": ^5.9.1
     "@typescript-eslint/parser": ^5.9.1
-    dotenv: ^14.3.2
+    dotenv: ^15.0.1
     eslint: ^8.6.0
     find-yarn-workspace-root: ^2.0.0
     rimraf: ^3.0.2
@@ -1764,10 +1764,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^14.3.2":
-  version: 14.3.2
-  resolution: "dotenv@npm:14.3.2"
-  checksum: 86c06758915d6facc35275f4a7fafc16705b6f3b44befaa8abca91367991efc8ff8db5437d3cc14778231d19fb97610fe82d60f8a53ba723cdb69fe4171439aa
+"dotenv@npm:^15.0.1":
+  version: 15.0.1
+  resolution: "dotenv@npm:15.0.1"
+  checksum: acebaa5b0bb23fdbbdc50827936bdf6782e935b73c6048e949df352515576ec9542455a93f58cc3eefd839e45c670fbfed250a1061eb72f536dab05745d1bf33
   languageName: node
   linkType: hard
 
