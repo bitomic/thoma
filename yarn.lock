@@ -461,7 +461,7 @@ __metadata:
     node-cron: ^3.0.0
     node-fetch: 2.6.6
     rimraf: ^3.0.2
-    sequelize: ^6.14.1
+    sequelize: ^6.16.1
     sqlite3: ^5.0.2
     typescript: ^4.5.4
   languageName: unknown
@@ -4367,9 +4367,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sequelize@npm:^6.14.1":
-  version: 6.14.1
-  resolution: "sequelize@npm:6.14.1"
+"sequelize@npm:^6.16.1":
+  version: 6.16.1
+  resolution: "sequelize@npm:6.16.1"
   dependencies:
     "@types/debug": ^4.1.7
     debug: ^4.3.3
@@ -4403,7 +4403,7 @@ __metadata:
       optional: true
     tedious:
       optional: true
-  checksum: e77e03241c5b22a6c6fc7b04dd0e6a63d2e9f9b7d4a825e405981fde68547f6015ecf8b8b24783448a44effc8cd471503e34d360df39d4413e110d5694c5d087
+  checksum: 3103cf79279b5e8bdfaefbf239c6c6cbed40c2805ced64a85ac2f450f2f554eb89b880edc79f88d8b4257065b57e90e8e0ddd678f4ceb8e267608b9588df720f
   languageName: node
   linkType: hard
 
