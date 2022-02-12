@@ -418,7 +418,7 @@ __metadata:
     eslint: ^8.9.0
     greek-utils: ^1.3.0
     lua-json: ^1.0.0
-    mw.js: ^2.2.1
+    mw.js: ^2.3.0
     mwparser: ^1.3.3
     rimraf: ^3.0.2
     typescript: ^4.5.4
@@ -456,7 +456,7 @@ __metadata:
     find-yarn-workspace-root: ^2.0.0
     imgur: ^2.1.4
     lua-json: ^1.0.0
-    mw.js: 2.2.1
+    mw.js: 2.3.0
     mwparser: ^1.3.3
     node-cron: ^3.0.0
     node-fetch: 2.6.6
@@ -3417,16 +3417,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mw.js@npm:2.2.1, mw.js@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "mw.js@npm:2.2.1"
+"mw.js@npm:2.3.0, mw.js@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "mw.js@npm:2.3.0"
   dependencies:
     form-data: ^4.0.0
     fs-extra: ^10.0.0
     node-fetch: 2.6.7
     tmp-promise: ^3.0.3
     tough-cookie: ^4.0.0
-  checksum: 705d48c4ea9bc99d1635522ad6475ad24b41b2c11ec55e693cb3d26dfaa913d2b274aa31ced72ddbaef4c3ecdc0c3d75394f6e4f793e594d73144c82ea9d68ac
+  checksum: 21847098758823eb12ade4a4690c51f44bb5d7d04068c430356a96107e026103049891b3e5ade595a3d072f4b2e06480d36dd2d40f05cd1a46f239095e7bfd33
   languageName: node
   linkType: hard
 
