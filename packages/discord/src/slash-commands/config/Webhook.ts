@@ -76,9 +76,8 @@ export class UserSlash extends SlashCommand {
 		const response = await imgur.upload( {
 			image
 		} )
-		const result = Array.isArray( response ) ? response[ 0 ] : response
 
-		if ( !result?.success ) {
+		if ( !response.success ) {
 			await interaction.editReply( {
 				content: 'Ha ocurrido un error al intentar procesar la imagen. Vuelve a intentarlo.'
 			} )
@@ -87,7 +86,7 @@ export class UserSlash extends SlashCommand {
 
 
 		await Webhooks.upsert( {
-			avatar: result.data.link,
+			avatar: response.data.link,
 			name,
 			snowflake: webhookType === 'channel' ? interaction.channelId : interaction.guildId,
 			type: webhookType
