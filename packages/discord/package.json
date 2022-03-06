@@ -16,7 +16,7 @@
 		"@discordjs/rest": "^0.1.0-canary.0",
 		"@sacarosa/shared": "workspace:*",
 		"@sapphire/decorators": "^3.1.6",
-		"@sapphire/discord.js-utilities": "^4.8.2",
+		"@sapphire/discord.js-utilities": "^4.9.0",
 		"@sapphire/framework": "^2.4.1",
 		"@sapphire/pieces": "^3.2.0",
 		"@sapphire/plugin-logger": "^2.1.2",
