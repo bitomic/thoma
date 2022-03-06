@@ -19,7 +19,7 @@
 		"@sapphire/discord.js-utilities": "^4.9.0",
 		"@sapphire/framework": "^2.4.1",
 		"@sapphire/pieces": "^3.3.0",
-		"@sapphire/plugin-logger": "^2.1.2",
+		"@sapphire/plugin-logger": "^2.2.0",
 		"@sapphire/utilities": "^3.3.0",
 		"amqplib": "^0.8.0",
 		"color-thief-node": "^1.0.4",
