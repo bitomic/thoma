@@ -279,6 +279,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@discordjs/collection@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "@discordjs/collection@npm:0.5.0"
+  checksum: a228979bb5f955cf095ce47441c55d0196cd99ff8484b57d26a45e58506c6646d776a98a9e11b822aab4e15fb2ac1aecfdebc63cde8ab7d04d3d74b716e80144
+  languageName: node
+  linkType: hard
+
 "@discordjs/rest@npm:^0.1.0-canary.0":
   version: 0.1.0-canary.0
   resolution: "@discordjs/rest@npm:0.1.0-canary.0"
@@ -436,7 +443,7 @@ __metadata:
     "@sapphire/decorators": ^3.1.6
     "@sapphire/discord.js-utilities": ^4.9.0
     "@sapphire/framework": ^2.4.1
-    "@sapphire/pieces": ^3.2.0
+    "@sapphire/pieces": ^3.3.0
     "@sapphire/plugin-logger": ^2.1.2
     "@sapphire/utilities": ^3.3.0
     "@types/amqplib": ^0.8.2
@@ -600,6 +607,17 @@ __metadata:
     "@sapphire/utilities": ^3.1.0
     tslib: ^2.3.1
   checksum: b9404d34e2eea55e0e708354ddecde7e132de4459975f2d12650da07b661e7d786f34dfaf62bfcfd3c856ca695b5755b3be901322ef5b3dbfe5141456777b433
+  languageName: node
+  linkType: hard
+
+"@sapphire/pieces@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "@sapphire/pieces@npm:3.3.0"
+  dependencies:
+    "@discordjs/collection": ^0.5.0
+    "@sapphire/utilities": ^3.4.0
+    tslib: ^2.3.1
+  checksum: cd1debbc200b29dd051ce7828754a6f60d0835c0d17eb5f12f7752aa4cd18cb06a925ef06d047139de50243e80855db64dc73c99136281b90d8d49b209b4731c
   languageName: node
   linkType: hard
 
