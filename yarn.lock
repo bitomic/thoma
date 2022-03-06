@@ -434,7 +434,7 @@ __metadata:
     "@discordjs/rest": ^0.1.0-canary.0
     "@sacarosa/shared": "workspace:*"
     "@sapphire/decorators": ^3.1.6
-    "@sapphire/discord.js-utilities": ^4.8.2
+    "@sapphire/discord.js-utilities": ^4.9.0
     "@sapphire/framework": ^2.4.1
     "@sapphire/pieces": ^3.2.0
     "@sapphire/plugin-logger": ^2.1.2
@@ -499,6 +499,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sapphire/discord-utilities@npm:^2.10.0":
+  version: 2.10.0
+  resolution: "@sapphire/discord-utilities@npm:2.10.0"
+  dependencies:
+    twemoji-parser: ^13.1.0
+  checksum: 36d161704a9046ae26a6b6e55eca0af3ad49b22c33782792e126f429cc6bc278cef459f77c261969ea4d30c049aa3631ce0c31ba08b0a87babf47aa8a3cb52e8
+  languageName: node
+  linkType: hard
+
 "@sapphire/discord-utilities@npm:^2.4.0, @sapphire/discord-utilities@npm:^2.6.0":
   version: 2.6.0
   resolution: "@sapphire/discord-utilities@npm:2.6.0"
@@ -514,15 +523,6 @@ __metadata:
   dependencies:
     twemoji-parser: ^13.1.0
   checksum: fc537a40599f41425971b326e2d73abe2b821c3bd268b8c0953b6d1e5cc4884557bf723b85fde134c7000735cc0ae0a1fe15bf65f4b8f1f7bfd2fde5955ca3e0
-  languageName: node
-  linkType: hard
-
-"@sapphire/discord-utilities@npm:^2.9.0":
-  version: 2.9.0
-  resolution: "@sapphire/discord-utilities@npm:2.9.0"
-  dependencies:
-    twemoji-parser: ^13.1.0
-  checksum: 1a8258011c53b2df8bd8f8473730ad0cac2157944280be7421d6fc25f12c6fbc6154e99f5b6ca2b00dcee01c0aa81560ed22e619fde32c4cb7fe674d9676a1ff
   languageName: node
   linkType: hard
 
@@ -550,15 +550,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/discord.js-utilities@npm:^4.8.2":
-  version: 4.8.2
-  resolution: "@sapphire/discord.js-utilities@npm:4.8.2"
+"@sapphire/discord.js-utilities@npm:^4.9.0":
+  version: 4.9.0
+  resolution: "@sapphire/discord.js-utilities@npm:4.9.0"
   dependencies:
-    "@sapphire/discord-utilities": ^2.9.0
-    "@sapphire/time-utilities": ^1.6.0
-    "@sapphire/utilities": ^3.3.0
+    "@sapphire/discord-utilities": ^2.10.0
+    "@sapphire/time-utilities": ^1.7.0
+    "@sapphire/utilities": ^3.4.0
     tslib: ^2.3.1
-  checksum: 637c983f1d4cba632c764769bdf95a9b879c1e6603398e00e587a977d7be2b104c0736efd4456422371f1c4e3e7f7621d28e6f3a3c803e9c5c98bf10566dc4bf
+  checksum: 6ec4b35a087ddaaf408197fd96dff40cc2fe04d8dabe98fd3b352739f5d8153fed0293c6ecdab34117b5f57e4efea04aa1c8deb6c787bb2d45cdc58c1d7b7ea9
   languageName: node
   linkType: hard
 
@@ -657,6 +657,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sapphire/time-utilities@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "@sapphire/time-utilities@npm:1.7.0"
+  dependencies:
+    "@sapphire/utilities": ^3.4.0
+  checksum: af2efcd9489bec41bd8cff8c5b8d567651d13767d2dcdcb421e60d3bda510e1c06c1e2b87d06f15d42ea81690edec7fa6c448fc4926f47d03d7a6cede2e2899a
+  languageName: node
+  linkType: hard
+
 "@sapphire/utilities@npm:^3.1.0, @sapphire/utilities@npm:^3.2.1":
   version: 3.2.1
   resolution: "@sapphire/utilities@npm:3.2.1"
@@ -668,6 +677,13 @@ __metadata:
   version: 3.3.0
   resolution: "@sapphire/utilities@npm:3.3.0"
   checksum: 0bbc527239d396ae7f5f76601190cc54c46b1f9483038ec5f37c4fac6a7d70428a2ce032df0fbfb22d036d31b4352c5b647786a8436b060ddeed77897baa4df9
+  languageName: node
+  linkType: hard
+
+"@sapphire/utilities@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "@sapphire/utilities@npm:3.4.0"
+  checksum: b17a172a9e277da3437a2994cfcefd298a4e9c7cfc9c6dbaa1cc00050ca991446de9bca231da46d62e6d8c0e7e4c2350d32308e0961a2260de9dfd33b965ae42
   languageName: node
   linkType: hard
 
