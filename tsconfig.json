@@ -1,6 +1,7 @@
 {
+	"exclude": [ "dist", "node_modules" ],
+	"include": [ "src" ],
 	"compilerOptions": {
-		"composite": true,
 		"module": "CommonJS",
 		"target": "ES6",
 		"skipLibCheck": true,

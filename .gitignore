@@ -8,9 +8,9 @@
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-cookies.json
 databases
 demo
 dist
 node_modules
+slash-settings.json
 tsconfig.tsbuildinfo
