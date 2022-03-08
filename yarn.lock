@@ -1613,12 +1613,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord-modals@npm:^1.2.5":
-  version: 1.2.5
-  resolution: "discord-modals@npm:1.2.5"
+"discord-modals@npm:^1.2.6":
+  version: 1.2.6
+  resolution: "discord-modals@npm:1.2.6"
   peerDependencies:
     discord.js: "*"
-  checksum: 3a6095d20021c65017e5742071973ee40bdccb46f164462ed345ae6dc38e77d0e650ad636a0b9b0f39bab9f016e18e0efa67adc3b4e4ddaf5eda5263e74f5e12
+  checksum: 255cb741aef237768a56037f361076dab481aa08e7e7578188d8aaf5b20236fb0a0b4967af0f2df2ee84f02b7512ff6a5cbc816545dc8d2539e55fab3325c441
   languageName: node
   linkType: hard
 
@@ -4457,7 +4457,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.14.0
     "@typescript-eslint/parser": ^5.14.0
     discord-api-types: ^0.28.0
-    discord-modals: ^1.2.5
+    discord-modals: ^1.2.6
     discord.js: ^13.6.0
     eslint: ^8.10.0
     fs-extra: ^10.0.1
