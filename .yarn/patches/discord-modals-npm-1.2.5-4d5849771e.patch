@@ -1,0 +1,898 @@
+diff --git a/dts/index.d.ts b/dts/index.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..80d924b1d446e391b129d81fff20a3256c8dcc0d
+--- /dev/null
++++ b/dts/index.d.ts
+@@ -0,0 +1,13 @@
++declare function _exports(client: any): void;
++declare namespace _exports {
++    const Modal: typeof import("./src/structures/Modal");
++    const TextInputComponent: typeof import("./src/structures/TextInputComponent");
++    const ModalSubmitInteraction: typeof import("./src/structures/ModalSubmitInteraction") | typeof import("./src/v14/ModalSubmitInteraction");
++    const ModalSubmitField: typeof import("./src/structures/ModalSubmitField");
++    const showModal: typeof import("./src/structures/ShowModal");
++    const Interaction: typeof import("./src/structures/Interaction") | typeof import("./src/v14/Interaction");
++    const InteractionResponses: typeof import("./src/structures/interfaces/InteractionResponses");
++    const Constants: typeof import("./src/util/Constants");
++    const SnowflakeUtil: typeof import("./src/util/SnowflakeUtil");
++}
++export = _exports;
+diff --git a/dts/src/structures/BaseMessageComponent.d.ts b/dts/src/structures/BaseMessageComponent.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..0cb67d0803106d4d017338221d71b214e743d1bb
+--- /dev/null
++++ b/dts/src/structures/BaseMessageComponent.d.ts
+@@ -0,0 +1,10 @@
++export = BaseMessageComponent;
++/**
++ * Represents an interactive component of a Message.
++*/
++declare class BaseMessageComponent {
++    static create(data: any, client: any): import("./TextInputComponent");
++    static resolveType(type: any): any;
++    constructor(data: any);
++    type: any;
++}
+diff --git a/dts/src/structures/Interaction.d.ts b/dts/src/structures/Interaction.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..3b80903d5e5a09ee78c49d59722af0f9bb24ba26
+--- /dev/null
++++ b/dts/src/structures/Interaction.d.ts
+@@ -0,0 +1,26 @@
++export = Interaction;
++/**
++ * Represents an Interaction.
++ * @extends Base
++*/
++declare class Interaction extends Base {
++    constructor(client: any, data: any);
++    id: any;
++    applicationId: any;
++    channelId: any;
++    guildId: any;
++    user: import("discord.js").User;
++    member: any;
++    version: any;
++    memberPermissions: Readonly<import("discord.js").BitField<import("discord.js").PermissionString, bigint>>;
++    locale: any;
++    guildLocale: any;
++    get createdTimestamp(): number;
++    get createdAt(): Date;
++    get channel(): import("discord.js").AnyChannel;
++    get guild(): import("discord.js").Guild;
++    inGuild(): boolean;
++    inCachedGuild(): boolean;
++    inRawGuild(): boolean;
++}
++import { Base } from "discord.js";
+diff --git a/dts/src/structures/Modal.d.ts b/dts/src/structures/Modal.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..0715cf4fc1838a649ac6dcc4208ea05d7ec75130
+--- /dev/null
++++ b/dts/src/structures/Modal.d.ts
+@@ -0,0 +1,69 @@
++export = Modal;
++/**
++ * Represents a Modal Form to be shown in response to an Interaction.
++*/
++declare class Modal {
++    /**
++     * Represents a Modal Form to be shown in response to an Interaction.
++     * @example
++     * const modal = new Modal() // Modal constructor
++     * .setCustomId('modal-customid')
++     * .setTitle('Test of Discord-Modals!')
++     * .addComponents(new TextInputComponent()); // Add a Text Input Component.
++    */
++    constructor(data?: {}, client?: any);
++    /**
++     * The Text Input Components of the Modal.
++     * @type {BaseMessageComponent}
++    */
++    components: BaseMessageComponent;
++    /**
++     * The Custom Id of the Modal.
++     * @type {String}
++    */
++    customId: string;
++    /**
++     * The Title of the Modal.
++     * @type {String}
++    */
++    title: string;
++    /**
++     * Adds the Components of the Modal.
++     * @param {TextInputComponent[]} components The Text Input Components to add.
++     * @returns {Modal} Modal.
++    */
++    addComponents(...components: TextInputComponent[]): Modal;
++    /**
++     * Sets the Components of the Modal.
++     * @param {TextInputComponent[]} components The Text Input Components to set.
++     * @returns {Modal} Modal.
++    */
++    setComponents(...components: TextInputComponent[]): Modal;
++    /**
++     * Sets the Custom Id of the Modal.
++     * @param {String} customId The Custom Id of the modal.
++     * @returns {Modal} Modal.
++    */
++    setCustomId(customId: string): Modal;
++    /**
++     * Removes, replaces, and inserts components in the modal.
++     * @param {Number} index The index to start at.
++     * @param {Number} deleteCount The number of components to remove.
++     * @param {TextInputComponent[]} components The replacing components.
++     * @returns {Modal} Modal.
++    */
++    spliceComponents(index: number, deleteCount: number, ...components: TextInputComponent[]): Modal;
++    /**
++     * Sets the Title of the Modal.
++     * @param {String} title The Title of the modal.
++     * @returns {Modal} Modal.
++    */
++    setTitle(title: string): Modal;
++    toJSON(): {
++        title: string;
++        custom_id: string;
++        components: any;
++    };
++}
++import BaseMessageComponent = require("./BaseMessageComponent");
++import TextInputComponent = require("./TextInputComponent");
+diff --git a/dts/src/structures/ModalSubmitField.d.ts b/dts/src/structures/ModalSubmitField.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..b4b5402d98c09456590109f50a277f26803566a3
+--- /dev/null
++++ b/dts/src/structures/ModalSubmitField.d.ts
+@@ -0,0 +1,16 @@
++export = ModalSubmitField;
++/**
++ * Represents a Field of a Modal Submit Interaction.
++ * @extends BaseMessageComponent
++*/
++declare class ModalSubmitField extends BaseMessageComponent {
++    constructor(data?: {});
++    setup(data: any): void;
++    /**
++     * The Custom Id of the Modal Submit Field.
++     * @type {String}
++    */
++    customId: string;
++    value: any;
++}
++import BaseMessageComponent = require("./BaseMessageComponent");
+diff --git a/dts/src/structures/ModalSubmitInteraction.d.ts b/dts/src/structures/ModalSubmitInteraction.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..5270d9e5ec0eda30825e0d2ac65affd6eefe8b74
+--- /dev/null
++++ b/dts/src/structures/ModalSubmitInteraction.d.ts
+@@ -0,0 +1,54 @@
++export = ModalSubmitInteraction;
++/**
++ * Represents a Modal Submit Interaction.
++ * @extends Interaction
++*/
++declare class ModalSubmitInteraction extends Interaction {
++    /**
++     * The type of the Interaction.
++     * @type {String}
++    */
++    type: string;
++    /**
++     * The Custom Id of the Modal.
++     * @type {String}
++    */
++    customId: string;
++    /**
++     * The Message of the Modal Submit Interaction.
++     * @type {Message}
++    */
++    message: Message;
++    /**
++     * The (Fields) Text Input Components of the Modal.
++     * @type {ModalSubmitField}
++    */
++    fields: ModalSubmitField;
++    /**
++     * An associated interaction webhook, can be used to further interact with this interaction
++     * @type {InteractionWebhook}
++    */
++    webhook: InteractionWebhook;
++    /**
++     * Gets a Text Input Component value.
++     * @param {string} customId The Custom Id of a Text Input Component.
++     * @returns {string} The Value of a Text Input Component.
++    */
++    getTextInputValue(customId: string): string;
++    /**
++     * Gets a Modal Submit Field.
++     * @param {string} customId The Custom Id of a Text Input Component.
++     * @returns {ModalSubmitField} Field of a Modal Submit Interaction.
++    */
++    getField(customId: string): ModalSubmitField;
++    deferReply(): void;
++    reply(): void;
++    fetchReply(): void;
++    editReply(): void;
++    deleteReply(): void;
++    followUp(): void;
++}
++import Interaction = require("./Interaction");
++import { Message } from "discord.js";
++import ModalSubmitField = require("./ModalSubmitField");
++import { InteractionWebhook } from "discord.js";
+diff --git a/dts/src/structures/ShowModal.d.ts b/dts/src/structures/ShowModal.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..ac5a73c173d790bbebf3895b65f309cc981ab2ce
+--- /dev/null
++++ b/dts/src/structures/ShowModal.d.ts
+@@ -0,0 +1,19 @@
++export = showModal;
++/**
++ * Shows the Modal to the Interaction User.
++ * @param {Modal} modal Modal.
++ * @param {{ client: Client, interaction: Interaction }} options Client and Interaction.
++ * @example
++ * showModal(Modal, {
++ *   client: Client, // Client to show the Modal through the Discord API.
++ *   interaction: Interaction // Interaction to show the Modal with the Interaction ID & Token.
++ * });
++ * @returns {Modal} Modal.
++*/
++declare function showModal(modal: Modal, options: {
++    client: Client;
++    interaction: Interaction;
++}): Modal;
++import Modal = require("./Modal");
++import { Client } from "discord.js";
++import { Interaction } from "discord.js";
+diff --git a/dts/src/structures/TextInputComponent.d.ts b/dts/src/structures/TextInputComponent.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..cbcc7af65f83d3514c5938e9e152e0779c66bb27
+--- /dev/null
++++ b/dts/src/structures/TextInputComponent.d.ts
+@@ -0,0 +1,125 @@
++export = TextInputComponent;
++/**
++ * Represents a Text Input Component of a Modal.
++ * @extends BaseMessageComponent
++*/
++declare class TextInputComponent extends BaseMessageComponent {
++    static resolveStyle(style: any): any;
++    /**
++     * Represents a Text Input Component of a Modal.
++     * @example
++     * new TextInputComponent()
++     * .setCustomId('textinput-customid')
++     * .setLabel('Some text Here')
++     * .setStyle('SHORT') //IMPORTANT: Text Input Component Style can be 'SHORT' or 'LONG'
++     * .setMinLength(4)
++     * .setMaxLength(10)
++     * .setPlaceholder('Write a text here')
++     * .setRequired(true) // If it's required or not
++    */
++    constructor(data?: {});
++    setup(data: any): void;
++    /**
++     * The Custom Id of the Text Input Component.
++     * @type {String}
++    */
++    customId: string;
++    /**
++     * The Label of the Text Input Component.
++     * @type {String}
++    */
++    label: string;
++    /**
++     * The Maximum Length of the Text Input Component.
++     * @type {Number}
++    */
++    maxLength: number;
++    /**
++     * The Minimum Length of the Text Input Component.
++     * @type {Number}
++    */
++    minLength: number;
++    /**
++     * The Placeholder of the Text Input Component.
++     * @type {String}
++    */
++    placeholder: string;
++    /**
++     * If the Text Input Component is required.
++     * @type {Boolean}
++    */
++    required: boolean;
++    /**
++     * The Style of the Text Input Component.
++     * @type {String}
++    */
++    style: string;
++    /**
++     * The Default/Pre-filled value of the Text Input Component.
++     * @type {String}
++    */
++    value: string;
++    /**
++     * Sets the Custom Id of a Text Input Component.
++     * @param {String} customId The Custom Id of a Text Input Component.
++     * @returns {TextInputComponent} A Text Input Component.
++    */
++    setCustomId(customId: string): TextInputComponent;
++    /**
++     * Sets the Label of a Text Input Component.
++     * @param {String} label The Label of a Text Input Component.
++     * @returns {TextInputComponent} A Text Input Component.
++    */
++    setLabel(label: string): TextInputComponent;
++    /**
++     * Sets a Boolean if a Text Input Component is required. Default: false
++     * @param {Boolean} required
++     * @returns {TextInputComponent} A Text Input Component.
++    */
++    setRequired(required?: boolean): TextInputComponent;
++    /**
++     * Sets the Maximum Length of a Text Input Component.
++     * @param {Number} maxLength The maximum length.
++     * @returns {TextInputComponent} A Text Input Component.
++    */
++    setMaxLength(maxLength: number): TextInputComponent;
++    /**
++     * Sets the Minimum Length of a Text Input Component.
++     * @param {Number} minLength The minimum length.
++     * @returns {TextInputComponent} A Text Input Component.
++    */
++    setMinLength(minLength: number): TextInputComponent;
++    /**
++     * Sets the Placeholder of a Text Input Component.
++     * @param {String} placeholder The placeholder of the Text Input Component.
++     * @returns {TextInputComponent} A Text Input Component.
++    */
++    setPlaceholder(placeholder: string): TextInputComponent;
++    /**
++     * Sets the Style of a Text Input Component.
++     * @param {String} style The style of the Text Input Component
++     * @returns {TextInputComponent} A Text Input Component.
++    */
++    setStyle(style: string): TextInputComponent;
++    /**
++     * Sets a Default/Pre-filled Value of the Text Input Component.
++     * @param {String} value The Default/Pre-filled value of the Text Input Component.
++     * @returns {TextInputComponent} A Text Input Component.
++    */
++    setDefaultValue(value: string): TextInputComponent;
++    toJSON(): {
++        type: number;
++        components: {
++            type: any;
++            custom_id: string;
++            label: string;
++            style: any;
++            min_length: number;
++            max_length: number;
++            required: boolean;
++            value: string;
++            placeholder: string;
++        }[];
++    };
++}
++import BaseMessageComponent = require("./BaseMessageComponent");
+diff --git a/dts/src/structures/errors/DJSError.d.ts b/dts/src/structures/errors/DJSError.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..73118d5cfb23740b673a9d82459841b49e2d4a68
+--- /dev/null
++++ b/dts/src/structures/errors/DJSError.d.ts
+@@ -0,0 +1,9 @@
++/**
++ * Register an error code and message.
++ * @param {string} sym Unique name for the error
++ * @param {*} val Value of the error
++ */
++export function register(sym: string, val: any): void;
++export declare const Error: DiscordjsError;
++export declare const TypeError: DiscordjsError;
++export declare const RangeError: DiscordjsError;
+diff --git a/dts/src/structures/errors/Messages.d.ts b/dts/src/structures/errors/Messages.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..509db1866f4b5fbb3046d4c04b51ccb638e79c80
+--- /dev/null
++++ b/dts/src/structures/errors/Messages.d.ts
+@@ -0,0 +1 @@
++export {};
+diff --git a/dts/src/structures/errors/index.d.ts b/dts/src/structures/errors/index.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..36800f4d8c8b15cf594953e067047a2375c55929
+--- /dev/null
++++ b/dts/src/structures/errors/index.d.ts
+@@ -0,0 +1,9 @@
++declare const _exports: {
++    register: (sym: string, val: any) => void;
++    Error: DiscordjsError;
++    TypeError: DiscordjsError;
++    RangeError: DiscordjsError;
++    Messages: typeof import("./Messages");
++};
++export = _exports;
++export var Messages: typeof import("./Messages");
+diff --git a/dts/src/structures/interfaces/InteractionResponses.d.ts b/dts/src/structures/interfaces/InteractionResponses.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..eb180ba58982c3b9ac4ce474400070c39f4c7a24
+--- /dev/null
++++ b/dts/src/structures/interfaces/InteractionResponses.d.ts
+@@ -0,0 +1,16 @@
++export = InteractionResponses;
++declare class InteractionResponses {
++    static applyToClass(structure: any, ignore?: any[]): void;
++    deferReply(options?: {}): Promise<any>;
++    ephemeral: any;
++    deferred: boolean;
++    reply(options: any): Promise<any>;
++    replied: boolean;
++    fetchReply(): any;
++    editReply(options: any): Promise<any>;
++    deleteReply(): Promise<void>;
++    followUp(options: any): any;
++    deferUpdate(options?: {}): Promise<any>;
++    update(options: any): Promise<any>;
++    showModal(modal: any): Promise<void>;
++}
+diff --git a/dts/src/util/Constants.d.ts b/dts/src/util/Constants.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..794d1e6443fbc374abc51d931efe66828443ce35
+--- /dev/null
++++ b/dts/src/util/Constants.d.ts
+@@ -0,0 +1,4 @@
++export var TextInputStyles: {};
++export var MessageComponentTypes: {};
++export var InteractionResponseTypes: {};
++export var InteractionTypes: {};
+diff --git a/dts/src/util/SnowflakeUtil.d.ts b/dts/src/util/SnowflakeUtil.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..3b25db03581cafc0983e6cc33e37289cab654593
+--- /dev/null
++++ b/dts/src/util/SnowflakeUtil.d.ts
+@@ -0,0 +1,78 @@
++export = SnowflakeUtil;
++/**
++ * A container for useful snowflake-related methods.
++ */
++declare class SnowflakeUtil {
++    /**
++     * A {@link https://developer.twitter.com/en/docs/twitter-ids Twitter snowflake},
++     * except the epoch is 2015-01-01T00:00:00.000Z.
++     *
++     * If we have a snowflake '266241948824764416' we can represent it as binary:
++     * ```
++     * 64                                          22     17     12          0
++     *  000000111011000111100001101001000101000000  00001  00000  000000000000
++     *       number of ms since Discord epoch       worker  pid    increment
++     * ```
++     * @typedef {string} Snowflake
++     */
++    /**
++     * Generates a Discord snowflake.
++     * <info>This hardcodes the worker's id as 1 and the process's id as 0.</info>
++     * @param {number|Date} [timestamp=Date.now()] Timestamp or date of the snowflake to generate
++     * @returns {Snowflake} The generated snowflake
++     */
++    static generate(timestamp?: number | Date): string;
++    /**
++     * A deconstructed snowflake.
++     * @typedef {Object} DeconstructedSnowflake
++     * @property {number} timestamp Timestamp the snowflake was created
++     * @property {Date} date Date the snowflake was created
++     * @property {number} workerId The worker's id in the snowflake
++     * @property {number} processId The process's id in the snowflake
++     * @property {number} increment Increment in the snowflake
++     * @property {string} binary Binary representation of the snowflake
++     */
++    /**
++     * Deconstructs a Discord snowflake.
++     * @param {Snowflake} snowflake Snowflake to deconstruct
++     * @returns {DeconstructedSnowflake}
++     */
++    static deconstruct(snowflake: string): {
++        /**
++         * Timestamp the snowflake was created
++         */
++        timestamp: number;
++        /**
++         * Date the snowflake was created
++         */
++        date: Date;
++        /**
++         * The worker's id in the snowflake
++         */
++        workerId: number;
++        /**
++         * The process's id in the snowflake
++         */
++        processId: number;
++        /**
++         * Increment in the snowflake
++         */
++        increment: number;
++        /**
++         * Binary representation of the snowflake
++         */
++        binary: string;
++    };
++    /**
++     * Retrieves the timestamp field's value from a Discord snowflake.
++     * @param {Snowflake} snowflake Snowflake to get the timestamp value from
++     * @returns {number}
++     */
++    static timestampFrom(snowflake: string): number;
++    /**
++     * Discord's epoch value (2015-01-01T00:00:00.000Z).
++     * @type {number}
++     * @readonly
++     */
++    static readonly get EPOCH(): number;
++}
+diff --git a/dts/src/v14/Interaction.d.ts b/dts/src/v14/Interaction.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..aaccc476062f8c31473cd70faaacf644927f93d4
+--- /dev/null
++++ b/dts/src/v14/Interaction.d.ts
+@@ -0,0 +1,27 @@
++export = Interaction;
++/**
++ * Represents an Interaction.
++ * @extends Base
++*/
++declare class Interaction extends Base {
++    constructor(client: any, data: any);
++    id: any;
++    applicationId: any;
++    channelId: any;
++    guildId: any;
++    user: import("discord.js").User;
++    member: any;
++    version: any;
++    memberPermissions: any;
++    locale: any;
++    guildLocale: any;
++    get createdTimestamp(): number;
++    get createdAt(): Date;
++    get channel(): import("discord.js").AnyChannel;
++    get guild(): import("discord.js").Guild;
++    inGuild(): boolean;
++    inCachedGuild(): boolean;
++    inRawGuild(): boolean;
++    isRepliable(): boolean;
++}
++import { Base } from "discord.js";
+diff --git a/dts/src/v14/ModalSubmitInteraction.d.ts b/dts/src/v14/ModalSubmitInteraction.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..faaf155b3124f4511965c0599dc3fc0fee27f58a
+--- /dev/null
++++ b/dts/src/v14/ModalSubmitInteraction.d.ts
+@@ -0,0 +1,54 @@
++export = ModalSubmitInteraction;
++/**
++ * Represents a Modal Submit Interaction.
++ * @extends Interaction
++*/
++declare class ModalSubmitInteraction extends Interaction {
++    /**
++     * The type of the Interaction.
++     * @type {String}
++    */
++    type: string;
++    /**
++     * The Custom Id of the Modal.
++     * @type {String}
++    */
++    customId: string;
++    /**
++     * The Message of the Modal Submit Interaction.
++     * @type {Message}
++    */
++    message: Message;
++    /**
++     * The (Fields) Text Input Components of the Modal.
++     * @type {ModalSubmitField}
++    */
++    fields: ModalSubmitField;
++    /**
++     * An associated interaction webhook, can be used to further interact with this interaction
++     * @type {InteractionWebhook}
++    */
++    webhook: InteractionWebhook;
++    /**
++     * Gets a Text Input Component value.
++     * @param {string} customId The Custom Id of a Text Input Component.
++     * @returns {string} The Value of a Text Input Component.
++    */
++    getTextInputValue(customId: string): string;
++    /**
++     * Gets a Modal Submit Field.
++     * @param {string} customId The Custom Id of a Text Input Component.
++     * @returns {ModalSubmitField} Field of a Modal Submit Interaction.
++    */
++    getField(customId: string): ModalSubmitField;
++    deferReply(): void;
++    reply(): void;
++    fetchReply(): void;
++    editReply(): void;
++    deleteReply(): void;
++    followUp(): void;
++}
++import Interaction = require("./Interaction");
++import { Message } from "discord.js";
++import ModalSubmitField = require("../structures/ModalSubmitField");
++import { InteractionWebhook } from "discord.js";
+diff --git a/dts/src/v14/ShowModal.d.ts b/dts/src/v14/ShowModal.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..f762d25f6760c59a530861cb8663ee3e48e037c2
+--- /dev/null
++++ b/dts/src/v14/ShowModal.d.ts
+@@ -0,0 +1,14 @@
++export = showModal;
++/**
++ * Shows the Modal to the Interaction User.
++ * @param {Modal} Modal Modal.
++ * @param {Object} Options Client and Interaction.
++ * @example
++ * showModal(Modal, {
++ *   client: Client, // Client to show the Modal through the Discord API.
++ *   interaction: Interaction // Interaction to show the Modal with the Interaction ID & Token.
++ * });
++ * @returns {Modal} Modal.
++*/
++declare function showModal(modal: any, options: any): Modal;
++import Modal = require("../structures/Modal");
+diff --git a/dts/src/v14/interfaces/InteractionResponses.d.ts b/dts/src/v14/interfaces/InteractionResponses.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..eb180ba58982c3b9ac4ce474400070c39f4c7a24
+--- /dev/null
++++ b/dts/src/v14/interfaces/InteractionResponses.d.ts
+@@ -0,0 +1,16 @@
++export = InteractionResponses;
++declare class InteractionResponses {
++    static applyToClass(structure: any, ignore?: any[]): void;
++    deferReply(options?: {}): Promise<any>;
++    ephemeral: any;
++    deferred: boolean;
++    reply(options: any): Promise<any>;
++    replied: boolean;
++    fetchReply(): any;
++    editReply(options: any): Promise<any>;
++    deleteReply(): Promise<void>;
++    followUp(options: any): any;
++    deferUpdate(options?: {}): Promise<any>;
++    update(options: any): Promise<any>;
++    showModal(modal: any): Promise<void>;
++}
+diff --git a/index.d.ts b/index.d.ts
+deleted file mode 100644
+index 67214f9cb1fc7a3e31b29f5c7bdfa4dddc04429d..0000000000000000000000000000000000000000
+--- a/index.d.ts
++++ /dev/null
+@@ -1,154 +0,0 @@
+-import { Snowflake } from 'discord-api-types/v9';
+-import {
+-  Client,
+-  User,
+-  GuildMember,
+-  Permissions,
+-  Message,
+-  InteractionWebhook,
+-  Interaction,
+-  BaseMessageComponent
+-} from 'discord.js';
+-
+-export default function ( client: Client ): void;
+-
+-export enum TextInputStyles {
+-  SHORT = 1,
+-  LONG,
+-}
+-
+-export enum MessageComponentTypes {
+-  ACTION_ROW = 1,
+-  BUTTON,
+-  SELECT_MENU,
+-  TEXT_INPUT,
+-}
+-
+-export enum InteractionResponseTypes {
+-  PONG,
+-  CHANNEL_MESSAGE_WITH_SOURCE,
+-  DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
+-  DEFERRED_MESSAGE_UPDATE,
+-  UPDATE_MESSAGE,
+-  APPLICATION_COMMAND_AUTOCOMPLETE_RESULT,
+-  MODAL,
+-}
+-
+-export enum InteractionTypes {
+-  PING,
+-  APPLICATION_COMMAND,
+-  MESSAGE_COMPONENT,
+-  APPLICATION_COMMAND_AUTOCOMPLETE,
+-  MODAL_SUBMIT,
+-}
+-
+-export type MessageComponentType = keyof typeof MessageComponentTypes;
+-
+-export type MessageComponentTypeResolvable =
+-  | string
+-  | number
+-  | MessageComponentType;
+-
+-export interface BaseMessageComponentOptions {
+-  type?: MessageComponentType | MessageComponentTypes;
+-}
+-
+-export interface TextInputComponentOptions {
+-  custom_id: string;
+-  label: string;
+-  max_length?: number;
+-  min_length?: number;
+-  placeholder?: string;
+-  required?: boolean;
+-  style: TextInputStyles;
+-  value?: string;
+-}
+-
+-export interface ModalSubmitFieldOptions {
+-  custom_id?: string;
+-  value?: string;
+-}
+-
+-export interface ModalOptions {
+-  title: string;
+-  custom_id: string;
+-  components: Array<TextInputComponent>;
+-}
+-
+-export class TextInputComponent extends BaseMessageComponent {
+-  constructor(options?: TextInputComponentOptions);
+-
+-  customId: string;
+-  label: string;
+-  minLength: number;
+-  maxLength: number;
+-  placeholder: string;
+-  required: boolean;
+-  style: TextInputStyle;
+-  value: string;
+-
+-  setCustomId(id: string): TextInputComponent;
+-  setLabel(label: string): TextInputComponent;
+-  setMinLength(minLength: number): TextInputComponent;
+-  setMaxLength(maxLength: number): TextInputComponent;
+-  setStyle(style: TextInputStyle): TextInputComponent;
+-  setRequired(required: boolean): TextInputComponent;
+-  setDefaultValue(value: string): TextInputComponent;
+-}
+-
+-export type TextInputStyle = 'SHORT' | 'LONG';
+-
+-export class Modal {
+-  constructor(options?: ModalOptions);
+-
+-  title: string;
+-  customId: string;
+-  components: Map<TextInputComponent, TextInputComponent>;
+-
+-  setTitle(title: string): Modal;
+-  setCustomId(id: string): Modal;
+-  addComponents(component: TextInputComponent): Modal;
+-  setComponents(component: TextInputComponent): Modal;
+-  spliceComponents(): Modal;
+-}
+-
+-export class ModalSubmitField extends BaseMessageComponent {
+-  constructor(options?: ModalSubmitFieldOptions);
+-
+-  customId: string;
+-  value: string;
+-}
+-
+-export class ModalSubmitInteraction extends Interaction {
+-  customId: string;
+-  fields: Map<ModalSubmitField, ModalSubmitField>;
+-  id: Snowflake;
+-  applicationId: Snowflake;
+-  channelId: Snowflake;
+-  user: User;
+-  member: GuildMember;
+-  memberPermissions: Permissions;
+-  locale: string;
+-  guildLocale: string;
+-  message: Message;
+-  webhook: InteractionWebhook;
+-
+-  getTextInputValue(customId: string): string;
+-  getField(customId: string): ModalSubmitField;
+-  deferReply(): void
+-  reply(): void
+-  fetchReply(): void
+-  deleteReply(): void
+-  followUp(): void
+-}
+-
+-export function showModal(modal: Modal, options: {
+-  client: Client,
+-  interaction: Interaction
+-} ) : Modal
+-
+-declare module 'discord.js' {
+-  interface Client {
+-      on(event: 'modalSubmit', listener: (modal: ModalSubmitInteraction) => void | Promise<void>): void
+-  }
+-}
+\ No newline at end of file
+diff --git a/package.json b/package.json
+index 8f5365315390aaac087a483cdd6745d098b35ee1..fc7718254fd4f0a3bc732b0ba9b637c9a3d82edd 100644
+--- a/package.json
++++ b/package.json
+@@ -5,8 +5,7 @@
+   "main": "index.js",
+   "files": [
+     "src",
+-    "index.d.ts",
+-    "index.js"
++    "dts"
+   ],
+   "scripts": {
+     "test": "echo \"Error: no test specified\" && exit 1"
+@@ -39,6 +38,7 @@
+     "discord.js": "*"
+   },
+   "devDependencies": {
+-    "discord.js": "^13.6.0"
++    "discord.js": "^13.6.0",
++    "typescript": "^4.6.2"
+   }
+ }
+diff --git a/src/structures/Modal.js b/src/structures/Modal.js
+index 9486c30f2e6554e3c7b27f3bf2d2e8db735fa671..d987a670ce38edbd9df3fa4c8c23916923eed38e 100644
+--- a/src/structures/Modal.js
++++ b/src/structures/Modal.js
+@@ -45,7 +45,7 @@ class Modal {
+ 
+   /**
+    * Adds the Components of the Modal.
+-   * @param {TextInputComponent} components The Text Input Components to add.
++   * @param {TextInputComponent[]} components The Text Input Components to add.
+    * @returns {Modal} Modal.
+   */
+ 
+@@ -56,7 +56,7 @@ class Modal {
+ 
+   /**
+    * Sets the Components of the Modal.
+-   * @param {TextInputComponent} components The Text Input Components to set.
++   * @param {TextInputComponent[]} components The Text Input Components to set.
+    * @returns {Modal} Modal.
+   */
+ 
+@@ -80,7 +80,7 @@ class Modal {
+    * Removes, replaces, and inserts components in the modal.
+    * @param {Number} index The index to start at.
+    * @param {Number} deleteCount The number of components to remove.
+-   * @param components The replacing components.
++   * @param {TextInputComponent[]} components The replacing components.
+    * @returns {Modal} Modal.
+   */
+ 
+diff --git a/src/structures/ShowModal.js b/src/structures/ShowModal.js
+index a2e4e9571174ee6ed139dac83eb32bf014f88e75..db6184bbb08e0dbe8ab6a7d0f8c2ddc459bd0ce9 100644
+--- a/src/structures/ShowModal.js
++++ b/src/structures/ShowModal.js
+@@ -5,8 +5,8 @@ const { Error } = require('./errors');
+ 
+ /**
+  * Shows the Modal to the Interaction User.
+- * @param {Modal} Modal Modal.
+- * @param {Object} Options Client and Interaction.
++ * @param {Modal} modal Modal.
++ * @param {{ client: Client, interaction: Interaction }} options Client and Interaction.
+  * @example
+  * showModal(Modal, {
+  *   client: Client, // Client to show the Modal through the Discord API.
