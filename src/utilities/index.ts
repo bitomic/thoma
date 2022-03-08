@@ -1,1 +1,2 @@
-export * from './discord.js'
+export * from './discord'
+export * from './discord-js'
