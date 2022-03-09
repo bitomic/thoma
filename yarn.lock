@@ -1613,12 +1613,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord-modals@npm:^1.2.6":
+"discord-modals@npm:1.2.6":
   version: 1.2.6
   resolution: "discord-modals@npm:1.2.6"
   peerDependencies:
     discord.js: "*"
   checksum: 255cb741aef237768a56037f361076dab481aa08e7e7578188d8aaf5b20236fb0a0b4967af0f2df2ee84f02b7512ff6a5cbc816545dc8d2539e55fab3325c441
+  languageName: node
+  linkType: hard
+
+"discord-modals@patch:discord-modals@npm:1.2.6#.yarn/patches/discord-modals-npm-1.2.6-a9a2c91c52.patch::locator=thoma%40workspace%3A.":
+  version: 1.2.6
+  resolution: "discord-modals@patch:discord-modals@npm%3A1.2.6#.yarn/patches/discord-modals-npm-1.2.6-a9a2c91c52.patch::version=1.2.6&hash=e6275e&locator=thoma%40workspace%3A."
+  peerDependencies:
+    discord.js: "*"
+  checksum: e02f23cace9926a3abb7507f5dfe8f1599794d9d49db8d9fb554647fddd4684b8975a310b8bba96d9826558098170e0f473be23cd91a1eae0792806cb9ddda19
   languageName: node
   linkType: hard
 
@@ -4470,7 +4479,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.14.0
     "@typescript-eslint/parser": ^5.14.0
     discord-api-types: ^0.28.0
-    discord-modals: ^1.2.6
+    discord-modals: "patch:discord-modals@npm:1.2.6#.yarn/patches/discord-modals-npm-1.2.6-a9a2c91c52.patch"
     discord.js: ^13.6.0
     eslint: ^8.10.0
     fs-extra: ^10.0.1
