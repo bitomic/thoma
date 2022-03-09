@@ -1,0 +1,41 @@
+diff --git a/index.d.ts b/index.d.ts
+index 89c072878ad966854e8aa117666e97a5567595bb..ce29dc8c23ed9096ce4010c7ab73e15cb5bb446d 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -5,6 +5,8 @@ import {
+   APIModalSubmitInteraction,
+ } from "discord-api-types/v9";
+ import {
++  CacheType,
++  MessageComponentInteraction,
+   Client,
+   User,
+   GuildMember,
+@@ -128,7 +130,7 @@ export class ModalSubmitField extends BaseMessageComponent {
+   value: string;
+ }
+ 
+-export class ModalSubmitInteraction extends Interaction {
++export class ModalSubmitInteraction<Cached extends CacheType = CacheType> extends MessageComponentInteraction<Cached> {
+   constructor(client?: Client, data?: APIModalSubmitInteraction);
+ 
+   customId: string;
+@@ -151,14 +153,10 @@ export class ModalSubmitInteraction extends Interaction {
+   getField(customId: string): ModalSubmitField;
+   isFromMessage(): boolean;
+   isRepliable(): boolean;
+-  inGuild(): boolean;
+-  inCachedGuild(): boolean;
+-  inRawGuild(): boolean;
+-  deferReply(): Promise<void>;
+-  reply(): Promise<void>;
+-  fetchReply(): Promise<void>;
+-  deleteReply(): Promise<void>;
+-  followUp(): Promise<void>;
++
++  public inGuild(): this is ModalSubmitInteraction<'present'>;
++  public inCachedGuild(): this is ModalSubmitInteraction<'cached'>;
++  public inRawGuild(): this is ModalSubmitInteraction<'raw'>;
+ }
+ 
+ export function showModal(
