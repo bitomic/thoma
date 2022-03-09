@@ -52,6 +52,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@bitomic/utilities@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@bitomic/utilities@npm:1.0.0"
+  checksum: 43855f56bf88e0dcec6c31f3beffe2903301c2512eb14d84a607a203b61687efbf96304ef04860889d5031289ff783d182d300fd3b9620588a6c9046b514999b
+  languageName: node
+  linkType: hard
+
 "@commitlint/cli@npm:^16.2.1":
   version: 16.2.1
   resolution: "@commitlint/cli@npm:16.2.1"
@@ -4465,6 +4472,7 @@ __metadata:
   dependencies:
     "@bitomic/eslint-config": ^1.0.0
     "@bitomic/plugin-application-commands": 1.1.1
+    "@bitomic/utilities": ^1.0.0
     "@commitlint/cli": ^16.2.1
     "@commitlint/config-conventional": ^16.2.1
     "@discordjs/rest": ^0.3.0
