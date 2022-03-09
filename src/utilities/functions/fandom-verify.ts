@@ -12,6 +12,13 @@ export const fandomVerify = async ( { guildId, member }: { guildId: string, memb
 		}
 	}
 
+	if ( member.roles.cache.has( fandomRole ) ) {
+		return {
+			color: 'YELLOW',
+			description: `Ya te habías verificado anteriormente y tienes el rol de <@&${ fandomRole }>.`
+		}
+	}
+
 	try {
 		await member.roles.add( fandomRole )
 		return {
