@@ -29,11 +29,11 @@ export class RoleModel extends Model<IRoleInterface> {
 					primaryKey: true,
 					type: DataTypes.STRING
 				},
-				role: {
+				role: DataTypes.STRING,
+				type: {
 					primaryKey: true,
 					type: DataTypes.STRING
-				},
-				type: DataTypes.STRING
+				}
 			},
 			{
 				tableName: 'Roles',
