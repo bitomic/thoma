@@ -1,12 +1,11 @@
-import type { CommandInteraction, Guild, GuildTextBasedChannel, MessageButtonStyle as MBS, Message, Role } from 'discord.js'
-import { copyMessage, getInteractionChannel, getInteractionGuild, RoleTypes } from '../../utilities'
+import type { CommandInteraction, Guild, GuildTextBasedChannel, Message, Role } from 'discord.js'
+import { copyMessage, getInteractionChannel, getInteractionGuild, MessageButtonStyles, RoleTypes } from '../../utilities'
 import { MessageActionRow, MessageButton } from 'discord.js'
 import type { APIRole } from 'discord-api-types/v9'
 import { ApplyOptions } from '@sapphire/decorators'
 import { Command } from '@sapphire/framework'
 import type { CommandOptions } from '@sapphire/framework'
-
-type MessageButtonStyle = Exclude<MBS, 'LINK'>
+import type { MessageButtonStyle } from '../../utilities'
 
 @ApplyOptions<CommandOptions>( {
 	chatInputApplicationOptions: {
@@ -33,12 +32,7 @@ type MessageButtonStyle = Exclude<MBS, 'LINK'>
 						type: 'STRING'
 					},
 					{
-						choices: [
-							{ name: 'Azul', value: 'PRIMARY' },
-							{ name: 'Gris', value: 'SECONDARY' },
-							{ name: 'Rojo', value: 'DANGER' },
-							{ name: 'Verde', value: 'SUCCESS' }
-						] as Array<{ name: string, value: MessageButtonStyle }>,
+						choices: MessageButtonStyles,
 						description: 'Estilo del botón',
 						name: 'estilo',
 						type: 'STRING'
