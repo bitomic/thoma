@@ -3,7 +3,7 @@ import { container } from '@sapphire/framework'
 
 type WebhookMessage = ReturnType<PartialWebhookFields[ 'send' ]>
 
-export const copyMessage = async ( { channel, components = [], message, messageToEdit }: { channel: GuildTextBasedChannel, components?: MessageActionRow[], message: Message, messageToEdit?: string } ): Promise<WebhookMessage | null> => {
+export const copyMessage = async ( { channel, components, message, messageToEdit }: { channel: GuildTextBasedChannel, components?: MessageActionRow[], message: Message, messageToEdit?: string } ): Promise<WebhookMessage | null> => {
 	const { user } = container.client
 	if ( !user ) {
 		container.logger.error( 'User is not initialized.' )
@@ -18,6 +18,9 @@ export const copyMessage = async ( { channel, components = [], message, messageT
 	if ( messageToEdit ) {
 		try {
 			const message = await channel.messages.fetch( messageToEdit )
+			if ( !components && message.components.length ) {
+				( { components } = message )
+			}
 			webhook = await message.fetchWebhook()
 		} catch {
 			webhook = null
@@ -48,7 +51,7 @@ export const copyMessage = async ( { channel, components = [], message, messageT
 		? webhook.editMessage( messageToEdit, webhookMessageOptions )
 		: webhook.send( {
 			...webhookData,
-			components,
+			components: components ?? [],
 			content: message.content.length === 0 ? null : message.content,
 			embeds: message.embeds
 		} )
