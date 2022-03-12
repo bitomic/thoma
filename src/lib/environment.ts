@@ -11,6 +11,7 @@ export const env = load( {
 		type: String
 	},
 	DISCORD_TOKEN: String,
+	GITHUB_PAT: String,
 	NODE_ENV: [
 		'development' as const,
 		'production' as const
