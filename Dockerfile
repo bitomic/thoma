@@ -29,7 +29,7 @@ ENV NODE_ENV="development"
 COPY --chown=node:node tsconfig.json tsconfig.json
 COPY --chown=node:node src/ src/
 
-RUN yarn install --immutable
+RUN sudo yarn install --immutable
 RUN yarn run build
 
 # Runner Stage
