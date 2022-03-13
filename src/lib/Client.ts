@@ -12,6 +12,15 @@ export class UserClient extends SapphireClient {
 			applicationCommandsHintProvider: () => env.DISCORD_DEVELOPMENT_SERVER
 				? { guildIds: [ env.DISCORD_DEVELOPMENT_SERVER ] }
 				: null,
+			defaultPrefix: env.DISCORD_PREFIX ?? '!',
+			intents: [
+				Intents.FLAGS.GUILDS,
+				Intents.FLAGS.GUILD_MESSAGES
+			],
+			loadDefaultErrorListeners: true,
+			logger: {
+				level: LogLevel.Debug
+			},
 			makeCache: Options.cacheWithLimits( {
 				BaseGuildEmojiManager: 0,
 				GuildBanManager: 0,
@@ -30,15 +39,6 @@ export class UserClient extends SapphireClient {
 				UserManager: 50,
 				VoiceStateManager: 0
 			} ),
-			defaultPrefix: env.DISCORD_PREFIX ?? '!',
-			intents: [
-				Intents.FLAGS.GUILDS,
-				Intents.FLAGS.GUILD_MESSAGES
-			],
-			loadDefaultErrorListeners: true,
-			logger: {
-				level: LogLevel.Debug
-			},
 			sweepers: {
 				...Options.defaultSweeperSettings,
 				messages: {
