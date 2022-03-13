@@ -1,4 +1,5 @@
 import { load } from 'ts-dotenv'
+import path from 'path'
 
 export const env = load( {
 	DISCORD_DEVELOPMENT_SERVER: {
@@ -15,5 +16,9 @@ export const env = load( {
 	NODE_ENV: [
 		'development' as const,
 		'production' as const
-	]
+	],
+	SQLITE_PATH: {
+		default: path.resolve( __dirname, '../../databases/discord.sqlite' ),
+		type: String
+	}
 } )
