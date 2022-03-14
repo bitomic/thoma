@@ -40,6 +40,8 @@ WORKDIR /home/node/app
 ENV NODE_ENV="production"
 
 COPY --chown=node:node --from=builder /home/node/app/dist dist
+RUN mkdir -p databases \
+	&& chown node:node databases
 
 RUN yarn workspaces focus --all --production
 RUN chown node:node /home/node/app
