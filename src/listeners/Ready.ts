@@ -1,4 +1,3 @@
-import '../database'
 import { ApplyOptions } from '@sapphire/decorators'
 import DiscordModals from 'discord-modals'
 import { Listener } from '@sapphire/framework'
