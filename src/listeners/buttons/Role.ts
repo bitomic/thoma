@@ -14,6 +14,7 @@ export class UserEvent extends Listener {
 		const roleId = interaction.customId.split( '-' ).pop()
 		if ( !roleId ) return // dumb check
 
+		await interaction.deferReply( { ephemeral: true } )
 		try {
 			const roles = await getInteractionMemberRoles( interaction )
 			let action: string
@@ -28,19 +29,13 @@ export class UserEvent extends Listener {
 				color: Colors.green[ 10 ],
 				description: `Se ha ${ action } el rol <@&${ roleId }> exitosamente.`,
 			} )
-			void interaction.reply( {
-				embeds: [ embed ],
-				ephemeral: true
-			} )
+			void interaction.editReply( { embeds: [ embed ] } )
 		} catch {
 			const embed = new MessageEmbed( {
 				color: Colors.red[ 10 ],
 				description: 'Ha ocurrido un error al intentar actualizar tus roles. Intentalo de nuevo más tarde.',
 			} )
-			void interaction.reply( {
-				embeds: [ embed ],
-				ephemeral: true
-			} )
+			void interaction.editReply( { embeds: [ embed ] } )
 		}
 	}
 }
