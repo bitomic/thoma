@@ -3803,9 +3803,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sqlite3@npm:^5.0.7":
-  version: 5.0.7
-  resolution: "sqlite3@npm:5.0.7"
+"sqlite3@npm:^5.0.8":
+  version: 5.0.8
+  resolution: "sqlite3@npm:5.0.8"
   dependencies:
     "@mapbox/node-pre-gyp": ^1.0.0
     node-addon-api: ^4.2.0
@@ -3819,7 +3819,7 @@ __metadata:
   peerDependenciesMeta:
     node-gyp:
       optional: true
-  checksum: a5b8e3a71f989f830c2a1df1520e10f7347bf327563eaf6434f26600e1074d7ae1875a61b48305307a18972144c951fb753f2c7986abe16e848badeccef8479a
+  checksum: 6b19d4cad0f53e3df9745aa4b743b0f9388b9ca857e69e851a24336b8fe174381b84d7867bdbf4bc0b572c7e84ef1bb962d8bdc10b0aa18810bf9078536f3d49
   languageName: node
   linkType: hard
 
@@ -4003,7 +4003,7 @@ __metadata:
     node-cron: ^3.0.0
     rimraf: ^3.0.2
     sequelize: ^6.19.0
-    sqlite3: ^5.0.7
+    sqlite3: ^5.0.8
     ts-dotenv: ^0.8.3
     typescript: ^4.6.4
   languageName: unknown
