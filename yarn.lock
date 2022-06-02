@@ -1662,10 +1662,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord-api-types@npm:^0.33.1":
-  version: 0.33.1
-  resolution: "discord-api-types@npm:0.33.1"
-  checksum: dd1371c5b00312e5ef10f8664e0947c9e10b5b7d6b299f4e8aabb93d6eeddf6f93c6c189c88e9c7a7680d349436114d2baec9b2fbb79b4c72bfde2a3ec3ceaff
+"discord-api-types@npm:^0.33.2":
+  version: 0.33.2
+  resolution: "discord-api-types@npm:0.33.2"
+  checksum: 36991dae1ec90a09d5accb01debc96b84c9f6920178dc301e7c17701e539694dedd7ba514a18509d4af305d2244b19dbdcceef4f613bc5fb1669e9d96f70c8d0
   languageName: node
   linkType: hard
 
@@ -4095,7 +4095,7 @@ __metadata:
     "@types/node-cron": ^3.0.1
     "@typescript-eslint/eslint-plugin": ^5.27.0
     "@typescript-eslint/parser": ^5.27.0
-    discord-api-types: ^0.33.1
+    discord-api-types: ^0.33.2
     discord-modals: "patch:discord-modals@npm:1.2.6#.yarn/patches/discord-modals-npm-1.2.6-a9a2c91c52.patch"
     discord.js: ^13.6.0
     eslint: ^8.16.0
