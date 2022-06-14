@@ -543,12 +543,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/decorators@npm:^4.3.5":
-  version: 4.3.5
-  resolution: "@sapphire/decorators@npm:4.3.5"
+"@sapphire/decorators@npm:^4.3.6":
+  version: 4.3.6
+  resolution: "@sapphire/decorators@npm:4.3.6"
   dependencies:
     tslib: ^2.4.0
-  checksum: 4294e98da198664deb030281432ee642b2cda5603a21d3c36175efb8670392c1ed51c16f7586def72bde3b558cb9d4ab58695b405aa65742c38388459b2d70d9
+  checksum: 4a9b273e1dc2a86895df07c7ef169db293b15f331ecda10a9c15f96c2f50be94adb2896564944eacb0a99128fbe30c2e126128518b788df2c49bcc8e95617388
   languageName: node
   linkType: hard
 
@@ -4078,7 +4078,7 @@ __metadata:
     "@commitlint/config-conventional": ^17.0.2
     "@discordjs/rest": ^0.5.0
     "@octokit/core": ^3.6.0
-    "@sapphire/decorators": ^4.3.5
+    "@sapphire/decorators": ^4.3.6
     "@sapphire/framework": 2.4.1
     "@sapphire/pieces": 3.2.0
     "@sapphire/plugin-logger": ^2.2.1
