@@ -18,7 +18,7 @@
     "@discordjs/rest": "^0.5.0",
     "@octokit/core": "^3.6.0",
     "@sapphire/decorators": "^4.3.6",
-    "@sapphire/framework": "2.4.1",
+    "@sapphire/framework": "2.5.1",
     "@sapphire/pieces": "3.2.0",
     "@sapphire/plugin-logger": "^2.2.1",
     "@sapphire/utilities": "^3.6.2",
