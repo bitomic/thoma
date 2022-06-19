@@ -24,7 +24,7 @@
     "@sapphire/utilities": "^3.6.2",
     "discord-api-types": "^0.34.0",
     "discord-modals": "patch:discord-modals@npm:1.2.6#.yarn/patches/discord-modals-npm-1.2.6-a9a2c91c52.patch",
-    "discord.js": "^13.6.0",
+    "discord.js": "^13.8.0",
     "fs-extra": "^10.1.0",
     "mw.js": "^2.4.1",
     "node-cron": "^3.0.1",
