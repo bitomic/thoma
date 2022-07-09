@@ -779,7 +779,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.11.41":
+"@types/node@npm:^16.11.43":
   version: 16.11.43
   resolution: "@types/node@npm:16.11.43"
   checksum: 96d09e68347c49ebf84fe1443360edc3f98336f0794256abc8e4f29ef3070546357cae17083d6fd9767b631239367c4f245fe64accff4af057d17bd6694f0b2b
@@ -4118,7 +4118,7 @@ __metadata:
     "@sapphire/pieces": 3.3.4
     "@sapphire/utilities": ^3.7.0
     "@types/fs-extra": ^9.0.13
-    "@types/node": ^16.11.41
+    "@types/node": ^16.11.43
     "@types/node-cron": ^3.0.1
     "@typescript-eslint/eslint-plugin": ^5.28.0
     "@typescript-eslint/parser": ^5.28.0
