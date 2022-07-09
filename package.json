@@ -24,9 +24,9 @@
     "discord.js": "^13.8.1",
     "fs-extra": "^10.1.0",
     "mw.js": "^2.4.1",
+    "mysql2": "^2.3.3",
     "node-cron": "^3.0.1",
     "sequelize": "^6.21.0",
-    "sqlite3": "^5.0.8",
     "ts-dotenv": "^0.8.3"
   },
   "devDependencies": {
