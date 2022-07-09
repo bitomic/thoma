@@ -11,7 +11,6 @@ export const env = load( {
 		type: String
 	},
 	DISCORD_TOKEN: String,
-	GITHUB_PAT: String,
 	MYSQL_DATABASE: String,
 	MYSQL_HOST: String,
 	MYSQL_PASSWORD: String,

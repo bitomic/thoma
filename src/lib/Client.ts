@@ -2,7 +2,6 @@ import { container, LogLevel, SapphireClient } from '@sapphire/framework'
 import { Intents, Options } from 'discord.js'
 import { env } from './environment'
 import { ModelStore } from '../framework'
-import { Octokit } from '@octokit/core'
 import type { Sequelize } from 'sequelize'
 import { sequelize } from './Sequelize'
 
@@ -44,9 +43,6 @@ export class UserClient extends SapphireClient {
 				}
 			}
 		} )
-		container.octokit = new Octokit( {
-			auth: env.GITHUB_PAT
-		} )
 		container.sequelize = sequelize
 		container.stores.register( new ModelStore() )
 	}
@@ -58,7 +54,6 @@ export class UserClient extends SapphireClient {
 
 declare module '@sapphire/pieces' {
 	interface Container {
-		octokit: Octokit
 		sequelize: Sequelize
 	}
 }
