@@ -46,7 +46,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/cli@npm:^17.0.2":
+"@commitlint/cli@npm:^17.0.3":
   version: 17.0.3
   resolution: "@commitlint/cli@npm:17.0.3"
   dependencies:
@@ -66,7 +66,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/config-conventional@npm:^17.0.2":
+"@commitlint/config-conventional@npm:^17.0.3":
   version: 17.0.3
   resolution: "@commitlint/config-conventional@npm:17.0.3"
   dependencies:
@@ -4109,8 +4109,8 @@ __metadata:
   dependencies:
     "@bitomic/eslint-config": ^1.0.0
     "@bitomic/utilities": ^1.0.0
-    "@commitlint/cli": ^17.0.2
-    "@commitlint/config-conventional": ^17.0.2
+    "@commitlint/cli": ^17.0.3
+    "@commitlint/config-conventional": ^17.0.3
     "@discordjs/rest": ^0.5.0
     "@octokit/core": ^3.6.0
     "@sapphire/decorators": ^4.3.6
