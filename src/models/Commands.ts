@@ -81,6 +81,10 @@ export class CommandModel extends Model<ICommandInterface> {
 	public removeGuild( command: string, guild: string ): Promise<number> {
 		return this.model.destroy( { where: { entryType: 'guild', name: command, value: guild } } )
 	}
+
+	public truncate(): Promise<void> {
+		return this.model.truncate()
+	}
 }
 
 declare global {
