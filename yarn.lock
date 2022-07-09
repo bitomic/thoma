@@ -1439,7 +1439,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.18.0":
+"eslint@npm:^8.19.0":
   version: 8.19.0
   resolution: "eslint@npm:8.19.0"
   dependencies:
@@ -3305,7 +3305,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.28.0
     discord-api-types: ^0.34.0
     discord.js: ^13.8.1
-    eslint: ^8.18.0
+    eslint: ^8.19.0
     fs-extra: ^10.1.0
     husky: ^8.0.1
     lint-staged: ^13.0.2
