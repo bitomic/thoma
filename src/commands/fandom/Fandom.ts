@@ -1,11 +1,10 @@
 import type { ApplicationCommandRegistry, CommandOptions } from '@sapphire/framework'
-import { Command, RegisterBehavior } from '@sapphire/framework'
 import type { CommandInteraction, Guild, GuildTextBasedChannel, Message, Role } from 'discord.js'
 import { copyMessage, getInteractionChannel, getInteractionGuild, MessageButtonStyles, RoleTypes } from '../../utilities'
 import { MessageActionRow, MessageButton } from 'discord.js'
 import type { APIRole } from 'discord-api-types/v9'
 import { ApplyOptions } from '@sapphire/decorators'
-import { env } from '../../lib'
+import { Command } from '@sapphire/framework'
 import type { MessageButtonStyle } from '../../utilities'
 
 @ApplyOptions<CommandOptions>( {
@@ -14,7 +13,7 @@ import type { MessageButtonStyle } from '../../utilities'
 	name: 'fandom'
 } )
 export class UserCommand extends Command {
-	public override registerApplicationCommands( registry: ApplicationCommandRegistry ): void {
+	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {
 		registry.registerChatInputCommand(
 			builder => builder
 				.setName( this.name )
@@ -37,12 +36,8 @@ export class UserCommand extends Command {
 						.setName( 'estilo' )
 						.setDescription( 'Estilo del botón' )
 						.addChoices( ...MessageButtonStyles ) ) ),
-			{
-				...env.DISCORD_DEVELOPMENT_SERVER
-					? { guildIds: [ env.DISCORD_DEVELOPMENT_SERVER ] }
-					: {},
-				behaviorWhenNotIdentical: RegisterBehavior.Overwrite
-			}
+			await this.container.stores.get( 'models' ).get( 'commands' )
+				.getData( this.name )
 		)
 	}
 

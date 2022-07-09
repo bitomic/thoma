@@ -1,11 +1,10 @@
 import type { ApplicationCommandRegistry, CommandOptions } from '@sapphire/framework'
 import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, getInteractionMember, MessageButtonStyles } from '../../utilities'
-import { Command, RegisterBehavior } from '@sapphire/framework'
 import type { CommandInteraction, Message, MessageActionRow, MessageActionRowOptions, MessageButtonOptions, NewsChannel, TextChannel } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
 import { ChannelType } from 'discord-api-types/v9'
 import { chunkify } from '@bitomic/utilities'
-import { env } from '../../lib'
+import { Command } from '@sapphire/framework'
 import type { MessageButtonStyle } from '../../utilities'
 
 interface IRoleButton {
@@ -31,7 +30,7 @@ export class UserCommand extends Command {
 		mensaje: 'setMessage'
 	} as const
 
-	public override registerApplicationCommands( registry: ApplicationCommandRegistry ): void {
+	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {
 		registry.registerChatInputCommand(
 			builder => builder
 				.setName( this.name )
@@ -92,12 +91,8 @@ export class UserCommand extends Command {
 						.setName( 'rol' )
 						.setDescription( 'Rol cuyo botón será eliminado' )
 						.setRequired( true ) ) ),
-			{
-				...env.DISCORD_DEVELOPMENT_SERVER
-					? { guildIds: [ env.DISCORD_DEVELOPMENT_SERVER ] }
-					: {},
-				behaviorWhenNotIdentical: RegisterBehavior.Overwrite
-			}
+			await this.container.stores.get( 'models' ).get( 'commands' )
+				.getData( this.name )
 		)
 	}
 

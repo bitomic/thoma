@@ -23,7 +23,7 @@ export class ChannelModel extends Model<IChannelInterface> {
 		} )
 
 		this.model = this.container.sequelize.define<IChannelInterface>(
-			'KeyV',
+			'Channel',
 			{
 				channel: DataTypes.STRING,
 				guild: {
