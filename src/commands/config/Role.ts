@@ -1,6 +1,6 @@
 import type { ApplicationCommandRegistry, CommandOptions } from '@sapphire/framework'
 import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, getInteractionMember, MessageButtonStyles } from '../../utilities'
-import type { CommandInteraction, Message, MessageActionRow, MessageActionRowOptions, MessageButtonOptions, NewsChannel, TextChannel } from 'discord.js'
+import { type CommandInteraction, type Message, type MessageActionRow, type MessageActionRowOptions, type MessageButtonOptions, type NewsChannel, Permissions, type TextChannel } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
 import { ChannelType } from 'discord-api-types/v9'
 import { chunkify } from '@bitomic/utilities'
@@ -35,6 +35,8 @@ export class UserCommand extends Command {
 			builder => builder
 				.setName( this.name )
 				.setDescription( this.description )
+				.setDefaultMemberPermissions( Permissions.FLAGS.MANAGE_GUILD )
+				.setDMPermission( false )
 				.addSubcommand( input => input
 					.setName( 'ayuda' )
 					.setDescription( 'Consulta el mensaje de ayuda sobre cómo configurar los roles y botones.' ) )

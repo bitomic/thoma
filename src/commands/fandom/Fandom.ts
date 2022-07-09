@@ -18,6 +18,7 @@ export class UserCommand extends Command {
 			builder => builder
 				.setName( this.name )
 				.setDescription( this.description )
+				.setDMPermission( false )
 				.addSubcommand( input => input
 					.setName( 'rol' )
 					.setDescription( 'Configura el rol de verificados.' )
