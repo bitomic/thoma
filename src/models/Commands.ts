@@ -38,12 +38,20 @@ export class CommandModel extends Model<ICommandInterface> {
 		)
 	}
 
-	public addIdHint( command: string, idHint: string ): Promise<[ICommandInterface, boolean | null]> {
-		return this.model.upsert( { entryType: 'idHint', name: command, value: idHint } )
+	public async addIdHint( command: string, idHint: string ): Promise<boolean | null> {
+		const options = { entryType: 'idHint', name: command, value: idHint } as const
+		const exists = await this.model.findOne( { where: options } )
+		if ( exists ) return false
+		return this.model.upsert( options )
+			.then( response => response[ 1 ] )
 	}
 
-	public addGuild( command: string, guild: string ): Promise<[ICommandInterface, boolean | null]> {
+	public async addGuild( command: string, guild: string ): Promise<boolean | null> {
+		const options = { entryType: 'guild', name: command, value: guild } as const
+		const exists = await this.model.findOne( { where: options } )
+		if ( exists ) return false
 		return this.model.upsert( { entryType: 'guild', name: command, value: guild } )
+			.then( response => response[ 1 ] )
 	}
 
 	public async getData( command: string ): Promise<ApplicationCommandRegistry.RegisterOptions> {
@@ -51,7 +59,7 @@ export class CommandModel extends Model<ICommandInterface> {
 		const data: ApplicationCommandRegistry.RegisterOptions = {
 			behaviorWhenNotIdentical: RegisterBehavior.Overwrite
 		}
-		if ( env.NODE_ENV === 'development' && env.DISCORD_DEVELOPMENT_SERVER ) {
+		if ( env.NODE_ENV === 'development' ) {
 			data.guildIds = [ env.DISCORD_DEVELOPMENT_SERVER ]
 		}
 
