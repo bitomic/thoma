@@ -1,5 +1,4 @@
 import { ApplyOptions } from '@sapphire/decorators'
-import DiscordModals from 'discord-modals'
 import { Listener } from '@sapphire/framework'
 import type { ListenerOptions } from '@sapphire/framework'
 import path from 'path'
@@ -13,7 +12,6 @@ export class UserEvent extends Listener {
 	public async run(): Promise<void> {
 		this.container.logger.info( 'Ready!' )
 
-		DiscordModals( this.container.client )
 		await this.container.sequelize.sync()
 		await this.loadTasks()
 	}

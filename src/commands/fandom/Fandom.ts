@@ -1,53 +1,52 @@
+import type { ApplicationCommandRegistry, CommandOptions } from '@sapphire/framework'
+import { Command, RegisterBehavior } from '@sapphire/framework'
 import type { CommandInteraction, Guild, GuildTextBasedChannel, Message, Role } from 'discord.js'
 import { copyMessage, getInteractionChannel, getInteractionGuild, MessageButtonStyles, RoleTypes } from '../../utilities'
 import { MessageActionRow, MessageButton } from 'discord.js'
 import type { APIRole } from 'discord-api-types/v9'
 import { ApplyOptions } from '@sapphire/decorators'
-import { Command } from '@sapphire/framework'
-import type { CommandOptions } from '@sapphire/framework'
+import { env } from '../../lib'
 import type { MessageButtonStyle } from '../../utilities'
 
 @ApplyOptions<CommandOptions>( {
-	chatInputApplicationOptions: {
-		options: [
-			{
-				description: 'Configura el rol de verificados.',
-				name: 'rol',
-				options: [ {
-					description: 'Rol de usuarios verificados.',
-					name: 'rol',
-					required: true,
-					type: 'ROLE'
-				} ],
-				type: 'SUB_COMMAND'
-			},
-			{
-				description: 'Copia un mensaje para colocar el botón de verificaciones.',
-				name: 'mensaje',
-				options: [
-					{
-						description: 'Identificador del mensaje a copiar',
-						name: 'mensaje',
-						required: true,
-						type: 'STRING'
-					},
-					{
-						choices: MessageButtonStyles,
-						description: 'Estilo del botón',
-						name: 'estilo',
-						type: 'STRING'
-					}
-				],
-				type: 'SUB_COMMAND'
-			}
-		]
-	},
 	description: 'Configuración de la verificación usando la cuenta de Fandom.',
 	enabled: true,
 	name: 'fandom'
 } )
 export class UserCommand extends Command {
-	public override async chatInputApplicationRun( interaction: CommandInteraction ): Promise<void> {
+	public override registerApplicationCommands( registry: ApplicationCommandRegistry ): void {
+		registry.registerChatInputCommand(
+			builder => builder
+				.setName( this.name )
+				.setDescription( this.description )
+				.addSubcommand( input => input
+					.setName( 'rol' )
+					.setDescription( 'Configura el rol de verificados.' )
+					.addRoleOption( option => option
+						.setName( 'rol' )
+						.setDescription( 'Rol de usuarios verificados.' )
+						.setRequired( true ) ) )
+				.addSubcommand( input => input
+					.setName( 'mensaje' )
+					.setDescription( 'Copia un mensaje para colocar el botón de verificaciones.' )
+					.addStringOption( option => option
+						.setName( 'mensaje' )
+						.setDescription( 'Identificador del mensaje.' )
+						.setRequired( true ) )
+					.addStringOption( option => option
+						.setName( 'estilo' )
+						.setDescription( 'Estilo del botón' )
+						.addChoices( ...MessageButtonStyles ) ) ),
+			{
+				...env.DISCORD_DEVELOPMENT_SERVER
+					? { guildIds: [ env.DISCORD_DEVELOPMENT_SERVER ] }
+					: {},
+				behaviorWhenNotIdentical: RegisterBehavior.Overwrite
+			}
+		)
+	}
+
+	public override async chatInputRun( interaction: CommandInteraction ): Promise<void> {
 		if ( !interaction.inGuild() ) return
 
 		await interaction.deferReply( { ephemeral: true } )

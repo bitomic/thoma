@@ -1,5 +1,3 @@
-import '@bitomic/plugin-application-commands/register'
-import '@sapphire/plugin-logger/register'
 import { env, UserClient } from './lib'
 import { container } from '@sapphire/framework'
 

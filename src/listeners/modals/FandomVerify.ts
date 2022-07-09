@@ -1,20 +1,21 @@
 import { fandomVerify, getInteractionMember } from '../../utilities'
 import { ApplyOptions } from '@sapphire/decorators'
+import { Constants } from 'discord.js'
 import { Fandom } from 'mw.js'
 import { Listener } from '@sapphire/framework'
 import type { ListenerOptions } from '@sapphire/framework'
-import type { ModalSubmitInteraction } from 'discord-modals'
+import type { ModalSubmitInteraction } from 'discord.js'
 
 @ApplyOptions<ListenerOptions>( {
-	event: 'modalSubmit',
+	event: Constants.Events.INTERACTION_CREATE,
 	name: 'ModalFandomVerify'
 } )
 export class UserEvent extends Listener {
 	public async run( interaction: ModalSubmitInteraction ): Promise<void> {
-		if ( interaction.customId !== 'fandom-verify' || !interaction.inGuild() ) return
+		if ( !interaction.isModalSubmit() || interaction.customId !== 'fandom-verify' || !interaction.inGuild() ) return
 		await interaction.deferReply( { ephemeral: true } )
 
-		const username = interaction.getTextInputValue( 'username' )
+		const username = interaction.fields.getTextInputValue( 'username' )
 		const tag = await new Fandom().getUserDiscordTag( username )
 
 		if ( !tag ) {

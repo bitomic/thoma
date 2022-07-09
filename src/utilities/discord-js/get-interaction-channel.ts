@@ -1,7 +1,9 @@
 import type { CommandInteraction, GuildTextBasedChannel } from 'discord.js'
 import { getInteractionGuild } from './get-interaction-guild'
+import { InteractionNotInGuild } from '../../errors'
 
-export const getInteractionChannel = async ( interaction: CommandInteraction<'present'> ): Promise<GuildTextBasedChannel | null> => {
+export const getInteractionChannel = async ( interaction: CommandInteraction ): Promise<GuildTextBasedChannel | null> => {
+	if ( !interaction.channelId ) throw new InteractionNotInGuild()
 	let { channel } = interaction
 
 	if ( !channel ) {
@@ -10,5 +12,5 @@ export const getInteractionChannel = async ( interaction: CommandInteraction<'pr
 		if ( guildChannel?.isText() ) channel = guildChannel
 	}
 
-	return channel
+	return channel as GuildTextBasedChannel | null
 }

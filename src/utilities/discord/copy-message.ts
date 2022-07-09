@@ -1,9 +1,9 @@
-import type { GuildTextBasedChannel, Message, MessageActionRow, PartialWebhookFields, Webhook } from 'discord.js'
+import type { GuildTextBasedChannel, Message, MessageActionRowOptions, PartialWebhookFields, Webhook } from 'discord.js'
 import { container } from '@sapphire/framework'
 
 type WebhookMessage = ReturnType<PartialWebhookFields[ 'send' ]>
 
-export const copyMessage = async ( { channel, components, message, messageToEdit }: { channel: GuildTextBasedChannel, components?: MessageActionRow[], message: Message, messageToEdit?: string } ): Promise<WebhookMessage | null> => {
+export const copyMessage = async ( { channel, components, message, messageToEdit }: { channel: GuildTextBasedChannel, components?: Array<Required<MessageActionRowOptions>>, message: Message, messageToEdit?: string } ): Promise<WebhookMessage | null> => {
 	const { user } = container.client
 	if ( !user ) {
 		container.logger.error( 'User is not initialized.' )

@@ -1,9 +1,11 @@
+import type { ApplicationCommandRegistry, CommandOptions } from '@sapphire/framework'
 import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, getInteractionMember, MessageButtonStyles } from '../../utilities'
+import { Command, RegisterBehavior } from '@sapphire/framework'
 import type { CommandInteraction, Message, MessageActionRow, MessageActionRowOptions, MessageButtonOptions, NewsChannel, TextChannel } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
+import { ChannelType } from 'discord-api-types/v9'
 import { chunkify } from '@bitomic/utilities'
-import { Command } from '@sapphire/framework'
-import type { CommandOptions } from '@sapphire/framework'
+import { env } from '../../lib'
 import type { MessageButtonStyle } from '../../utilities'
 
 interface IRoleButton {
@@ -14,100 +16,6 @@ interface IRoleButton {
 }
 
 @ApplyOptions<CommandOptions>( {
-	chatInputApplicationOptions: {
-		options: [
-			{
-				description: 'Consulta el mensaje de ayuda sobre cómo configurar los roles y botones.',
-				name: 'ayuda',
-				type: 'SUB_COMMAND'
-			},
-			{
-				description: 'Define el canal donde se encuentra/encontrará el mensaje de roles.',
-				name: 'canal',
-				options: [ {
-					channelTypes: [ 'GUILD_TEXT' ],
-					description: 'Canal de roles',
-					name: 'canal',
-					required: true,
-					type: 'CHANNEL'
-				} ],
-				type: 'SUB_COMMAND'
-			},
-			{
-				description: 'Define el mensaje al que se le añadirán o quitarán roles.',
-				name: 'mensaje',
-				options: [ {
-					description: 'Identificador del mensaje',
-					name: 'mensaje',
-					required: true,
-					type: 'STRING'
-				} ],
-				type: 'SUB_COMMAND'
-			},
-			{
-				description: 'Copia un mensaje ya existente en el canal de roles.',
-				name: 'copiar-mensaje',
-				options: [ {
-					description: 'Identificador del mensaje',
-					name: 'mensaje',
-					required: true,
-					type: 'STRING'
-				} ],
-				type: 'SUB_COMMAND'
-			},
-			{
-				description: 'Edita el mensaje configurado usando el contenido de otro mensaje.',
-				name: 'editar-mensaje',
-				options: [ {
-					description: 'Identificador del mensaje',
-					name: 'mensaje',
-					required: true,
-					type: 'STRING'
-				} ],
-				type: 'SUB_COMMAND'
-			},
-			{
-				description: 'Agrega un botón para dar/quitar un rol.',
-				name: 'agregar-botón',
-				options: [
-					{
-						description: 'Rol a asignar',
-						name: 'rol',
-						required: true,
-						type: 'ROLE'
-					},
-					{
-						description: 'Texto del botón',
-						name: 'etiqueta',
-						type: 'STRING'
-					},
-					{
-						description: 'Emoji del botón',
-						name: 'emoji',
-						type: 'STRING'
-					},
-					{
-						choices: MessageButtonStyles,
-						description: 'Estilo del botón',
-						name: 'estilo',
-						type: 'STRING'
-					}
-				],
-				type: 'SUB_COMMAND'
-			},
-			{
-				description: 'Elimina un botón del mensaje configurado.',
-				name: 'eliminar-botón',
-				options: [ {
-					description: 'Rol cuyo botón será eliminado',
-					name: 'rol',
-					required: true,
-					type: 'ROLE'
-				} ],
-				type: 'SUB_COMMAND'
-			}
-		]
-	},
 	description: 'Configura roles conseguidos por botones.',
 	enabled: true,
 	name: 'roles'
@@ -123,7 +31,77 @@ export class UserCommand extends Command {
 		mensaje: 'setMessage'
 	} as const
 
-	public override async chatInputApplicationRun( interaction: CommandInteraction ): Promise<void> {
+	public override registerApplicationCommands( registry: ApplicationCommandRegistry ): void {
+		registry.registerChatInputCommand(
+			builder => builder
+				.setName( this.name )
+				.setDescription( this.description )
+				.addSubcommand( input => input
+					.setName( 'ayuda' )
+					.setDescription( 'Consulta el mensaje de ayuda sobre cómo configurar los roles y botones.' ) )
+				.addSubcommand( input => input
+					.setName( 'canal' )
+					.setDescription( 'Define el canal donde se encuentra/encontrará el mensaje de roles.' )
+					.addChannelOption( option => option
+						.setName( 'canal' )
+						.setDescription( 'Canal de roles' )
+						.addChannelTypes( ChannelType.GuildText )
+						.setRequired( true ) ) )
+				.addSubcommand( input => input
+					.setName( 'mensaje' )
+					.setDescription( 'Define el mensaje al que se le añadirán o quitarán roles.' )
+					.addStringOption( option => option
+						.setName( 'mensaje' )
+						.setDescription( 'Identificador del mensaje' )
+						.setRequired( true ) ) )
+				.addSubcommand( input => input
+					.setName( 'copiar-mensaje' )
+					.setDescription( 'Copia un mensaje ya existente en el canal de roles.' )
+					.addStringOption( option => option
+						.setName( 'mensaje' )
+						.setDescription( 'Identificador del mensaje' )
+						.setRequired( true ) ) )
+				.addSubcommand( input => input
+					.setName( 'editar-mensaje' )
+					.setDescription( 'Edita el mensaje configurado usando el contenido de otro mensaje.' )
+					.addStringOption( option => option
+						.setName( 'mensaje' )
+						.setDescription( 'Identificador del mensaje' )
+						.setRequired( true ) ) )
+				.addSubcommand( input => input
+					.setName( 'agregar-botón' )
+					.setDescription( 'Agrega un botón para dar/quitar un rol.' )
+					.addRoleOption( option => option
+						.setName( 'rol' )
+						.setDescription( 'Rol a asignar' )
+						.setRequired( true ) )
+					.addStringOption( option => option
+						.setName( 'etiqueta' )
+						.setDescription( 'Texto del botón' ) )
+					.addStringOption( option => option
+						.setName( 'emoji' )
+						.setDescription( 'Emoji del botón' ) )
+					.addStringOption( option => option
+						.setName( 'estilo' )
+						.setDescription( 'Estilo del botón' )
+						.addChoices( ...MessageButtonStyles ) ) )
+				.addSubcommand( input => input
+					.setName( 'eliminar-botón' )
+					.setDescription( 'Elimina un botón del mensaje configurado.' )
+					.addRoleOption( option => option
+						.setName( 'rol' )
+						.setDescription( 'Rol cuyo botón será eliminado' )
+						.setRequired( true ) ) ),
+			{
+				...env.DISCORD_DEVELOPMENT_SERVER
+					? { guildIds: [ env.DISCORD_DEVELOPMENT_SERVER ] }
+					: {},
+				behaviorWhenNotIdentical: RegisterBehavior.Overwrite
+			}
+		)
+	}
+
+	public override async chatInputRun( interaction: CommandInteraction ): Promise<void> {
 		if ( !interaction.inGuild() ) return
 
 		const subcommand = interaction.options.getSubcommand( true ) as keyof typeof UserCommand[ 'subcommandMappings' ]
@@ -156,13 +134,13 @@ export class UserCommand extends Command {
 		// eslint-disable-line @typescript-eslint/no-empty-function
 	}
 
-	public helpExecute( interaction: CommandInteraction<'present'> ): void {
+	public helpExecute( interaction: CommandInteraction<'cached' | 'raw'> ): void {
 		void interaction.editReply( {
 			content: 'TODO'
 		} )
 	}
 
-	public async setChannelExecute( interaction: CommandInteraction<'present'> ): Promise<void> {
+	public async setChannelExecute( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<void> {
 		const channel = interaction.options.getChannel( 'canal', true )
 		try {
 			await this.container.stores.get( 'models' ).get( 'channels' )
@@ -181,7 +159,7 @@ export class UserCommand extends Command {
 		}
 	}
 
-	public async setMessageExecute( interaction: CommandInteraction<'present'> ): Promise<void> {
+	public async setMessageExecute( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<void> {
 		const message = await this.getInteractionMessage( interaction )
 		if ( !message ) return
 
@@ -210,7 +188,7 @@ export class UserCommand extends Command {
 		} )
 	}
 
-	public async copyMessageExecute( interaction: CommandInteraction<'present'> ): Promise<void> {
+	public async copyMessageExecute( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<void> {
 		const message = await this.getInteractionMessage( interaction )
 		if ( !message ) return
 
@@ -229,7 +207,7 @@ export class UserCommand extends Command {
 		}
 	}
 
-	public async editMessageExecute( interaction: CommandInteraction<'present'> ): Promise<void> {
+	public async editMessageExecute( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<void> {
 		const templateMessage = await this.getInteractionMessage( interaction )
 		if ( !templateMessage ) return
 
@@ -255,7 +233,7 @@ export class UserCommand extends Command {
 		}
 	}
 
-	public async addButtonExecute( interaction: CommandInteraction<'present'> ): Promise<void> {
+	public async addButtonExecute( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<void> {
 		const role = interaction.options.getRole( 'rol', true )
 		const label = interaction.options.getString( 'etiqueta' )
 		const emoji = interaction.options.getString( 'emoji' )
@@ -326,7 +304,7 @@ export class UserCommand extends Command {
 		}
 	}
 
-	public async removeButtonExecute( interaction: CommandInteraction<'present'> ): Promise<void> {
+	public async removeButtonExecute( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<void> {
 		const role = interaction.options.getRole( 'rol', true )
 
 		const rolesMessage = await this.getRolesMessage( interaction )
@@ -364,7 +342,7 @@ export class UserCommand extends Command {
 		}
 	}
 
-	protected async getInteractionMessage( interaction: CommandInteraction<'present'> ): Promise<Message<boolean> | null> {
+	protected async getInteractionMessage( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<Message<boolean> | null> {
 		const [ messageId ] = interaction.options.getString( 'mensaje', true ).match( /\d+$/ ) ?? []
 		if ( !messageId ) {
 			void interaction.editReply( {
@@ -394,14 +372,14 @@ export class UserCommand extends Command {
 		return message
 	}
 
-	protected async getRolesChannel( interaction: CommandInteraction<'present'> ): Promise<NewsChannel | TextChannel | null> {
+	protected async getRolesChannel( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<NewsChannel | TextChannel | null> {
 		const channelId = await this.container.stores.get( 'models' ).get( 'channels' )
 			.get( interaction.guildId, ChannelTypes.Roles )
 		if ( channelId ) {
 			const guild = await getInteractionGuild( interaction )
 			const channel = await guild.channels.fetch( channelId )
 				.catch( () => null )
-			if ( channel?.isText() ) return channel
+			if ( channel?.isText() && channel.type !== 'GUILD_VOICE' ) return channel
 		}
 		void interaction.editReply( {
 			content: 'No has configurado el canal de roles.'
@@ -409,7 +387,7 @@ export class UserCommand extends Command {
 		return null
 	}
 
-	protected async getRolesMessage( interaction: CommandInteraction<'present'> ): Promise<Message<boolean> | null> {
+	protected async getRolesMessage( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<Message<boolean> | null> {
 		const channel = await this.getRolesChannel( interaction )
 		if ( channel ) {
 			const messageId = await this.container.stores.get( 'models' ).get( 'keyv' )

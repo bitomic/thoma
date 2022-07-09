@@ -1,10 +1,10 @@
 import { fandomVerify, getInteractionMember } from '../../utilities'
-import { Modal, showModal, TextInputComponent } from 'discord-modals'
 import { ApplyOptions } from '@sapphire/decorators'
 import { Constants } from 'discord.js'
 import type { Interaction } from 'discord.js'
 import { Listener } from '@sapphire/framework'
 import type { ListenerOptions } from '@sapphire/framework'
+import { Modal } from 'discord.js'
 
 @ApplyOptions<ListenerOptions>( {
 	event: Constants.Events.INTERACTION_CREATE,
@@ -26,20 +26,21 @@ export class UserEvent extends Listener {
 			} )
 			await interaction.editReply( { embeds: [ embed ] } )
 		} else {
-			const modal = new Modal()
-				.setCustomId( 'fandom-verify' )
-				.setTitle( 'Verifícate usando tu cuenta de Fandom' )
-				.addComponents(
-					new TextInputComponent()
-						.setCustomId( 'username' )
-						.setLabel( 'Nombre de usuario' )
-						.setRequired( true )
-						.setStyle( 'SHORT' )
-				)
-			showModal( modal, {
-				client: this.container.client,
-				interaction
+			const modal = new Modal( {
+				components: [ {
+					components: [ {
+						customId: 'username',
+						label: 'Nombre de usuario',
+						required: true,
+						style: 'SHORT',
+						type: 'TEXT_INPUT'
+					} ],
+					type: 'ACTION_ROW'
+				} ],
+				customId: 'fandom-verify',
+				title: 'Verifícate usando tu cuenta de Fandom'
 			} )
+			await interaction.showModal( modal )
 		}
 	}
 }
