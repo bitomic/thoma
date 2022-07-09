@@ -3316,6 +3316,7 @@ __metadata:
     sequelize: ^6.21.0
     ts-dotenv: ^0.8.3
     typescript: ^4.7.4
+    uuid: ^8.3.2
   languageName: unknown
   linkType: soft
 
