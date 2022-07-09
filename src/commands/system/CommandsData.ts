@@ -31,5 +31,12 @@ export class UserCommand extends Command {
 		for ( const [ id, command ] of commands ?? [] ) {
 			await commandsData.addIdHint( command.name, id )
 		}
+		const guilds = await this.container.client.guilds.fetch()
+		for ( const [ _, guild ] of guilds ) {
+			const guildCommands = await ( await guild.fetch() ).commands.fetch()
+			for ( const [ id, command ] of guildCommands ) {
+				await commandsData.addIdHint( command.name, id )
+			}
+		}
 	}
 }
