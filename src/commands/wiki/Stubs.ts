@@ -85,7 +85,7 @@ export class UserCommand extends Command {
 							{ name: 'Tamaño', value: `${ revision.size } caracteres` }
 						],
 						title: page.title,
-						url: wiki.getURL( page.title )
+						url: `https://genshin-impact.fandom.com/es/wiki/${ encodeURIComponent( page.title ) }`
 					} ]
 				} )
 				stubs.push( {
