@@ -1,5 +1,5 @@
 import { type ApplicationCommandRegistry, Command } from '@sapphire/framework'
-import { CommandInteraction, Permissions } from 'discord.js'
+import { type CommandInteraction, Permissions } from 'discord.js'
 import { Fandom, type FandomWiki, sleep } from 'mw.js'
 import { ApplyOptions } from '@sapphire/decorators'
 import type { CommandOptions } from '@sapphire/framework'
