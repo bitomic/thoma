@@ -1,7 +1,7 @@
 import { type ApplicationCommandRegistry, Command } from '@sapphire/framework'
+import { CommandInteraction, Permissions } from 'discord.js'
 import { Fandom, type FandomWiki, sleep } from 'mw.js'
 import { ApplyOptions } from '@sapphire/decorators'
-import type { CommandInteraction } from 'discord.js'
 import type { CommandOptions } from '@sapphire/framework'
 import { getInteractionChannel } from '../../utilities'
 import type { IStub } from '../../models/Stub'
@@ -20,7 +20,7 @@ interface IRevisionsResponse {
 }
 
 @ApplyOptions<CommandOptions>( {
-	description: 'Pong!',
+	description: 'Genera una lista de esbozos a revisar.',
 	enabled: true,
 	name: 'esbozos'
 } )
@@ -29,7 +29,8 @@ export class UserCommand extends Command {
 		registry.registerChatInputCommand(
 			builder => builder
 				.setName( this.name )
-				.setDescription( this.description ),
+				.setDescription( this.description )
+				.setDefaultMemberPermissions( Permissions.FLAGS.MANAGE_GUILD ),
 			await this.container.stores.get( 'models' ).get( 'commands' )
 				.getData( this.name )
 		)
@@ -42,9 +43,9 @@ export class UserCommand extends Command {
 
 		const models = this.container.stores.get( 'models' )
 
-		const wiki = Fandom.getWiki( 'es.clashofclans' )
+		const wiki = Fandom.getWiki( 'es.genshin-impact' )
 		const titles = await this.getStubs( wiki )
-		const group = await models.get( 'stubgroups' ).assert( interaction.guildId, interaction.channelId, 'es.clashofclans' )
+		const group = await models.get( 'stubgroups' ).assert( interaction.guildId, interaction.channelId, 'es.genshin-impact' )
 		const stubs: IStub[] = []
 		const existingStubs = ( await models.get( 'stubs' ).model.findAll( { where: { group } } ) )
 			.reduce( ( list, item ) => {
