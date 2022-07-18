@@ -5,6 +5,7 @@ import { ApplyOptions } from '@sapphire/decorators'
 import type { CommandOptions } from '@sapphire/framework'
 import { getInteractionChannel } from '../../utilities'
 import type { IStub } from '../../models/Stub'
+import { PermissionFlagsBits } from 'discord-api-types/v9'
 
 interface IRevisionsResponse {
 	query: {
@@ -30,7 +31,8 @@ export class UserCommand extends Command {
 			builder => builder
 				.setName( this.name )
 				.setDescription( this.description )
-				.setDefaultMemberPermissions( Permissions.FLAGS.MANAGE_GUILD ),
+				.setDMPermission( false )
+				.setDefaultMemberPermissions( PermissionFlagsBits.ManageGuild ),
 			await this.container.stores.get( 'models' ).get( 'commands' )
 				.getData( this.name )
 		)
