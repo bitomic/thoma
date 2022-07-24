@@ -299,6 +299,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@discordjs/collection@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@discordjs/collection@npm:1.0.0"
+  checksum: d8eafd35e782a6a2ee83a22c31679958bc827fce8cd5ffc7e5942cf681c96fd9543334b48c743ecda45179fcefa8d7be7a13f771d7f14effaec8a8ca25077031
+  languageName: node
+  linkType: hard
+
 "@discordjs/rest@npm:^0.6.0":
   version: 0.6.0
   resolution: "@discordjs/rest@npm:0.6.0"
@@ -467,7 +474,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/pieces@npm:3.3.4, @sapphire/pieces@npm:^3.2.0, @sapphire/pieces@npm:^3.3.4":
+"@sapphire/pieces@npm:3.3.5":
+  version: 3.3.5
+  resolution: "@sapphire/pieces@npm:3.3.5"
+  dependencies:
+    "@discordjs/collection": ^1.0.0
+    "@sapphire/utilities": ^3.7.0
+    tslib: ^2.4.0
+  checksum: fb86ab91a002dc85033cf160d0f4429930e4cc580323888c2e2032aedb7ca599ec69743071fd08baef228e9497930b8afff7d9c4d43427b47da1ba3a537666ab
+  languageName: node
+  linkType: hard
+
+"@sapphire/pieces@npm:^3.2.0, @sapphire/pieces@npm:^3.3.4":
   version: 3.3.4
   resolution: "@sapphire/pieces@npm:3.3.4"
   dependencies:
@@ -3400,7 +3418,7 @@ __metadata:
     "@discordjs/rest": ^0.6.0
     "@sapphire/decorators": ^4.3.8
     "@sapphire/framework": 3.0.0-next.fd7be0b.0
-    "@sapphire/pieces": 3.3.4
+    "@sapphire/pieces": 3.3.5
     "@sapphire/utilities": ^3.7.0
     "@types/fs-extra": ^9.0.13
     "@types/node": ^16.11.45
