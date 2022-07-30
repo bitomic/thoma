@@ -20,7 +20,7 @@
     "@sapphire/pieces": "3.3.4",
     "@sapphire/utilities": "^3.7.0",
     "discord-api-types": "^0.36.3",
-    "discord.js": "^13.9.1",
+    "discord.js": "^13.9.2",
     "fs-extra": "^10.1.0",
     "mw.js": "^2.4.1",
     "mysql2": "^2.3.3",
