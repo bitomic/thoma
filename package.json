@@ -16,7 +16,7 @@
     "@bitomic/utilities": "^1.0.0",
     "@discordjs/rest": "^0.6.0",
     "@sapphire/decorators": "^4.3.8",
-    "@sapphire/framework": "3.0.0-next.fd7be0b.0",
+    "@sapphire/framework": "3.0.0-pr-495.64f1b90.0",
     "@sapphire/pieces": "3.3.4",
     "@sapphire/utilities": "^3.7.0",
     "discord-api-types": "^0.36.3",
