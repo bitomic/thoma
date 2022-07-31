@@ -14,8 +14,10 @@ RUN apk add -u --no-cache \
 
 COPY --chown=node:node yarn.lock .
 COPY --chown=node:node package.json .
-COPY --chown=node:node .yarnrc-docker.yml .yarnrc.yml
 COPY --chown=node:node .yarn/ .yarn/
+COPY --chown=node:node .yarnrc.yml .
+# Remove global cache config line
+RUN echo "$(tail -n +2 .yarnrc.yml)" > .yarnrc.yml
 
 ENTRYPOINT [ "dumb-init", "--" ]
 
