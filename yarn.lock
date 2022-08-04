@@ -1355,10 +1355,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord-api-types@npm:^0.37.0":
-  version: 0.37.0
-  resolution: "discord-api-types@npm:0.37.0"
-  checksum: a411d1f5a04301507e095af4b311fdf31593f42e57ff5259eaf1b8e6f3a1828b5899c9a5123cae005cad567c765367fcf20d434154ecba3e6fcdd79e53aa9f20
+"discord-api-types@npm:^0.37.1":
+  version: 0.37.1
+  resolution: "discord-api-types@npm:0.37.1"
+  checksum: 4adfd605dae426299b537105f657b4649535f446202051aaef0ccbbaf024175bdbe868487119480ff094c8e479c2e424ce393f2595b16e1840cc0f3a555e510f
   languageName: node
   linkType: hard
 
@@ -3437,7 +3437,7 @@ __metadata:
     "@types/node-cron": ^3.0.2
     "@typescript-eslint/eslint-plugin": ^5.32.0
     "@typescript-eslint/parser": ^5.32.0
-    discord-api-types: ^0.37.0
+    discord-api-types: ^0.37.1
     discord.js: ^13.9.1
     eslint: ^8.21.0
     fs-extra: ^10.1.0
