@@ -24,7 +24,7 @@
     "fs-extra": "^10.1.0",
     "mw.js": "^2.4.1",
     "mysql2": "^2.3.3",
-    "node-cron": "^3.0.1",
+    "node-cron": "^3.0.2",
     "sequelize": "^6.21.3",
     "ts-dotenv": "^0.8.3",
     "uuid": "^8.3.2"
