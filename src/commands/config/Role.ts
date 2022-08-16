@@ -330,7 +330,7 @@ export class UserCommand extends Command {
 			} )
 
 			void interaction.editReply( {
-				content: 'Se ha añadido el botón exitosamente.'
+				content: 'Se ha eliminado el botón exitosamente.'
 			} )
 		} catch {
 			void interaction.editReply( {
