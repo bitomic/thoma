@@ -19,7 +19,7 @@
     "@sapphire/framework": "3.0.0-next.c6c1eee.0",
     "@sapphire/pieces": "3.3.4",
     "@sapphire/utilities": "^3.7.0",
-    "discord-api-types": "^0.37.2",
+    "discord-api-types": "^0.37.3",
     "discord.js": "^13.9.1",
     "fs-extra": "^10.1.0",
     "mw.js": "^2.4.1",
