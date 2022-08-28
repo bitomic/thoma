@@ -18,7 +18,7 @@ interface IRoleButton {
 	description: 'Configura roles conseguidos por botones.',
 	enabled: true,
 	name: 'roles'
-} )
+	} )
 export class UserCommand extends Command {
 	public static readonly subcommandMappings = {
 		'agregar-botón': 'addButton',

@@ -8,7 +8,7 @@ import type { ListenerOptions } from '@sapphire/framework'
 @ApplyOptions<ListenerOptions>( {
 	event: Constants.Events.INTERACTION_CREATE,
 	name: 'ButtonReviewStub'
-} )
+	} )
 export class UserEvent extends Listener {
 	public async run( interaction: Interaction ): Promise<void> {
 		if ( !interaction.isButton() || interaction.customId !== 'review-stub' || !interaction.inGuild() ) return

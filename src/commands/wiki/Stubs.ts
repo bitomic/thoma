@@ -24,7 +24,7 @@ interface IRevisionsResponse {
 	description: 'Genera una lista de esbozos a revisar.',
 	enabled: true,
 	name: 'esbozos'
-} )
+	} )
 export class UserCommand extends Command {
 	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {
 		registry.registerChatInputCommand(

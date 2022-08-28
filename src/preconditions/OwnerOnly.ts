@@ -6,7 +6,7 @@ import { Precondition } from '@sapphire/framework'
 
 @ApplyOptions<PreconditionOptions>( {
 	name: 'OwnerOnly'
-} )
+	} )
 export class UserPrecondition extends Precondition {
 	public run( message: Message ): PreconditionResult {
 		return message.author.id === env.DISCORD_OWNER

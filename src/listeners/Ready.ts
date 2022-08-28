@@ -7,7 +7,7 @@ import { TaskStore } from '../framework'
 @ApplyOptions<ListenerOptions>( {
 	event: 'ready',
 	once: true
-} )
+	} )
 export class UserEvent extends Listener {
 	public async run(): Promise<void> {
 		this.container.logger.info( 'Ready!' )

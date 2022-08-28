@@ -11,7 +11,7 @@ import type { MessageButtonStyle } from '../../utilities'
 	description: 'Configuración de la verificación usando la cuenta de Fandom.',
 	enabled: true,
 	name: 'fandom'
-} )
+	} )
 export class UserCommand extends Command {
 	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {
 		registry.registerChatInputCommand(
