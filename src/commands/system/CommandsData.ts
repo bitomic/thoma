@@ -8,7 +8,7 @@ import { env } from '../../lib'
 	description: 'Update the commands\'s ids in the database.',
 	enabled: true,
 	name: 'commands-data'
-	} )
+} )
 export class UserCommand extends Command {
 	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {
 		registry.registerChatInputCommand(

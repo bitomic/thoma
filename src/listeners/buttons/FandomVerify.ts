@@ -9,7 +9,7 @@ import { Modal } from 'discord.js'
 @ApplyOptions<ListenerOptions>( {
 	event: Constants.Events.INTERACTION_CREATE,
 	name: 'ButtonFandomVerify'
-	} )
+} )
 export class UserEvent extends Listener {
 	public async run( interaction: Interaction ): Promise<void> {
 		if ( !interaction.isButton() || interaction.customId !== 'fandom-verify' || !interaction.inGuild() ) return

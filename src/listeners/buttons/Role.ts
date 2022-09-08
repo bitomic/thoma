@@ -7,7 +7,7 @@ import type { ListenerOptions } from '@sapphire/framework'
 
 @ApplyOptions<ListenerOptions>( {
 	event: Constants.Events.INTERACTION_CREATE
-	} )
+} )
 export class UserEvent extends Listener {
 	public async run( interaction: Interaction ) {
 		if ( !interaction.isButton() || !interaction.inGuild() || !interaction.customId.startsWith( 'role-' ) ) return
