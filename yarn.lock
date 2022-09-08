@@ -642,10 +642,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node-cron@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "@types/node-cron@npm:3.0.2"
-  checksum: 921b1276c793ab6ae095436b8cde8d4d3ab02d8749011bd5b2006a4d921e206ae06de66edd9bccff4b1c09726bad16d9274c1ad104ab2d4370ad910f71cb9db2
+"@types/node-cron@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "@types/node-cron@npm:3.0.4"
+  checksum: 52d87ca7b64a941a2bfcca56dd823456d0cefacdfbfbed1c5d6ba92c8d60205ad0d42d14f676f96b12cc715f671a0392d82e82b79dda7e943398c996f86d2e33
   languageName: node
   linkType: hard
 
@@ -3445,7 +3445,7 @@ __metadata:
     "@sapphire/utilities": ^3.7.0
     "@types/fs-extra": ^9.0.13
     "@types/node": ^16.11.58
-    "@types/node-cron": ^3.0.2
+    "@types/node-cron": ^3.0.4
     "@typescript-eslint/eslint-plugin": ^5.36.0
     "@typescript-eslint/parser": ^5.36.0
     discord-api-types: ^0.37.5
