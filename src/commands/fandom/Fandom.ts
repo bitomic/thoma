@@ -1,9 +1,10 @@
 import type { ApplicationCommandRegistry, CommandOptions } from '@sapphire/framework'
-import type { CommandInteraction, Guild, GuildTextBasedChannel, Message, Role } from 'discord.js'
-import { copyMessage, getInteractionChannel, getInteractionGuild, MessageButtonStyles, RoleTypes } from '../../utilities'
+import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, MessageButtonStyles, RoleTypes } from '../../utilities'
+import type { CommandInteraction, Guild, GuildTextBasedChannel, Message, Role, TextChannel } from 'discord.js'
 import { MessageActionRow, MessageButton } from 'discord.js'
 import type { APIRole } from 'discord-api-types/v9'
 import { ApplyOptions } from '@sapphire/decorators'
+import { ChannelType } from 'discord-api-types/v10'
 import { Command } from '@sapphire/framework'
 import type { MessageButtonStyle } from '../../utilities'
 
@@ -36,7 +37,16 @@ export class UserCommand extends Command {
 					.addStringOption( option => option
 						.setName( 'estilo' )
 						.setDescription( 'Estilo del botón' )
-						.addChoices( ...MessageButtonStyles ) ) ),
+						.addChoices( ...MessageButtonStyles ) ) )
+				.addSubcommand( input => input
+					.setName( 'registros' )
+					.setDescription( 'Envía a un canal un mensaje cada vez que alguien se verifica.' )
+					.addChannelOption( option => option
+						.setName( 'canal' )
+						.setDescription( 'Canal de registros' )
+						.setRequired( true )
+						// @ts-expect-error - ChannelType is not assignable to ChannelType, ok
+						.addChannelTypes( ChannelType.GuildText ) ) ),
 			await this.container.stores.get( 'models' ).get( 'commands' )
 				.getData( this.name )
 		)
@@ -78,6 +88,34 @@ export class UserCommand extends Command {
 			const role = interaction.options.getRole( 'rol', true )
 			const reply = await this.setRole( guild, role )
 			void interaction.editReply( reply )
+		} else if ( subcommand === 'registros' ) { // eslint-disable-line @typescript-eslint/no-unnecessary-condition
+			if ( !this.container.client.user ) {
+				void interaction.editReply( {
+					content: 'Ha ocurrido un error, es posible que el bot todavía esté inicializándose...'
+				} )
+				return
+			}
+			const channel = interaction.options.getChannel( 'canal', true ) as TextChannel
+			const permissions = channel.permissionsFor( this.container.client.user, true )
+			if ( !permissions?.has( 'SEND_MESSAGES' ) ) {
+				void interaction.editReply( {
+					content: `No tengo permisos para enviar mensajes en <#${ channel.id }>.`
+				} )
+				return
+			}
+
+			await this.container.stores.get( 'models' ).get( 'channels' )
+				.set( {
+					channel: channel.id,
+					guild: interaction.guildId,
+					type: ChannelTypes.Logs
+				} )
+			void interaction.editReply( {
+				content: `Configuración guardada exitosamente. Enviaré un mensaje de prueba en <#${ channel.id }>.`
+			} )
+			void channel.send( {
+				content: `¡Hola! <@!${ interaction.user.id }> acaba de configurar este canal para los registros de verificación de Fandom.`
+			} )
 		} else {
 			void interaction.editReply( 'Has intentado usar un subcomando que no reconozco.' )
 		}

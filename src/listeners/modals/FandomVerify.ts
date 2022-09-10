@@ -36,7 +36,8 @@ export class UserEvent extends Listener {
 		const member = await getInteractionMember( interaction )
 		const embed = await fandomVerify( {
 			guildId: interaction.guildId,
-			member
+			member,
+			username
 		} )
 		void interaction.editReply( {
 			embeds: [ embed ]
