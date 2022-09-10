@@ -32,10 +32,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bitomic/eslint-config@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@bitomic/eslint-config@npm:1.0.0"
-  checksum: ae2757ac5b8062234b3d8cdfb80d281a55e4e583dbd2a2026e12eb98839ae3daad29e8e441e0c62b803e126ffb3d07eeed0794fe269e491f3259bd8608e59138
+"@bitomic/eslint-config@npm:1.1.0":
+  version: 1.1.0
+  resolution: "@bitomic/eslint-config@npm:1.1.0"
+  checksum: 7a4fd641bfd8d481f17b2ce64614c212f501fc3457da50efc18e0f7a440ef169af8b6fbc1da666b79e2cbc5c269c326313c6949edb4c37d86ae0f1007e641dc5
   languageName: node
   linkType: hard
 
@@ -4230,7 +4230,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "thoma@workspace:."
   dependencies:
-    "@bitomic/eslint-config": ^1.0.0
+    "@bitomic/eslint-config": 1.1.0
     "@bitomic/material-colors": ^1.0.0
     "@bitomic/utilities": ^1.0.0
     "@commitlint/cli": ^17.1.2
