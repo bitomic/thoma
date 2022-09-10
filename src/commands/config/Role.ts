@@ -2,7 +2,7 @@ import type { ApplicationCommandRegistry, CommandOptions } from '@sapphire/frame
 import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, getInteractionMember, MessageButtonStyles } from '../../utilities'
 import { type CommandInteraction, type Message, type MessageActionRow, type MessageActionRowOptions, type MessageButtonOptions, type NewsChannel, Permissions, type TextChannel } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
-import { ChannelType } from 'discord-api-types/v9'
+import { ChannelType } from 'discord-api-types/v10'
 import { chunkify } from '@bitomic/utilities'
 import { Command } from '@sapphire/framework'
 import type { MessageButtonStyle } from '../../utilities'
@@ -46,6 +46,7 @@ export class UserCommand extends Command {
 					.addChannelOption( option => option
 						.setName( 'canal' )
 						.setDescription( 'Canal de roles' )
+						// @ts-expect-error - ChannelType is not assignable to ChannelType, ok
 						.addChannelTypes( ChannelType.GuildText )
 						.setRequired( true ) ) )
 				.addSubcommand( input => input
