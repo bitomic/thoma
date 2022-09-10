@@ -45,8 +45,5 @@
     "rimraf": "^3.0.2",
     "typescript": "^4.8.3"
   },
-  "packageManager": "yarn@3.2.3",
-  "resolutions": {
-    "discord-modals@1.2.6": "patch:discord-modals@npm:1.2.6#.yarn/patches/discord-modals-npm-1.2.6-a9a2c91c52.patch"
-  }
+  "packageManager": "yarn@3.2.3"
 }
