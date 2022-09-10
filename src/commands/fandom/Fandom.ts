@@ -7,6 +7,7 @@ import { ApplyOptions } from '@sapphire/decorators'
 import { ChannelType } from 'discord-api-types/v10'
 import { Command } from '@sapphire/framework'
 import type { MessageButtonStyle } from '../../utilities'
+import { PermissionFlagsBits } from 'discord-api-types/v9'
 
 @ApplyOptions<CommandOptions>( {
 	description: 'Configuración de la verificación usando la cuenta de Fandom.',
@@ -20,6 +21,7 @@ export class UserCommand extends Command {
 				.setName( this.name )
 				.setDescription( this.description )
 				.setDMPermission( false )
+				.setDefaultMemberPermissions( PermissionFlagsBits.ManageGuild )
 				.addSubcommand( input => input
 					.setName( 'rol' )
 					.setDescription( 'Configura el rol de verificados.' )
