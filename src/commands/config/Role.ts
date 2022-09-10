@@ -46,7 +46,8 @@ export class UserCommand extends Command {
 					.addChannelOption( option => option
 						.setName( 'canal' )
 						.setDescription( 'Canal de roles' )
-						// @ts-expect-error - ChannelType is not assignable to ChannelType, ok
+						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+						// @ts-ignore - ChannelType is not assignable to ChannelType, ok
 						.addChannelTypes( ChannelType.GuildText )
 						.setRequired( true ) ) )
 				.addSubcommand( input => input

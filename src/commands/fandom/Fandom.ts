@@ -47,7 +47,8 @@ export class UserCommand extends Command {
 						.setName( 'canal' )
 						.setDescription( 'Canal de registros' )
 						.setRequired( true )
-						// @ts-expect-error - ChannelType is not assignable to ChannelType, ok
+						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+						// @ts-ignore - ChannelType is not assignable to ChannelType, ok
 						.addChannelTypes( ChannelType.GuildText ) ) ),
 			await this.container.stores.get( 'models' ).get( 'commands' )
 				.getData( this.name )
