@@ -1,6 +1,10 @@
 import { load } from 'ts-dotenv'
 
 export const env = load( {
+	DEFAULT_LANGUAGE: {
+		default: 'es-ES',
+		type: String
+	},
 	DISCORD_DEVELOPMENT_SERVER: String,
 	DISCORD_OWNER: String,
 	DISCORD_PREFIX: {

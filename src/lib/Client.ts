@@ -19,7 +19,7 @@ export class UserClient extends SapphireClient {
 						?? ( guild ? languages.get( guild.id ) : null )
 				},
 				i18next: {
-					fallbackLng: 'es-ES'
+					fallbackLng: env.DEFAULT_LANGUAGE
 				}
 			},
 			intents: [
