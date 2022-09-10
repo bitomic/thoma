@@ -18,7 +18,7 @@
     "@sapphire/decorators": "^4.3.8",
     "@sapphire/framework": "3.0.0-next.c6c1eee.0",
     "@sapphire/pieces": "3.3.4",
-    "@sapphire/utilities": "^3.7.0",
+    "@sapphire/utilities": "^3.9.3",
     "discord-api-types": "^0.37.8",
     "discord.js": "^13.9.1",
     "fs-extra": "^10.1.0",
