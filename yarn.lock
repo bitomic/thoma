@@ -785,13 +785,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node-cron@npm:^3.0.4":
-  version: 3.0.4
-  resolution: "@types/node-cron@npm:3.0.4"
-  checksum: 52d87ca7b64a941a2bfcca56dd823456d0cefacdfbfbed1c5d6ba92c8d60205ad0d42d14f676f96b12cc715f671a0392d82e82b79dda7e943398c996f86d2e33
-  languageName: node
-  linkType: hard
-
 "@types/node-fetch@npm:^2.6.2":
   version: 2.6.2
   resolution: "@types/node-fetch@npm:2.6.2"
@@ -3243,15 +3236,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-cron@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "node-cron@npm:3.0.2"
-  dependencies:
-    uuid: 8.3.2
-  checksum: dd21585c0d4069a0752022dad9b8380a4393c4783ec78355ffa99ff32b018c3743a35d4ebf9d7c7863949e94e302b440f58c884eb4960e71c7260d817e2d3f25
-  languageName: node
-  linkType: hard
-
 "node-fetch@npm:2.6.7, node-fetch@npm:^2.6.7":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
@@ -4260,7 +4244,6 @@ __metadata:
     "@sapphire/utilities": ^3.9.3
     "@types/fs-extra": ^9.0.13
     "@types/node": ^16.11.58
-    "@types/node-cron": ^3.0.4
     "@typescript-eslint/eslint-plugin": ^5.36.2
     "@typescript-eslint/parser": ^5.36.2
     bullmq: ^1.90.1
@@ -4272,12 +4255,10 @@ __metadata:
     lint-staged: ^13.0.3
     mw.js: ^2.4.1
     mysql2: ^2.3.3
-    node-cron: ^3.0.2
     rimraf: ^3.0.2
     sequelize: ^6.21.6
     ts-dotenv: ^0.8.3
     typescript: ^4.8.3
-    uuid: ^8.3.2
   languageName: unknown
   linkType: soft
 
@@ -4582,7 +4563,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:8.3.2, uuid@npm:^8.3.2":
+"uuid@npm:^8.3.2":
   version: 8.3.2
   resolution: "uuid@npm:8.3.2"
   bin:

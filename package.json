@@ -28,10 +28,8 @@
     "fs-extra": "^10.1.0",
     "mw.js": "^2.4.1",
     "mysql2": "^2.3.3",
-    "node-cron": "^3.0.2",
     "sequelize": "^6.21.6",
-    "ts-dotenv": "^0.8.3",
-    "uuid": "^8.3.2"
+    "ts-dotenv": "^0.8.3"
   },
   "devDependencies": {
     "@bitomic/eslint-config": "^1.0.0",
@@ -39,7 +37,6 @@
     "@commitlint/config-conventional": "^17.1.0",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^16.11.58",
-    "@types/node-cron": "^3.0.4",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "eslint": "^8.23.0",
