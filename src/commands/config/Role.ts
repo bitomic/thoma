@@ -1,11 +1,9 @@
-import type { ApplicationCommandRegistry, CommandOptions } from '@sapphire/framework'
-import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, getInteractionMember, MessageButtonStyles } from '../../utilities'
+import { type ApplicationCommandRegistry, Command, type CommandOptions } from '@sapphire/framework'
+import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, getInteractionMember, type MessageButtonStyle, MessageButtonStyles } from '../../utilities'
 import { type CommandInteraction, type Message, type MessageActionRow, type MessageActionRowOptions, type MessageButtonOptions, type NewsChannel, Permissions, type TextChannel } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
 import { ChannelType } from 'discord-api-types/v10'
 import { chunkify } from '@bitomic/utilities'
-import { Command } from '@sapphire/framework'
-import type { MessageButtonStyle } from '../../utilities'
 
 interface IRoleButton {
 	buttonStyle: MessageButtonStyle

@@ -1,8 +1,7 @@
-import type { PreconditionOptions, PreconditionResult } from '@sapphire/framework'
 import { ApplyOptions } from '@sapphire/decorators'
 import { env } from '../lib'
 import type { Message } from 'discord.js'
-import { Precondition } from '@sapphire/framework'
+import { Precondition, type PreconditionOptions, type PreconditionResult } from '@sapphire/framework'
 
 @ApplyOptions<PreconditionOptions>( {
 	name: 'OwnerOnly'

@@ -1,6 +1,5 @@
-import type { ModelStatic, Optional, Model as SequelizeModel } from 'sequelize'
+import { DataTypes, type ModelStatic, type Optional, type Model as SequelizeModel } from 'sequelize'
 import type { PieceContext, PieceOptions } from '@sapphire/pieces'
-import { DataTypes } from 'sequelize'
 import { Model } from '../framework'
 
 interface IStubGroup {

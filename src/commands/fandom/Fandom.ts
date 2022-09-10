@@ -1,13 +1,9 @@
-import type { ApplicationCommandRegistry, CommandOptions } from '@sapphire/framework'
-import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, MessageButtonStyles, RoleTypes } from '../../utilities'
-import type { CommandInteraction, Guild, GuildTextBasedChannel, Message, Role, TextChannel } from 'discord.js'
-import { MessageActionRow, MessageButton } from 'discord.js'
-import type { APIRole } from 'discord-api-types/v9'
+import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, type MessageButtonStyle, MessageButtonStyles, RoleTypes } from '../../utilities'
+import { type CommandInteraction, type Guild, type GuildTextBasedChannel, type Message, MessageActionRow, MessageButton, type Role, type TextChannel } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
 import { ChannelType } from 'discord-api-types/v10'
-import { Command } from '@sapphire/framework'
-import type { MessageButtonStyle } from '../../utilities'
-import { PermissionFlagsBits } from 'discord-api-types/v9'
+import { type ApplicationCommandRegistry, Command, type CommandOptions } from '@sapphire/framework'
+import { type APIRole, PermissionFlagsBits } from 'discord-api-types/v9'
 
 @ApplyOptions<CommandOptions>( {
 	description: 'Configuración de la verificación usando la cuenta de Fandom.',

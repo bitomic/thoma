@@ -1,7 +1,6 @@
-import { type ApplicationCommandRegistry, Command } from '@sapphire/framework'
+import { type ApplicationCommandRegistry, Command, type CommandOptions } from '@sapphire/framework'
 import type { CommandInteraction, Message } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
-import type { CommandOptions } from '@sapphire/framework'
 
 @ApplyOptions<CommandOptions>( {
 	description: 'Pong!',

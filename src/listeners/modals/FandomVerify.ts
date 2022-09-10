@@ -1,10 +1,8 @@
 import { fandomVerify, getInteractionMember } from '../../utilities'
 import { ApplyOptions } from '@sapphire/decorators'
-import { Constants } from 'discord.js'
+import { Constants, type ModalSubmitInteraction } from 'discord.js'
 import { Fandom } from 'mw.js'
-import { Listener } from '@sapphire/framework'
-import type { ListenerOptions } from '@sapphire/framework'
-import type { ModalSubmitInteraction } from 'discord.js'
+import { Listener, type ListenerOptions } from '@sapphire/framework'
 
 @ApplyOptions<ListenerOptions>( {
 	event: Constants.Events.INTERACTION_CREATE,

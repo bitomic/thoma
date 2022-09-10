@@ -1,6 +1,5 @@
 import { getInteractionGuild } from './get-interaction-guild'
-import { GuildMember } from 'discord.js'
-import type { Interaction } from 'discord.js'
+import { GuildMember, type Interaction } from 'discord.js'
 
 export const getInteractionMember = async ( interaction: Interaction ): Promise<GuildMember> => {
 	if ( interaction.member instanceof GuildMember ) return interaction.member

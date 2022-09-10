@@ -1,7 +1,6 @@
-import type { ModelStatic, Model as SequelizeModel } from 'sequelize'
+import { DataTypes, type ModelStatic, type Model as SequelizeModel } from 'sequelize'
 import type { PieceContext, PieceOptions } from '@sapphire/pieces'
 import type { ChannelTypes } from '../utilities'
-import { DataTypes } from 'sequelize'
 import { Model } from '../framework'
 
 interface IChannel {
