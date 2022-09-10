@@ -1,4 +1,4 @@
-import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, type MessageButtonStyle, MessageButtonStyles, RoleTypes } from '../../utilities'
+import { ChannelTypes, copyMessage, getCommand, getInteractionChannel, getInteractionGuild, type MessageButtonStyle, MessageButtonStyles, RoleTypes } from '../../utilities'
 import { type CommandInteraction, type Guild, type GuildTextBasedChannel, type Message, MessageActionRow, MessageButton, type Role, type TextChannel } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
 import { ChannelType } from 'discord-api-types/v10'
@@ -6,9 +6,8 @@ import { type ApplicationCommandRegistry, Command, type CommandOptions } from '@
 import { type APIRole, PermissionFlagsBits } from 'discord-api-types/v9'
 
 @ApplyOptions<CommandOptions>( {
-	description: 'Configuración de la verificación usando la cuenta de Fandom.',
 	enabled: true,
-	name: 'fandom'
+	...getCommand( 'fandom.fandom' )
 } )
 export class UserCommand extends Command {
 	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {

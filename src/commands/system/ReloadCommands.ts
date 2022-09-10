@@ -2,11 +2,11 @@ import { type ApplicationCommandRegistry, Command, type CommandOptions } from '@
 import { ApplyOptions } from '@sapphire/decorators'
 import type { CommandInteraction } from 'discord.js'
 import { env } from '../../lib'
+import { getCommand } from '../../utilities'
 
 @ApplyOptions<CommandOptions>( {
-	description: 'Reload all application commands.',
 	enabled: true,
-	name: 'reload-commands'
+	...getCommand( 'system.reload-commands' )
 } )
 export class UserCommand extends Command {
 	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {

@@ -2,11 +2,11 @@ import { type ApplicationCommandRegistry, Command, type CommandOptions } from '@
 import { ApplyOptions } from '@sapphire/decorators'
 import type { CommandInteraction } from 'discord.js'
 import { env } from '../../lib'
+import { getCommand } from '../../utilities'
 
 @ApplyOptions<CommandOptions>( {
-	description: 'Update the commands\'s ids in the database.',
 	enabled: true,
-	name: 'commands-data'
+	...getCommand( 'system.commands-data' )
 } )
 export class UserCommand extends Command {
 	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {

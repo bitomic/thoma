@@ -1,11 +1,11 @@
 import { type ApplicationCommandRegistry, Command, type CommandOptions } from '@sapphire/framework'
 import type { CommandInteraction, Message } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
+import { getCommand } from '../../utilities'
 
 @ApplyOptions<CommandOptions>( {
-	description: 'Pong!',
 	enabled: true,
-	name: 'ping'
+	...getCommand( 'system.ping' )
 } )
 export class UserCommand extends Command {
 	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {
