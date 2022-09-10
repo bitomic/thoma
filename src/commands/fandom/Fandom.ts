@@ -47,7 +47,7 @@ export class UserCommand extends Command {
 						.setName( 'canal' )
 						.setDescription( 'Canal de registros' )
 						.setRequired( true )
-						.addChannelTypes( ChannelType.GuildText ) ) ),
+						.addChannelTypes( {} ) ) ),
 			await this.container.stores.get( 'models' ).get( 'commands' )
 				.getData( this.name )
 		)
