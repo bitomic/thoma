@@ -24,7 +24,7 @@
     "@sapphire/utilities": "^3.9.3",
     "bullmq": "^1.90.1",
     "discord-api-types": "^0.37.8",
-    "discord.js": "^13.9.1",
+    "discord.js": "^13.10.3",
     "fs-extra": "^10.1.0",
     "mw.js": "^2.4.1",
     "mysql2": "^2.3.3",
