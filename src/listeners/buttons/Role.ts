@@ -1,7 +1,8 @@
-import { Colors, getInteractionMemberRoles } from '../../utilities'
 import { Constants, type Interaction, MessageEmbed } from 'discord.js'
-import { ApplyOptions } from '@sapphire/decorators'
 import { Listener, type ListenerOptions } from '@sapphire/framework'
+import { ApplyOptions } from '@sapphire/decorators'
+import { Colors } from '@bitomic/material-colors'
+import { getInteractionMemberRoles } from '../../utilities'
 
 @ApplyOptions<ListenerOptions>( {
 	event: Constants.Events.INTERACTION_CREATE
@@ -24,13 +25,13 @@ export class UserEvent extends Listener {
 				action = 'añadido'
 			}
 			const embed = new MessageEmbed( {
-				color: Colors.green[ 10 ],
+				color: Colors.green.s800,
 				description: `Se ha ${ action } el rol <@&${ roleId }> exitosamente.`,
 			} )
 			void interaction.editReply( { embeds: [ embed ] } )
 		} catch {
 			const embed = new MessageEmbed( {
-				color: Colors.red[ 10 ],
+				color: Colors.red.s800,
 				description: 'Ha ocurrido un error al intentar actualizar tus roles. Intentalo de nuevo más tarde.',
 			} )
 			void interaction.editReply( { embeds: [ embed ] } )
