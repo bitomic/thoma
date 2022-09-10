@@ -10,6 +10,18 @@ export class UserClient extends SapphireClient {
 	public constructor() {
 		super( {
 			defaultPrefix: env.DISCORD_PREFIX ?? '!',
+			i18n: {
+				fetchLanguage: ( { guild, interactionGuildLocale, interactionLocale, user } ) => {
+					const languages = container.stores.get( 'models' ).get( 'languages' )
+					return interactionGuildLocale
+						?? interactionLocale
+						?? ( user ? languages.get( user.id ) : null )
+						?? ( guild ? languages.get( guild.id ) : null )
+				},
+				i18next: {
+					fallbackLng: 'en-US'
+				}
+			},
 			intents: [
 				Intents.FLAGS.GUILDS,
 				Intents.FLAGS.GUILD_MESSAGES
