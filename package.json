@@ -10,7 +10,7 @@
     "build:watch": "yarn tsc -w --incremental",
     "lint": "eslint src/ --ext .ts --cache",
     "lint:fix": "eslint src/ --fix --ext .ts --cache",
-    "start": "yarn node --enable-source-maps dist/main.js"
+    "start": "doppler run -- yarn node --enable-source-maps dist/main.js"
   },
   "dependencies": {
     "@bitomic/material-colors": "^1.0.0",
