@@ -1,27 +1,15 @@
-import { type ApplicationCommandRegistry, Command, type CommandOptions } from '@sapphire/framework'
+import { Command, type CommandOptions } from '../../framework'
 import { ApplyOptions } from '@sapphire/decorators'
 import type { CommandInteraction } from 'discord.js'
 import { env } from '../../lib'
-import { getCommand } from '../../utilities'
 
 @ApplyOptions<CommandOptions>( {
+	dm: false,
 	enabled: true,
-	...getCommand( 'system.reload-commands' )
+	guildIds: [ env.DISCORD_DEVELOPMENT_SERVER ],
+	name: 'commands-data'
 } )
 export class UserCommand extends Command {
-	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {
-		registry.registerChatInputCommand(
-			builder => builder
-				.setName( this.name )
-				.setDescription( this.description ),
-			{
-				...await this.container.stores.get( 'models' ).get( 'commands' )
-					.getData( this.name ),
-				guildIds: [ env.DISCORD_DEVELOPMENT_SERVER ]
-			}
-		)
-	}
-
 	public override async chatInputRun( interaction: CommandInteraction ): Promise<void> {
 		const t1 = Date.now()
 		await interaction.reply( ':hourglass_flowing_sand: Removing commands. This may take a while...' )

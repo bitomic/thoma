@@ -1,8 +1,7 @@
-import { type ApplicationCommandRegistry, Command, type CommandOptions } from '@sapphire/framework'
-import { ChannelTypes, copyMessage, getCommand, getInteractionChannel, getInteractionGuild, getInteractionMember, type MessageButtonStyle, MessageButtonStyles } from '../../utilities'
+import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, getInteractionMember, type MessageButtonStyle, MessageButtonStyles } from '../../utilities'
+import { Command, type CommandOptions } from '../../framework'
 import { type CommandInteraction, type Message, type MessageActionRow, type MessageActionRowOptions, type MessageButtonOptions, type NewsChannel, Permissions, type TextChannel } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
-import { ChannelType } from 'discord-api-types/v10'
 import { chunkify } from '@bitomic/utilities'
 
 interface IRoleButton {
@@ -12,95 +11,132 @@ interface IRoleButton {
 	role: string
 }
 
-@ApplyOptions<CommandOptions>( {
-	enabled: true,
-	...getCommand( 'config.role' )
-} )
-export class UserCommand extends Command {
-	public static readonly subcommandMappings = {
-		'agregar-botón': 'addButton',
-		ayuda: 'help',
-		canal: 'setChannel',
-		'copiar-mensaje': 'copyMessage',
-		'editar-mensaje': 'editMessage',
-		'eliminar-botón': 'removeButton',
-		mensaje: 'setMessage'
-	} as const
+enum Subcommands {
+	addbutton = 'addbutton',
+	channel = 'channel',
+	copymessage = 'copymessage',
+	editmessage = 'editmessage',
+	help = 'help',
+	message = 'message',
+	removebutton = 'removebutton'
+}
 
-	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {
-		registry.registerChatInputCommand(
-			builder => builder
-				.setName( this.name )
-				.setDescription( this.description )
-				.setDefaultMemberPermissions( Permissions.FLAGS.MANAGE_GUILD )
-				.setDMPermission( false )
-				.addSubcommand( input => input
-					.setName( 'ayuda' )
-					.setDescription( 'Consulta el mensaje de ayuda sobre cómo configurar los roles y botones.' ) )
-				.addSubcommand( input => input
-					.setName( 'canal' )
-					.setDescription( 'Define el canal donde se encuentra/encontrará el mensaje de roles.' )
-					.addChannelOption( option => option
-						.setName( 'canal' )
-						.setDescription( 'Canal de roles' )
-						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-						// @ts-ignore - ChannelType is not assignable to ChannelType, ok
-						.addChannelTypes( ChannelType.GuildText )
-						.setRequired( true ) ) )
-				.addSubcommand( input => input
-					.setName( 'mensaje' )
-					.setDescription( 'Define el mensaje al que se le añadirán o quitarán roles.' )
-					.addStringOption( option => option
-						.setName( 'mensaje' )
-						.setDescription( 'Identificador del mensaje' )
-						.setRequired( true ) ) )
-				.addSubcommand( input => input
-					.setName( 'copiar-mensaje' )
-					.setDescription( 'Copia un mensaje ya existente en el canal de roles.' )
-					.addStringOption( option => option
-						.setName( 'mensaje' )
-						.setDescription( 'Identificador del mensaje' )
-						.setRequired( true ) ) )
-				.addSubcommand( input => input
-					.setName( 'editar-mensaje' )
-					.setDescription( 'Edita el mensaje configurado usando el contenido de otro mensaje.' )
-					.addStringOption( option => option
-						.setName( 'mensaje' )
-						.setDescription( 'Identificador del mensaje' )
-						.setRequired( true ) ) )
-				.addSubcommand( input => input
-					.setName( 'agregar-botón' )
-					.setDescription( 'Agrega un botón para dar/quitar un rol.' )
-					.addRoleOption( option => option
-						.setName( 'rol' )
-						.setDescription( 'Rol a asignar' )
-						.setRequired( true ) )
-					.addStringOption( option => option
-						.setName( 'etiqueta' )
-						.setDescription( 'Texto del botón' ) )
-					.addStringOption( option => option
-						.setName( 'emoji' )
-						.setDescription( 'Emoji del botón' ) )
-					.addStringOption( option => option
-						.setName( 'estilo' )
-						.setDescription( 'Estilo del botón' )
-						.addChoices( ...MessageButtonStyles ) ) )
-				.addSubcommand( input => input
-					.setName( 'eliminar-botón' )
-					.setDescription( 'Elimina un botón del mensaje configurado.' )
-					.addRoleOption( option => option
-						.setName( 'rol' )
-						.setDescription( 'Rol cuyo botón será eliminado' )
-						.setRequired( true ) ) ),
-			await this.container.stores.get( 'models' ).get( 'commands' )
-				.getData( this.name )
-		)
+enum SubcommandOptions {
+	'addbutton-emoji' = 'addbutton-emoji',
+	'addbutton-label' = 'addbutton-label',
+	'addbutton-role' = 'addbutton-role',
+	'addbutton-style' = 'addbutton-style',
+
+	'copymessage-message' = 'copymessage-message',
+
+	'channel-channel' = 'channel-channel',
+
+	'editmessage-message' = 'editmessage-message',
+
+	'message-message' = 'message-message',
+
+	'removebutton-role' = 'removebutton-role'
+}
+
+@ApplyOptions<CommandOptions>( {
+	defaultMemberPermissions: Permissions.FLAGS.MANAGE_GUILD,
+	dm: false,
+	name: 'role'
+} )
+export class UserCommand extends Command<Subcommands | SubcommandOptions> {
+	protected override setOptions(): void {
+		this.applicationCommandBase.options = [
+			this.getOption( {
+				name: Subcommands.help,
+				type: 'SUB_COMMAND'
+			} ),
+			this.getOption( {
+				name: Subcommands.channel,
+				options: [ this.getOption( {
+					channelTypes: [ 'GUILD_TEXT' ],
+					name: SubcommandOptions[ 'channel-channel' ],
+					required: true,
+					type: 'CHANNEL'
+				} ) ],
+				type: 'SUB_COMMAND'
+			} ),
+			this.getOption( {
+				name: Subcommands.message,
+				options: [ this.getOption( {
+					name: SubcommandOptions[ 'message-message' ],
+					required: true,
+					type: 'STRING'
+				} ) ],
+				type: 'SUB_COMMAND'
+			} ),
+			this.getOption( {
+				name: Subcommands.copymessage,
+				options: [ this.getOption( {
+					name: SubcommandOptions[ 'copymessage-message' ],
+					required: true,
+					type: 'STRING'
+				} ) ],
+				type: 'SUB_COMMAND'
+			} ),
+			this.getOption( {
+				name: Subcommands.editmessage,
+				options: [ this.getOption( {
+					name: SubcommandOptions[ 'editmessage-message' ],
+					required: true,
+					type: 'STRING'
+				} ) ],
+				type: 'SUB_COMMAND'
+			} ),
+			this.getOption( {
+				name: Subcommands.addbutton,
+				options: [
+					this.getOption( {
+						name: SubcommandOptions[ 'addbutton-role' ],
+						required: true,
+						type: 'ROLE'
+					} ),
+					this.getOption( {
+						name: SubcommandOptions[ 'addbutton-label' ],
+						type: 'STRING'
+					} ),
+					this.getOption( {
+						name: SubcommandOptions[ 'addbutton-emoji' ],
+						type: 'STRING'
+					} ),
+					this.getOption( {
+						choices: MessageButtonStyles,
+						name: SubcommandOptions[ 'addbutton-style' ],
+						type: 'STRING'
+					} )
+				],
+				type: 'SUB_COMMAND'
+			} ),
+			this.getOption( {
+				name: Subcommands.removebutton,
+				options: [ this.getOption( {
+					name: SubcommandOptions[ 'removebutton-role' ],
+					required: true,
+					type: 'ROLE'
+				} ) ],
+				type: 'SUB_COMMAND'
+			} )
+		]
 	}
 
 	public override async chatInputRun( interaction: CommandInteraction ): Promise<void> {
 		if ( !interaction.inGuild() ) return
 
-		const subcommand = interaction.options.getSubcommand( true ) as keyof typeof UserCommand[ 'subcommandMappings' ]
+		const subcommandMappings = {
+			[ this.keysRealValues.addbutton ]: 'addButton',
+			[ this.keysRealValues.help ]: 'help',
+			[ this.keysRealValues.channel ]: 'setChannel',
+			[ this.keysRealValues.copymessage ]: 'copyMessage',
+			[ this.keysRealValues.editmessage ]: 'editMessage',
+			[ this.keysRealValues.removebutton ]: 'removeButton',
+			[ this.keysRealValues.message ]: 'setMessage'
+		} as const
+
+		const subcommand = interaction.options.getSubcommand( true ) as keyof typeof subcommandMappings
 
 		if ( subcommand !== 'ayuda' ) {
 			const member = await getInteractionMember( interaction )
@@ -113,21 +149,15 @@ export class UserCommand extends Command {
 			}
 		}
 
-		if ( !( subcommand in UserCommand.subcommandMappings ) ) {
-			void interaction.reply( {
-				content: 'Has intentado usar un comando que no reconozco.',
-				ephemeral: true
-			} )
-			return
-		}
-
 		await interaction.deferReply()
-		const subcommandName = UserCommand.subcommandMappings[ subcommand ]
-		await this[ `${ subcommandName }Execute` ]( interaction )
-	}
-
-	public override messageRun(): void {
-		// eslint-disable-line @typescript-eslint/no-empty-function
+		const subcommandName = subcommandMappings[ subcommand ]
+		if ( subcommandName ) {
+			await this[ `${ subcommandName }Execute` ]( interaction )
+		} else {
+			void interaction.editReply( {
+				content: 'Has intentado usar un comando que no reconozco.'
+			} )
+		}
 	}
 
 	public helpExecute( interaction: CommandInteraction<'cached' | 'raw'> ): void {

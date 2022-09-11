@@ -1,53 +1,69 @@
-import { ChannelTypes, copyMessage, getCommand, getInteractionChannel, getInteractionGuild, type MessageButtonStyle, MessageButtonStyles, RoleTypes } from '../../utilities'
-import { type CommandInteraction, type Guild, type GuildTextBasedChannel, type Message, MessageActionRow, MessageButton, type Role, type TextChannel } from 'discord.js'
+import { type APIRole } from 'discord-api-types/v9'
+import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, type MessageButtonStyle, MessageButtonStyles, RoleTypes } from '../../utilities'
+import { Command, type CommandOptions } from '../../framework'
+import { type CommandInteraction, type Guild, type GuildTextBasedChannel, type Message, MessageActionRow, MessageButton, Permissions, type Role, type TextChannel } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
-import { ChannelType } from 'discord-api-types/v10'
-import { type ApplicationCommandRegistry, Command, type CommandOptions } from '@sapphire/framework'
-import { type APIRole, PermissionFlagsBits } from 'discord-api-types/v9'
+
+enum Subcommands {
+	logs = 'logs',
+	message = 'message',
+	role = 'role'
+}
+
+enum SubcommandOptions {
+	'logs-channel' = 'logs-channel',
+
+	'message-message' = 'message-message',
+	'message-style' = 'message-style',
+
+	'role-role' = 'role-role'
+}
 
 @ApplyOptions<CommandOptions>( {
+	defaultMemberPermissions: Permissions.FLAGS.MANAGE_GUILD,
+	dm: false,
 	enabled: true,
-	...getCommand( 'fandom.fandom' )
+	name: 'fandom'
 } )
-export class UserCommand extends Command {
-	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {
-		registry.registerChatInputCommand(
-			builder => builder
-				.setName( this.name )
-				.setDescription( this.description )
-				.setDMPermission( false )
-				.setDefaultMemberPermissions( PermissionFlagsBits.ManageGuild )
-				.addSubcommand( input => input
-					.setName( 'rol' )
-					.setDescription( 'Configura el rol de verificados.' )
-					.addRoleOption( option => option
-						.setName( 'rol' )
-						.setDescription( 'Rol de usuarios verificados.' )
-						.setRequired( true ) ) )
-				.addSubcommand( input => input
-					.setName( 'mensaje' )
-					.setDescription( 'Copia un mensaje para colocar el botón de verificaciones.' )
-					.addStringOption( option => option
-						.setName( 'mensaje' )
-						.setDescription( 'Identificador del mensaje.' )
-						.setRequired( true ) )
-					.addStringOption( option => option
-						.setName( 'estilo' )
-						.setDescription( 'Estilo del botón' )
-						.addChoices( ...MessageButtonStyles ) ) )
-				.addSubcommand( input => input
-					.setName( 'registros' )
-					.setDescription( 'Envía a un canal un mensaje cada vez que alguien se verifica.' )
-					.addChannelOption( option => option
-						.setName( 'canal' )
-						.setDescription( 'Canal de registros' )
-						.setRequired( true )
-						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-						// @ts-ignore - ChannelType is not assignable to ChannelType, ok
-						.addChannelTypes( ChannelType.GuildText ) ) ),
-			await this.container.stores.get( 'models' ).get( 'commands' )
-				.getData( this.name )
-		)
+export class UserCommand extends Command<Subcommands | SubcommandOptions> {
+	protected override setOptions(): void {
+		this.applicationCommandBase.options = [
+			this.getOption( {
+				name: Subcommands.role,
+				options: [ this.getOption( {
+					name: SubcommandOptions[ 'role-role' ],
+					required: true,
+					type: 'ROLE'
+				} ) ],
+				type: 'SUB_COMMAND'
+			} ),
+			this.getOption( {
+				name: Subcommands.message,
+				options: [
+					this.getOption( {
+						name: SubcommandOptions[ 'message-message' ],
+						required: true,
+						type: 'STRING'
+					} ),
+					this.getOption( {
+						choices: MessageButtonStyles,
+						name: SubcommandOptions[ 'message-style' ],
+						type: 'STRING'
+					} )
+				],
+				type: 'SUB_COMMAND'
+			} ),
+			this.getOption( {
+				name: Subcommands.logs,
+				options: [ this.getOption( {
+					channelTypes: [ 'GUILD_TEXT' ],
+					name: SubcommandOptions[ 'logs-channel' ],
+					required: true,
+					type: 'CHANNEL'
+				} ) ],
+				type: 'SUB_COMMAND'
+			} )
+		]
 	}
 
 	public override async chatInputRun( interaction: CommandInteraction ): Promise<void> {

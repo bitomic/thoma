@@ -6,7 +6,8 @@ export interface ICommandI18n {
 	name: string
 }
 
-export const getCommand = ( command: string, lang?: string ): ICommandI18n => {
+export const getCommand = ( category: string | null, command: string, lang?: string, namespace: 'commands' | 'commands-options' = 'commands' ): ICommandI18n => {
+	category = category ? `${ category }.` : ''
 	const locale = container.i18n.getT( lang ?? env.DEFAULT_LANGUAGE )
-	return locale( `commands:${ command }`, { returnObjects: true } )
+	return locale( `${ namespace }:${ category }${ command }`, { returnObjects: true } )
 }
