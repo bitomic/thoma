@@ -1,4 +1,4 @@
-import { type ApplicationCommandRegistry, type Args, type Awaitable, type PieceContext, type PieceOptions, Command as SapphireCommand } from '@sapphire/framework'
+import { type ApplicationCommandRegistry, type Args, type Awaitable, type PieceContext, Command as SapphireCommand, type CommandOptions as SapphireCommandOptions } from '@sapphire/framework'
 import type { ApplicationCommandOptionData, ChatInputApplicationCommandData, PermissionResolvable } from 'discord.js'
 import { env } from '../../lib'
 import { type DistributiveOmit, getCommand, getCommandI18n } from '../../utilities'
@@ -63,7 +63,7 @@ export abstract class Command<T extends string = string, ApplicationCommand exte
 	protected setOptions(): Awaitable<void> {}
 }
 
-export interface CommandOptions extends PieceOptions {
+export interface CommandOptions extends SapphireCommandOptions {
 	defaultMemberPermissions?: PermissionResolvable
 	dm: boolean
 	guildIds?: string[]

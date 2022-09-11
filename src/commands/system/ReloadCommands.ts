@@ -7,7 +7,8 @@ import { env } from '../../lib'
 	dm: false,
 	enabled: true,
 	guildIds: [ env.DISCORD_DEVELOPMENT_SERVER ],
-	name: 'commands-data'
+	name: 'commands-data',
+	preconditions: [ 'OwnerOnly' ]
 } )
 export class UserCommand extends Command {
 	public override async chatInputRun( interaction: CommandInteraction ): Promise<void> {
