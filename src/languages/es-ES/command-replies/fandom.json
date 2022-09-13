@@ -2,7 +2,7 @@
 	"copyMessageError": "Ha ocurrido un error inesperado, vuelve a intentarlo más tarde.",
 	"copyMessageSuccess": "El mensaje ha sido copiado exitosamente.",
 	"setLogsChannelSuccess": "Configuración guardada exitosamente. Enviaré un mensaje de prueba en <#{{ channel }}>.",
-	"setLogsChannelTest": "¡Hola! <@!{{ user }}> acaba de configurar este canal para los registros de verificación de Fandom.",
+	"setLogsChannelTest": "¡Holi! <@!{{ user }}> acaba de configurar este canal para los registros de verificación de Fandom.",
 	"setupError": "Ha ocurrido un error inesperado al intentar registrar el rol. Vuelve a intentarlo en unos minutos.",
 	"setupSuccess": "Configuración completada. Los usuarios verificados con su cuenta de Fandom recibirán el rol de <@&${ role }>."
 }
