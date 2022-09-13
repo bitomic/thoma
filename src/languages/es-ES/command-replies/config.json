@@ -1,0 +1,20 @@
+{
+	"roleAddButtonLabelOrEmoji": "Debes especificar al menos la etiqueta o emoji.",
+	"roleAddButtonMaxButtons": "El mensaje seleccionado ya tiene el número máximo de botones permitidos (25).",
+	"roleAddButtonError": "Ha ocurrido un error al intentar agregar el botón.",
+	"roleAddButtonSuccess": "Se ha añadido el botón exitosamente.",
+	"roleChannelError": "Ocurrió un error al intentar guardar el canal.",
+	"roleChannelNotSet": "No has configurado el canal de roles.",
+	"roleChannelSuccess": "Se ha configurado el canal exitosamente.",
+	"roleCopyMessageError": "Ha ocurrido un error al intentar copiar el mensaje.",
+	"roleCopyMessageSuccess": "Se ha copiado el mensaje exitosamente.",
+	"roleEditMessageError": "Ha ocurrido un error al intentar editar el mensaje.",
+	"roleEditMessageSuccess": "Se ha editado el mensaje exitosamente.",
+	"roleMessageNotSet": "No has seleccionado un mensaje para modificar.",
+	"roleNoButtons": "El mensaje no tiene botones, no hay nada que eliminar. ¿Eso significa que la tarea se completó exitosamente?",
+	"roleNonOwnedMessage": "Estás intentando editar un mensaje que no fue enviado por mi. Eso es ilegal en al menos 30 jurisdicciones.",
+	"roleRemoveButtonNoRole": "No hay un botón configurado para {{ role }}. Técnicamente, lo he eliminado exitosamente.",
+	"roleRemoveButtonError": "Ha ocurrido un error al intentar remover el botón.",
+	"roleRemoveButtonSuccess": "Se ha eliminado el botón exitosamente.",
+	"roleSetMessageSuccess": "Se ha establecido el mensaje a modificar exitosamente."
+}
