@@ -1,0 +1,5 @@
+{
+	"roleAddsuccess": "Se ha añadido el rol <@&{{ role }}> exitosamente.",
+	"roleError": "Ha ocurrido un error al intentar actualizar tus roles. Intentalo de nuevo más tarde.",
+	"roleRemoveSuccess": "Se ha eliminado el rol <@&{{ role }}> exitosamente."
+}

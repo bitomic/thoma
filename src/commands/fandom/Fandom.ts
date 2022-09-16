@@ -1,5 +1,5 @@
 import { type APIRole } from 'discord-api-types/v9'
-import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, type MessageButtonStyle, MessageButtonStyles, RoleTypes, simpleEmbed } from '../../utilities'
+import { ButtonIds, ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, type MessageButtonStyle, MessageButtonStyles, RoleTypes, simpleEmbed } from '../../utilities'
 import { Command, type CommandOptions } from '../../framework'
 import { type CommandInteraction, type Guild, type GuildTextBasedChannel, type Message, MessageActionRow, MessageButton, type MessageEmbedOptions, Permissions, type Role, type TextChannel } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
@@ -145,7 +145,7 @@ export class UserCommand extends Command<Subcommands | SubcommandOptions> {
 
 		try {
 			const button = new MessageButton( {
-				customId: 'fandom-verify',
+				customId: ButtonIds.FandomVerify,
 				emoji: 'fandomflame:872100256999952436',
 				label: 'Verificar',
 				style: buttonStyle ?? 'SUCCESS',

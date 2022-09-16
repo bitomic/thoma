@@ -1,4 +1,4 @@
-import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, type MessageButtonStyle, MessageButtonStyles, simpleEmbed } from '../../utilities'
+import { ButtonIds, ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, type MessageButtonStyle, MessageButtonStyles, simpleEmbed } from '../../utilities'
 import { Command, type CommandOptions } from '../../framework'
 import { type CommandInteraction, type Message, type MessageActionRow, type MessageActionRowOptions, type MessageButtonOptions, type NewsChannel, Permissions, type TextChannel } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
@@ -185,7 +185,7 @@ export class UserCommand extends Command<Subcommands | SubcommandOptions> {
 			void interaction.editReply( {
 				embeds: await simpleEmbed( interaction, Colors.green.s800, 'config', 'roleChannelSuccess' )
 			} )
-		} catch {
+		} catch ( e ) {
 			void interaction.editReply( {
 				embeds: await simpleEmbed( interaction, Colors.red.s800, 'config', 'roleChannelError' )
 			} )
@@ -457,7 +457,7 @@ export class UserCommand extends Command<Subcommands | SubcommandOptions> {
 		const rawButtons: MessageButtonOptions[] = []
 		for ( const role of buttons ) {
 			const button: MessageButtonOptions = {
-				customId: `role-${ role.role }`,
+				customId: `${ ButtonIds.Role }-${ role.role }`,
 				style: role.buttonStyle,
 				type: 'BUTTON'
 			}

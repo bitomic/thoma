@@ -11,12 +11,13 @@ export class UserClient extends SapphireClient {
 		super( {
 			defaultPrefix: env.DISCORD_PREFIX ?? '!',
 			i18n: {
-				fetchLanguage: ( { guild, interactionGuildLocale, interactionLocale, user } ) => {
+				fetchLanguage: async ( { guild, interactionGuildLocale, interactionLocale, user } ) => {
 					const languages = container.stores.get( 'models' ).get( 'languages' )
-					return interactionGuildLocale
+					const lang = interactionGuildLocale
 						?? interactionLocale
-						?? ( user ? languages.get( user.id ) : null )
-						?? ( guild ? languages.get( guild.id ) : null )
+						?? ( user ? await languages.get( user.id ) : null )
+						?? ( guild ? await languages.get( guild.id ) : null )
+					return lang && container.i18n.languages.has( lang ) ? lang : env.DEFAULT_LANGUAGE
 				},
 				i18next: {
 					fallbackLng: env.DEFAULT_LANGUAGE
