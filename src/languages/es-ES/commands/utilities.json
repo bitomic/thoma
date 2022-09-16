@@ -1,0 +1,24 @@
+{
+	"remindme": {
+		"name": "recordatorio",
+		"description": "Crea un recordatorio para el futuro tú.",
+		"options": {
+			"announce": {
+				"name": "anunciar",
+				"description": "¿Quieres que todos en este canal sepan que has creado un recordatorio?"
+			},
+			"dm": {
+				"name": "md",
+				"description": "¿Prefieres que te envíe el recordatorio por mensaje directo?"
+			},
+			"reason": {
+				"name": "motivo",
+				"description": "Para qué es el recordatorio."
+			},
+			"when": {
+				"name": "cuándo",
+				"description": "Cuándo quieres que te lo recuerde."
+			}
+		}
+	}
+}

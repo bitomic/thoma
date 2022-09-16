@@ -1,0 +1,7 @@
+{
+	"createdReminder": "Te lo recordaré <t:{{ time }}:R>: {{ reason }}.",
+	"invalidTime": "No he podido entender ese formato de tiempo: `{{ input }}`.\nPuedes usar `d` para días, `h` para horas, `m` para minutos y `s` para segundos.\n• `2h`: 2 horas.\n• `15m`: 15 minutos.\n• `3d 1h 30m`: 3 días, 1 hora y 30 minutos.",
+	"reminderDescription": "Creaste un recordatorio <t:{{ time }}:R> para este momento.",
+	"reminderReasonField": "Motivo",
+	"reminderTitle": "¡Tienes un recordatorio!"
+}

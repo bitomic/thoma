@@ -1,0 +1,24 @@
+{
+	"remindme": {
+		"name": "remindme",
+		"description": "Create a reminder for future you.",
+		"options": {
+			"announce": {
+				"name": "announce",
+				"description": "Do you want everyone in this channel to know you have created this reminder?"
+			},
+			"dm": {
+				"name": "dm",
+				"description": "Do you want me to remind you in your DM instead of in a guild?"
+			},
+			"reason": {
+				"name": "reason",
+				"description": "What is the reminder for."
+			},
+			"when": {
+				"name": "when",
+				"description": "When do you want to be reminded."
+			}
+		}
+	}
+}
