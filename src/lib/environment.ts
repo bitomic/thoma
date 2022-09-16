@@ -2,7 +2,7 @@ import { load } from 'ts-dotenv'
 
 export const env = load( {
 	DEFAULT_LANGUAGE: {
-		default: 'es-ES',
+		default: 'en-US',
 		type: String
 	},
 	DISCORD_DEVELOPMENT_SERVER: String,
