@@ -1,29 +1,14 @@
-import { type ApplicationCommandRegistry, Command } from '@sapphire/framework'
-import type { CommandInteraction, Message } from 'discord.js'
+import { Command, type CommandOptions } from '../../framework'
 import { ApplyOptions } from '@sapphire/decorators'
-import type { CommandOptions } from '@sapphire/framework'
+import type { CommandInteraction } from 'discord.js'
 
 @ApplyOptions<CommandOptions>( {
-	description: 'Pong!',
+	dm: true,
 	enabled: true,
 	name: 'ping'
 } )
 export class UserCommand extends Command {
-	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {
-		registry.registerChatInputCommand(
-			builder => builder
-				.setName( this.name )
-				.setDescription( this.description ),
-			await this.container.stores.get( 'models' ).get( 'commands' )
-				.getData( this.name )
-		)
-	}
-
 	public override chatInputRun( interaction: CommandInteraction ): void {
 		void interaction.reply( 'Pong!' )
-	}
-
-	public override messageRun( message: Message ): void {
-		void message.reply( 'Pong!' )
 	}
 }

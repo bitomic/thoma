@@ -1,30 +1,26 @@
-import { type ApplicationCommandRegistry, Command } from '@sapphire/framework'
+import { Command, type CommandOptions } from '../../framework'
 import { ApplyOptions } from '@sapphire/decorators'
 import type { CommandInteraction } from 'discord.js'
-import type { CommandOptions } from '@sapphire/framework'
 import { env } from '../../lib'
+import Colors from '@bitomic/material-colors'
 
 @ApplyOptions<CommandOptions>( {
-	description: 'Update the commands\'s ids in the database.',
+	dm: false,
 	enabled: true,
-	name: 'commands-data'
+	guildIds: [ env.DISCORD_DEVELOPMENT_SERVER ],
+	name: 'commands-data',
+	preconditions: [ 'OwnerOnly' ]
 } )
 export class UserCommand extends Command {
-	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {
-		registry.registerChatInputCommand(
-			builder => builder
-				.setName( this.name )
-				.setDescription( this.description ),
-			{
-				...await this.container.stores.get( 'models' ).get( 'commands' )
-					.getData( this.name ),
-				guildIds: [ env.DISCORD_DEVELOPMENT_SERVER ]
-			}
-		)
-	}
-
 	public override async chatInputRun( interaction: CommandInteraction ): Promise<void> {
-		void interaction.reply( 'commands-data' )
+		void interaction.reply( {
+			embeds: await this.simpleEmbed( {
+				color: Colors.green.s800,
+				key: 'commandsData',
+				target: interaction
+			} )
+		} )
+
 		const models = this.container.stores.get( 'models' )
 		const commandsData = models.get( 'commands' )
 		const commands = await this.container.client.application?.commands.fetch()

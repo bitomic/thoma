@@ -1,0 +1,10 @@
+{
+	"inaccessibleChannel": "No tengo permisos para leer mensajes en <#{{ channel }}>.",
+	"invalidIdentifier": "No has especificado un identificador válido.",
+	"messageNotFound": "No he podido encontrar el mensaje especificado en <#{{ channel }}>.",
+	"missingChannelPermissionManageWebhooks": "No tengo permiso para gestionar webhooks en <#{{ channel }}>.",
+	"noBotUser": "Qué raro, no puedo encontrarme a mí misma. Es posible que hayas usado este comando antes de terminar de inicializar.",
+	"unassignableHigherRole": "Solo puedo asignar roles por debajo de mi rol más alto, que es <@&{{ role }}>.",
+	"unassignableRole": "El rol de <@&{{ role }}> no puede ser asignado debido a que pertenece a un bot, o se trata de @everyone.",
+	"unknownSubcommand": "De alguna manera, has intentado usar un subcomando que no reconozco."
+}

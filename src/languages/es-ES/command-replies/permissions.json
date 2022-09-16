@@ -1,0 +1,3 @@
+{
+	"manageWebhooks": "No tengo permiso para gestionar webhooks en <#{{ channel }}>."
+}

@@ -1,3 +1,5 @@
+import '@sapphire/plugin-i18next/register'
+import '@sapphire/plugin-scheduled-tasks/register-redis'
 import { env, UserClient } from './lib'
 import { container } from '@sapphire/framework'
 

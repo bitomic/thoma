@@ -1,6 +1,10 @@
 import { load } from 'ts-dotenv'
 
 export const env = load( {
+	DEFAULT_LANGUAGE: {
+		default: 'en-US',
+		type: String
+	},
 	DISCORD_DEVELOPMENT_SERVER: String,
 	DISCORD_OWNER: String,
 	DISCORD_PREFIX: {
@@ -19,5 +23,10 @@ export const env = load( {
 	NODE_ENV: [
 		'development' as const,
 		'production' as const
-	]
+	],
+	REDIS_DB: Number,
+	REDIS_HOST: String,
+	REDIS_PASSWORD: String,
+	REDIS_PORT: Number,
+	REDIS_USERNAME: String
 } )

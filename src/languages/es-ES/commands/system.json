@@ -1,0 +1,14 @@
+{
+	"commands-data": {
+		"name": "datos-de-comandos",
+		"description": "Actualiza la información de los comandos en la base de datos."
+	},
+	"ping": {
+		"name": "ping",
+		"description": "Pong!"
+	},
+	"reload-commands": {
+		"name": "reiniciar-comandos",
+		"description": "Reinicia todos los comandos de aplicación."
+	}
+}

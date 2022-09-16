@@ -1,15 +1,14 @@
-import type { PreconditionOptions, PreconditionResult } from '@sapphire/framework'
 import { ApplyOptions } from '@sapphire/decorators'
 import { env } from '../lib'
-import type { Message } from 'discord.js'
-import { Precondition } from '@sapphire/framework'
+import type { Interaction } from 'discord.js'
+import { Precondition, type PreconditionOptions, type PreconditionResult } from '@sapphire/framework'
 
 @ApplyOptions<PreconditionOptions>( {
 	name: 'OwnerOnly'
 } )
 export class UserPrecondition extends Precondition {
-	public run( message: Message ): PreconditionResult {
-		return message.author.id === env.DISCORD_OWNER
+	public override chatInputRun( interaction: Interaction ): PreconditionResult {
+		return interaction.user.id === env.DISCORD_OWNER
 			? this.ok()
 			: this.error()
 	}

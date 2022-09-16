@@ -1,58 +1,68 @@
-import type { ApplicationCommandRegistry, CommandOptions } from '@sapphire/framework'
-import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, MessageButtonStyles, RoleTypes } from '../../utilities'
-import type { CommandInteraction, Guild, GuildTextBasedChannel, Message, Role, TextChannel } from 'discord.js'
-import { MessageActionRow, MessageButton } from 'discord.js'
-import type { APIRole } from 'discord-api-types/v9'
+import { type APIRole } from 'discord-api-types/v9'
+import { ButtonIds, ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, type MessageButtonStyle, MessageButtonStyles, RoleTypes } from '../../utilities'
+import { Command, type CommandOptions } from '../../framework'
+import { type CommandInteraction, type Guild, type GuildTextBasedChannel, type Message, MessageActionRow, MessageButton, type MessageEmbedOptions, Permissions, type Role, type TextChannel } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
-import { ChannelType } from 'discord-api-types/v10'
-import { Command } from '@sapphire/framework'
-import type { MessageButtonStyle } from '../../utilities'
-import { PermissionFlagsBits } from 'discord-api-types/v9'
+import Colors from '@bitomic/material-colors'
+
+enum Subcommands {
+	Logs = 'logs',
+	Message = 'message',
+	Role = 'role'
+}
+
+enum SubcommandOptions {
+	Channel = 'channel',
+	Message = 'message',
+	Role = 'role',
+	Style = 'style'
+}
 
 @ApplyOptions<CommandOptions>( {
-	description: 'Configuración de la verificación usando la cuenta de Fandom.',
+	defaultMemberPermissions: Permissions.FLAGS.MANAGE_GUILD,
+	dm: false,
 	enabled: true,
 	name: 'fandom'
 } )
 export class UserCommand extends Command {
-	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {
-		registry.registerChatInputCommand(
-			builder => builder
-				.setName( this.name )
-				.setDescription( this.description )
-				.setDMPermission( false )
-				.setDefaultMemberPermissions( PermissionFlagsBits.ManageGuild )
-				.addSubcommand( input => input
-					.setName( 'rol' )
-					.setDescription( 'Configura el rol de verificados.' )
-					.addRoleOption( option => option
-						.setName( 'rol' )
-						.setDescription( 'Rol de usuarios verificados.' )
-						.setRequired( true ) ) )
-				.addSubcommand( input => input
-					.setName( 'mensaje' )
-					.setDescription( 'Copia un mensaje para colocar el botón de verificaciones.' )
-					.addStringOption( option => option
-						.setName( 'mensaje' )
-						.setDescription( 'Identificador del mensaje.' )
-						.setRequired( true ) )
-					.addStringOption( option => option
-						.setName( 'estilo' )
-						.setDescription( 'Estilo del botón' )
-						.addChoices( ...MessageButtonStyles ) ) )
-				.addSubcommand( input => input
-					.setName( 'registros' )
-					.setDescription( 'Envía a un canal un mensaje cada vez que alguien se verifica.' )
-					.addChannelOption( option => option
-						.setName( 'canal' )
-						.setDescription( 'Canal de registros' )
-						.setRequired( true )
-						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-						// @ts-ignore - ChannelType is not assignable to ChannelType, ok
-						.addChannelTypes( ChannelType.GuildText ) ) ),
-			await this.container.stores.get( 'models' ).get( 'commands' )
-				.getData( this.name )
-		)
+	protected override setOptions(): void {
+		this.applicationCommandBase.options = [
+			this.createOption( {
+				name: Subcommands.Role,
+				options: [ this.createOption( {
+					name: SubcommandOptions.Role,
+					required: true,
+					type: 'ROLE'
+				}, `${ Subcommands.Role }.options.${ SubcommandOptions.Role }` ) ],
+				type: 'SUB_COMMAND'
+			} ),
+			this.createOption( {
+				name: Subcommands.Message,
+				options: [
+					this.createOption( {
+						name: SubcommandOptions.Message,
+						required: true,
+						type: 'STRING'
+					}, `${ Subcommands.Message }.options.${ SubcommandOptions.Message }` ),
+					this.createOption( {
+						choices: MessageButtonStyles,
+						name: SubcommandOptions.Style,
+						type: 'STRING'
+					}, `${ Subcommands.Message }.options.${ SubcommandOptions.Style }` )
+				],
+				type: 'SUB_COMMAND'
+			} ),
+			this.createOption( {
+				name: Subcommands.Logs,
+				options: [ this.createOption( {
+					channelTypes: [ 'GUILD_TEXT' ],
+					name: SubcommandOptions.Channel,
+					required: true,
+					type: 'CHANNEL'
+				}, `${ Subcommands.Logs }.options.${ SubcommandOptions.Channel }` ) ],
+				type: 'SUB_COMMAND'
+			} )
+		]
 	}
 
 	public override async chatInputRun( interaction: CommandInteraction ): Promise<void> {
@@ -60,23 +70,34 @@ export class UserCommand extends Command {
 
 		await interaction.deferReply( { ephemeral: true } )
 
-		const subcommand = interaction.options.getSubcommand( true ) as 'mensaje' | 'rol' | null
+		const subcommand = interaction.options.getSubcommand( true ) as Subcommands | null
 
-		if ( subcommand === 'mensaje' ) {
-			const [ messageId ] = interaction.options.getString( 'mensaje', true ).match( /\d+$/ ) ?? []
-			const buttonStyle = interaction.options.getString( 'estilo' ) as MessageButtonStyle | null
+		if ( subcommand === Subcommands.Message ) {
+			const [ messageId ] = interaction.options.getString( SubcommandOptions.Message, true ).match( /\d+$/ ) ?? []
+			const buttonStyle = interaction.options.getString( SubcommandOptions.Style ) as MessageButtonStyle | null
 
 			if ( !messageId ) {
 				void interaction.editReply( {
-					content: 'No has especificado un ID de mensaje válido. Puedes copiar su ID con click derecho si tienes el modo desarrollador activado, o puedes copiar el enlace del mensaje y usarlo como argumento del comando.'
+					embeds: await this.simpleEmbed( {
+						category: 'default',
+						color: Colors.amber.s800,
+						key: 'invalidIdentifier',
+						target: interaction
+					} )
 				} )
 				return
 			}
 
 			const channel = await getInteractionChannel( interaction )
-			if ( !channel ) {
+			if ( !channel.permissionsFor( this.container.client.user?.id ?? '' )?.has( 'READ_MESSAGE_HISTORY' ) ) {
 				void interaction.editReply( {
-					content: 'No tengo acceso al canal donde has usado el comando.'
+					embeds: await this.simpleEmbed( {
+						category: 'default',
+						color: Colors.amber.s800,
+						key: 'inaccessibleChannel',
+						replace: { channel: interaction.channelId },
+						target: interaction
+					} )
 				} )
 				return
 			}
@@ -84,54 +105,88 @@ export class UserCommand extends Command {
 			const message = await channel.messages.fetch( messageId )
 				.catch( () => null )
 
-			const reply = await this.copyMessage( message, channel, buttonStyle )
-			void interaction.editReply( reply )
-		} else if ( subcommand === 'rol' ) {
+			const reply = await this.copyMessage( interaction, message, channel, buttonStyle )
+			void interaction.editReply( { embeds: reply } )
+		} else if ( subcommand === Subcommands.Role ) {
 			const guild = await getInteractionGuild( interaction )
-			const role = interaction.options.getRole( 'rol', true )
-			const reply = await this.setRole( guild, role )
-			void interaction.editReply( reply )
-		} else if ( subcommand === 'registros' ) { // eslint-disable-line @typescript-eslint/no-unnecessary-condition
+			const role = interaction.options.getRole( SubcommandOptions.Role, true )
+			const reply = await this.setRole( interaction, guild, role )
+			void interaction.editReply( { embeds: reply } )
+		} else if ( subcommand === Subcommands.Logs ) {
 			if ( !this.container.client.user ) {
 				void interaction.editReply( {
-					content: 'Ha ocurrido un error, es posible que el bot todavía esté inicializándose...'
+					embeds: await this.simpleEmbed( {
+						category: 'default',
+						color: Colors.amber.s800,
+						key: 'noBotUser',
+						target: interaction
+					} )
 				} )
 				return
 			}
-			const channel = interaction.options.getChannel( 'canal', true ) as TextChannel
+			const channel = interaction.options.getChannel( SubcommandOptions.Channel, true ) as TextChannel
 			const permissions = channel.permissionsFor( this.container.client.user, true )
 			if ( !permissions?.has( 'SEND_MESSAGES' ) ) {
 				void interaction.editReply( {
-					content: `No tengo permisos para enviar mensajes en <#${ channel.id }>.`
+					embeds: await this.simpleEmbed( {
+						category: 'default',
+						color: Colors.amber.s800,
+						key: 'inaccessibleChannel',
+						replace: { channel: interaction.channelId },
+						target: interaction
+					} )
 				} )
 				return
 			}
 
-			await this.container.stores.get( 'models' ).get( 'channels' )
-				.set( {
-					channel: channel.id,
-					guild: interaction.guildId,
-					type: ChannelTypes.Logs
-				} )
+			const channels = this.container.stores.get( 'models' ).get( 'channels' )
+			await channels.set( {
+				channel: channel.id,
+				guild: interaction.guildId,
+				type: ChannelTypes.Logs
+			} )
 			void interaction.editReply( {
-				content: `Configuración guardada exitosamente. Enviaré un mensaje de prueba en <#${ channel.id }>.`
+				embeds: await this.simpleEmbed( {
+					color: Colors.green.s800,
+					key: 'setLogsChannelSuccess',
+					replace: { channel: channel.id },
+					target: interaction
+				} )
 			} )
 			void channel.send( {
-				content: `¡Hola! <@!${ interaction.user.id }> acaba de configurar este canal para los registros de verificación de Fandom.`
+				embeds: await this.simpleEmbed( {
+					color: Colors.green.s800,
+					key: 'setLogsChannelTest',
+					replace: { user: interaction.user.id },
+					target: interaction
+				} )
 			} )
 		} else {
-			void interaction.editReply( 'Has intentado usar un subcomando que no reconozco.' )
+			void interaction.editReply( {
+				embeds: await this.simpleEmbed( {
+					category: 'default',
+					color: Colors.red.s800,
+					key: 'unknownSubcommand',
+					target: interaction
+				} )
+			} )
 		}
 	}
 
-	public async copyMessage( message: Message | null, channel: GuildTextBasedChannel, buttonStyle?: MessageButtonStyle | null ): Promise<string> {
+	public async copyMessage( interaction: CommandInteraction, message: Message | null, channel: GuildTextBasedChannel, buttonStyle?: MessageButtonStyle | null ): Promise<[ MessageEmbedOptions ]> {
 		if ( !message ) {
-			return `No he podido encontrar el mensaje en <#${ channel.id }>.`
+			return this.simpleEmbed( {
+				category: 'default',
+				color: Colors.amber.s800,
+				key: 'messageNotFound',
+				replace: { channel: channel.id },
+				target: interaction
+			} )
 		}
 
 		try {
 			const button = new MessageButton( {
-				customId: 'fandom-verify',
+				customId: ButtonIds.FandomVerify,
 				emoji: 'fandomflame:872100256999952436',
 				label: 'Verificar',
 				style: buttonStyle ?? 'SUCCESS',
@@ -142,20 +197,40 @@ export class UserCommand extends Command {
 				components: [ new MessageActionRow( { components: [ button ] } ) ],
 				message
 			} )
-			return 'El mensaje ha sido copiado exitosamente.'
+			return this.simpleEmbed( {
+				color: Colors.green.s800,
+				key: 'copyMessageSuccess',
+				target: interaction
+			} )
 		} catch {
-			return 'Ha ocurrido un error inesperado, vuelve a intentarlo más tarde.'
+			return this.simpleEmbed( {
+				color: Colors.red.s800,
+				key: 'copyMessageError',
+				target: interaction
+			} )
 		}
 	}
 
-	public async setRole( guild: Guild, role: Role | APIRole ): Promise<string> {
+	public async setRole( interaction: CommandInteraction, guild: Guild, role: Role | APIRole ): Promise<[MessageEmbedOptions]> {
 		if ( role.managed || role.position === 0 ) {
-			return 'Ese rol no es asignable.'
+			return this.simpleEmbed( {
+				category: 'default',
+				color: Colors.red.s800,
+				key: 'unassignableRole',
+				replace: { role: role.id },
+				target: interaction
+			} )
 		}
 
 		const highestRole = guild.me?.roles.highest
 		if ( highestRole && highestRole.position <= role.position ) {
-			return `Solo puedo asignar roles por debajo de mi rol más alto, que es <@&${ highestRole.id }>.`
+			return this.simpleEmbed( {
+				category: 'default',
+				color: Colors.red.s800,
+				key: 'unassignableHigherRole',
+				replace: { role: highestRole.id },
+				target: interaction
+			} )
 		}
 
 		const roles = this.container.stores.get( 'models' ).get( 'roles' )
@@ -166,12 +241,18 @@ export class UserCommand extends Command {
 				role: role.id,
 				type: RoleTypes.Fandom
 			} )
-			return `Configuración completada. Los usuarios verificados con su cuenta de Fandom recibirán el rol de <@&${ role.id }>`
+			return this.simpleEmbed( {
+				color: Colors.green.s800,
+				key: 'setupSuccess',
+				replace: { role: role.id },
+				target: interaction
+			} )
 		} catch {
-			return 'Ha ocurrido un error inesperado al intentar registrar el rol. Vuelve a intentarlo en unos minutos.'
+			return this.simpleEmbed( {
+				color: Colors.red.s800,
+				key: 'setupError',
+				target: interaction
+			} )
 		}
-	}
-
-	public override async messageRun(): Promise<void> { // eslint-disable-line @typescript-eslint/no-empty-function
 	}
 }

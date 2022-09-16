@@ -1,11 +1,9 @@
-import type { ApplicationCommandRegistry, CommandOptions } from '@sapphire/framework'
-import { ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, getInteractionMember, MessageButtonStyles } from '../../utilities'
+import { ButtonIds, ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, type MessageButtonStyle, MessageButtonStyles } from '../../utilities'
+import { Command, type CommandOptions } from '../../framework'
 import { type CommandInteraction, type Message, type MessageActionRow, type MessageActionRowOptions, type MessageButtonOptions, type NewsChannel, Permissions, type TextChannel } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
-import { ChannelType } from 'discord-api-types/v10'
+import Colors from '@bitomic/material-colors'
 import { chunkify } from '@bitomic/utilities'
-import { Command } from '@sapphire/framework'
-import type { MessageButtonStyle } from '../../utilities'
 
 interface IRoleButton {
 	buttonStyle: MessageButtonStyle
@@ -14,123 +12,137 @@ interface IRoleButton {
 	role: string
 }
 
+enum Subcommands {
+	AddButton = 'add-button',
+	Channel = 'channel',
+	CopyMessage = 'copy-message',
+	EditMessage = 'edit-message',
+	Help = 'help',
+	Message = 'message',
+	RemoveButton = 'remove-button'
+}
+
+enum SubcommandOptions {
+	Channel = 'channel',
+	Emoji = 'emoji',
+	Label = 'label',
+	Message = 'message',
+	Role = 'role',
+	Style = 'style'
+}
+
 @ApplyOptions<CommandOptions>( {
-	description: 'Configura roles conseguidos por botones.',
-	enabled: true,
-	name: 'roles'
+	defaultMemberPermissions: Permissions.FLAGS.MANAGE_GUILD,
+	dm: false,
+	name: 'role'
 } )
 export class UserCommand extends Command {
-	public static readonly subcommandMappings = {
-		'agregar-botón': 'addButton',
-		ayuda: 'help',
-		canal: 'setChannel',
-		'copiar-mensaje': 'copyMessage',
-		'editar-mensaje': 'editMessage',
-		'eliminar-botón': 'removeButton',
-		mensaje: 'setMessage'
-	} as const
-
-	public override async registerApplicationCommands( registry: ApplicationCommandRegistry ): Promise<void> {
-		registry.registerChatInputCommand(
-			builder => builder
-				.setName( this.name )
-				.setDescription( this.description )
-				.setDefaultMemberPermissions( Permissions.FLAGS.MANAGE_GUILD )
-				.setDMPermission( false )
-				.addSubcommand( input => input
-					.setName( 'ayuda' )
-					.setDescription( 'Consulta el mensaje de ayuda sobre cómo configurar los roles y botones.' ) )
-				.addSubcommand( input => input
-					.setName( 'canal' )
-					.setDescription( 'Define el canal donde se encuentra/encontrará el mensaje de roles.' )
-					.addChannelOption( option => option
-						.setName( 'canal' )
-						.setDescription( 'Canal de roles' )
-						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-						// @ts-ignore - ChannelType is not assignable to ChannelType, ok
-						.addChannelTypes( ChannelType.GuildText )
-						.setRequired( true ) ) )
-				.addSubcommand( input => input
-					.setName( 'mensaje' )
-					.setDescription( 'Define el mensaje al que se le añadirán o quitarán roles.' )
-					.addStringOption( option => option
-						.setName( 'mensaje' )
-						.setDescription( 'Identificador del mensaje' )
-						.setRequired( true ) ) )
-				.addSubcommand( input => input
-					.setName( 'copiar-mensaje' )
-					.setDescription( 'Copia un mensaje ya existente en el canal de roles.' )
-					.addStringOption( option => option
-						.setName( 'mensaje' )
-						.setDescription( 'Identificador del mensaje' )
-						.setRequired( true ) ) )
-				.addSubcommand( input => input
-					.setName( 'editar-mensaje' )
-					.setDescription( 'Edita el mensaje configurado usando el contenido de otro mensaje.' )
-					.addStringOption( option => option
-						.setName( 'mensaje' )
-						.setDescription( 'Identificador del mensaje' )
-						.setRequired( true ) ) )
-				.addSubcommand( input => input
-					.setName( 'agregar-botón' )
-					.setDescription( 'Agrega un botón para dar/quitar un rol.' )
-					.addRoleOption( option => option
-						.setName( 'rol' )
-						.setDescription( 'Rol a asignar' )
-						.setRequired( true ) )
-					.addStringOption( option => option
-						.setName( 'etiqueta' )
-						.setDescription( 'Texto del botón' ) )
-					.addStringOption( option => option
-						.setName( 'emoji' )
-						.setDescription( 'Emoji del botón' ) )
-					.addStringOption( option => option
-						.setName( 'estilo' )
-						.setDescription( 'Estilo del botón' )
-						.addChoices( ...MessageButtonStyles ) ) )
-				.addSubcommand( input => input
-					.setName( 'eliminar-botón' )
-					.setDescription( 'Elimina un botón del mensaje configurado.' )
-					.addRoleOption( option => option
-						.setName( 'rol' )
-						.setDescription( 'Rol cuyo botón será eliminado' )
-						.setRequired( true ) ) ),
-			await this.container.stores.get( 'models' ).get( 'commands' )
-				.getData( this.name )
-		)
-	}
-
-	public override async chatInputRun( interaction: CommandInteraction ): Promise<void> {
-		if ( !interaction.inGuild() ) return
-
-		const subcommand = interaction.options.getSubcommand( true ) as keyof typeof UserCommand[ 'subcommandMappings' ]
-
-		if ( subcommand !== 'ayuda' ) {
-			const member = await getInteractionMember( interaction )
-			if ( !member.permissions.has( 'MANAGE_GUILD' ) ) {
-				void interaction.reply( {
-					content: 'No tienes permiso para usar este comando.',
-					ephemeral: true
-				} )
-				return
-			}
-		}
-
-		if ( !( subcommand in UserCommand.subcommandMappings ) ) {
-			void interaction.reply( {
-				content: 'Has intentado usar un comando que no reconozco.',
-				ephemeral: true
+	protected override setOptions(): void {
+		this.applicationCommandBase.options = [
+			this.createOption( {
+				name: Subcommands.Help,
+				type: 'SUB_COMMAND'
+			} ),
+			this.createOption( {
+				name: Subcommands.Channel,
+				options: [ this.createOption( {
+					channelTypes: [ 'GUILD_TEXT' ],
+					name: SubcommandOptions.Channel,
+					required: true,
+					type: 'CHANNEL'
+				}, `${ Subcommands.Channel }.options.${ SubcommandOptions.Channel }` ) ],
+				type: 'SUB_COMMAND'
+			} ),
+			this.createOption( {
+				name: Subcommands.Message,
+				options: [ this.createOption( {
+					name: SubcommandOptions.Message,
+					required: true,
+					type: 'STRING'
+				}, `${ Subcommands.Channel }.options.${ SubcommandOptions.Channel }` ) ],
+				type: 'SUB_COMMAND'
+			} ),
+			this.createOption( {
+				name: Subcommands.CopyMessage,
+				options: [ this.createOption( {
+					name: SubcommandOptions.Message,
+					required: true,
+					type: 'STRING'
+				}, `${ Subcommands.CopyMessage }.options.${ SubcommandOptions.Message }` ) ],
+				type: 'SUB_COMMAND'
+			} ),
+			this.createOption( {
+				name: Subcommands.EditMessage,
+				options: [ this.createOption( {
+					name: SubcommandOptions.Message,
+					required: true,
+					type: 'STRING'
+				}, `${ Subcommands.EditMessage }.options.${ SubcommandOptions.Message }` ) ],
+				type: 'SUB_COMMAND'
+			} ),
+			this.createOption( {
+				name: Subcommands.AddButton,
+				options: [
+					this.createOption( {
+						name: SubcommandOptions.Role,
+						required: true,
+						type: 'ROLE'
+					}, `${ Subcommands.AddButton }.options.${ SubcommandOptions.Role }` ),
+					this.createOption( {
+						name: SubcommandOptions.Label,
+						type: 'STRING'
+					}, `${ Subcommands.AddButton }.options.${ SubcommandOptions.Label }` ),
+					this.createOption( {
+						name: SubcommandOptions.Emoji,
+						type: 'STRING'
+					}, `${ Subcommands.AddButton }.options.${ SubcommandOptions.Emoji }` ),
+					this.createOption( {
+						choices: MessageButtonStyles,
+						name: SubcommandOptions.Style,
+						type: 'STRING'
+					}, `${ Subcommands.AddButton }.options.${ SubcommandOptions.Style }` )
+				],
+				type: 'SUB_COMMAND'
+			} ),
+			this.createOption( {
+				name: Subcommands.RemoveButton,
+				options: [ this.createOption( {
+					name: SubcommandOptions.Role,
+					required: true,
+					type: 'ROLE'
+				}, `${ Subcommands.RemoveButton }.options.${ SubcommandOptions.Role }` ) ],
+				type: 'SUB_COMMAND'
 			} )
-			return
-		}
-
-		await interaction.deferReply()
-		const subcommandName = UserCommand.subcommandMappings[ subcommand ]
-		await this[ `${ subcommandName }Execute` ]( interaction )
+		]
 	}
 
-	public override messageRun(): void {
-		// eslint-disable-line @typescript-eslint/no-empty-function
+	public override async chatInputRun( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<void> {
+		const subcommandMappings = {
+			[ Subcommands.AddButton ]: 'addButton',
+			[ Subcommands.Help ]: 'help',
+			[ Subcommands.Channel ]: 'setChannel',
+			[ Subcommands.CopyMessage ]: 'copyMessage',
+			[ Subcommands.EditMessage ]: 'editMessage',
+			[ Subcommands.RemoveButton ]: 'removeButton',
+			[ Subcommands.Message ]: 'setMessage'
+		} as const
+
+		const subcommand = interaction.options.getSubcommand( true ) as keyof typeof subcommandMappings
+		await interaction.deferReply()
+		const subcommandName = subcommandMappings[ subcommand ]
+
+		if ( subcommandName ) { // eslint-disable-line @typescript-eslint/no-unnecessary-condition
+			await this[ `${ subcommandName }Execute` ]( interaction )
+		} else {
+			void interaction.editReply( {
+				embeds: await this.simpleEmbed( {
+					category: 'default',
+					color: Colors.red.s800,
+					key: 'unknownSubcommand',
+					target: interaction
+				} )
+			} )
+		}
 	}
 
 	public helpExecute( interaction: CommandInteraction<'cached' | 'raw'> ): void {
@@ -140,32 +152,73 @@ export class UserCommand extends Command {
 	}
 
 	public async setChannelExecute( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<void> {
-		const channel = interaction.options.getChannel( 'canal', true )
-		try {
-			await this.container.stores.get( 'models' ).get( 'channels' )
-				.set( {
-					channel: channel.id,
-					guild: interaction.guildId,
-					type: ChannelTypes.Roles
+		const channel = interaction.options.getChannel( SubcommandOptions.Channel, true ) as TextChannel
+
+		if ( !this.container.client.user ) {
+			void interaction.editReply( {
+				embeds: await this.simpleEmbed( {
+					category: 'default',
+					color: Colors.red.s800,
+					key: 'noBotUser',
+					target: interaction
 				} )
-			void interaction.editReply( {
-				content: 'Se ha configurado el canal exitosamente.'
 			} )
-		} catch {
+			return
+		}
+
+		const permissions = channel.permissionsFor( this.container.client.user, true )
+		if ( !permissions?.has( 'MANAGE_WEBHOOKS' ) ) {
 			void interaction.editReply( {
-				content: 'Ocurrió un error al intentar guardar el canal.'
+				embeds: await this.simpleEmbed( {
+					category: 'permissions',
+					color: Colors.red.s800,
+					key: 'manageWebhooks',
+					replace: { channel: channel.id },
+					target: interaction
+				} )
+			} )
+			return
+		}
+
+		try {
+			const channels = this.container.stores.get( 'models' ).get( 'channels' )
+			await channels.set( {
+				channel: channel.id,
+				guild: interaction.guildId,
+				type: ChannelTypes.Roles
+			} )
+
+			void interaction.editReply( {
+				embeds: await this.simpleEmbed( {
+					color: Colors.green.s800,
+					key: 'roleChannelSuccess',
+					target: interaction
+				} )
+			} )
+		} catch ( e ) {
+			void interaction.editReply( {
+				embeds: await this.simpleEmbed( {
+					color: Colors.red.s800,
+					key: 'roleChannelError',
+					target: interaction
+				} )
 			} )
 		}
 	}
 
 	public async setMessageExecute( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<void> {
-		const message = await this.getInteractionMessage( interaction )
+		const message = await this.getInteractionMessage( interaction, SubcommandOptions.Message )
 		if ( !message ) return
 
 		const userId = this.container.client.user?.id
 		if ( !userId ) {
 			void interaction.editReply( {
-				content: 'Ha ocurrido un error interno. Vuelve a intentarlo en unos segundos.'
+				embeds: await this.simpleEmbed( {
+					category: 'default',
+					color: Colors.red.s800,
+					key: 'noBotUser',
+					target: interaction
+				} )
 			} )
 			return
 		}
@@ -174,21 +227,30 @@ export class UserCommand extends Command {
 			const webhook = await message.fetchWebhook().catch( () => null )
 			if ( webhook?.owner?.id !== userId ) {
 				void interaction.editReply( {
-					content: 'Estás intentando modificar un mensaje que no fue enviado por el bot.'
+					embeds: await this.simpleEmbed( {
+						color: Colors.amber.s800,
+						key: 'roleNonOwnedMessage',
+						target: interaction
+					} )
 				} )
 				return
 			}
 		}
 
-		await this.container.stores.get( 'models' ).get( 'keyv' )
-			.set( interaction.guildId, 'roles-message', message.id )
+		const keyv = this.container.stores.get( 'models' ).get( 'keyv' )
+		await keyv.set( interaction.guildId, 'roles-message', message.id )
+
 		void interaction.editReply( {
-			content: 'Se ha establecido el mensaje a modificar exitosamente.'
+			embeds: await this.simpleEmbed( {
+				color: Colors.green.s800,
+				key: 'roleSetMessageSuccess',
+				target: interaction
+			} )
 		} )
 	}
 
 	public async copyMessageExecute( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<void> {
-		const message = await this.getInteractionMessage( interaction )
+		const message = await this.getInteractionMessage( interaction, SubcommandOptions.Message )
 		if ( !message ) return
 
 		const channel = await this.getRolesChannel( interaction )
@@ -197,17 +259,25 @@ export class UserCommand extends Command {
 		try {
 			await copyMessage( { channel, message } )
 			void interaction.editReply( {
-				content: 'Se ha copiado el mensaje exitosamente.'
+				embeds: await this.simpleEmbed( {
+					color: Colors.green.s800,
+					key: 'roleCopyMessageSuccess',
+					target: interaction
+				} )
 			} )
 		} catch {
 			void interaction.editReply( {
-				content: 'Ha ocurrido un error inesperado al intentar copiar el mensaje.'
+				embeds: await this.simpleEmbed( {
+					color: Colors.red.s800,
+					key: 'roleCopyMessageError',
+					target: interaction
+				} )
 			} )
 		}
 	}
 
 	public async editMessageExecute( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<void> {
-		const templateMessage = await this.getInteractionMessage( interaction )
+		const templateMessage = await this.getInteractionMessage( interaction, SubcommandOptions.Message )
 		if ( !templateMessage ) return
 
 		const channel = await this.getRolesChannel( interaction )
@@ -223,31 +293,49 @@ export class UserCommand extends Command {
 				messageToEdit: rolesMessage.id
 			} )
 			void interaction.editReply( {
-				content: 'Se ha editado el mensaje exitosamente.'
+				embeds: await this.simpleEmbed( {
+					color: Colors.green.s800,
+					key: 'roleEditMessageSuccess',
+					target: interaction
+				} )
 			} )
 		} catch {
 			void interaction.editReply( {
-				content: 'Ha ocurrido un error al intentar editar el mensaje.'
+				embeds: await this.simpleEmbed( {
+					color: Colors.red.s800,
+					key: 'roleEditMessageError',
+					target: interaction
+				} )
 			} )
 		}
 	}
 
 	public async addButtonExecute( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<void> {
-		const role = interaction.options.getRole( 'rol', true )
-		const label = interaction.options.getString( 'etiqueta' )
-		const emoji = interaction.options.getString( 'emoji' )
-		const buttonStyle = interaction.options.getString( 'estilo' ) as MessageButtonStyle | null ?? 'SECONDARY'
+		const role = interaction.options.getRole( SubcommandOptions.Role, true )
+		const label = interaction.options.getString( SubcommandOptions.Label )
+		const emoji = interaction.options.getString( SubcommandOptions.Emoji )
+		const buttonStyle = interaction.options.getString( SubcommandOptions.Style ) as MessageButtonStyle | null ?? 'SECONDARY'
 
 		if ( !label && !emoji ) {
 			void interaction.editReply( {
-				content: 'Debes especificar al menos la etiqueta o emoji.'
+				embeds: await this.simpleEmbed( {
+					color: Colors.amber.s800,
+					key: 'roleAddButtonLabelOrEmoji',
+					target: interaction
+				} )
 			} )
 			return
 		}
 
 		if ( role.managed || role.position === 0 ) {
 			void interaction.editReply( {
-				content: `El rol de <@&${ role.id }> no puede ser asignado.`
+				embeds: await this.simpleEmbed( {
+					category: 'default',
+					color: Colors.amber.s800,
+					key: 'unassignableRole',
+					replace: { role: role.id },
+					target: interaction
+				} )
 			} )
 			return
 		}
@@ -256,7 +344,13 @@ export class UserCommand extends Command {
 		const highestRole = guild.me?.roles.highest
 		if ( highestRole && highestRole.position <= role.position ) {
 			void interaction.editReply( {
-				content: `Solo puedo asignar roles por debajo de mi rol más alto, que es <@&${ highestRole.id }>.`
+				embeds: await this.simpleEmbed( {
+					category: 'default',
+					color: Colors.amber.s800,
+					key: 'unassignableHigherRole',
+					replace: { role: highestRole.id },
+					target: interaction
+				} )
 			} )
 			return
 		}
@@ -264,12 +358,7 @@ export class UserCommand extends Command {
 		const rolesMessage = await this.getRolesMessage( interaction )
 		if ( !rolesMessage ) return
 
-		const button: IRoleButton = {
-			buttonStyle,
-			emoji,
-			label,
-			role: role.id
-		}
+		const button: IRoleButton = { buttonStyle, emoji, label, role: role.id }
 
 		if ( emoji ) {
 			const customEmoji = emoji.match( /<.*?:([0-9]+)>/ )?.[ 1 ]
@@ -279,7 +368,11 @@ export class UserCommand extends Command {
 		const buttons = this.getButtons( rolesMessage.components )
 		if ( buttons.length >= 25 ) {
 			void interaction.editReply( {
-				content: 'El mensaje seleccionado ya tiene el número máximo de botones permitidos (25).'
+				embeds: await this.simpleEmbed( {
+					color: Colors.red.s800,
+					key: 'roleAddButtonMaxButtons',
+					target: interaction
+				} )
 			} )
 			return
 		}
@@ -294,17 +387,25 @@ export class UserCommand extends Command {
 			} )
 
 			void interaction.editReply( {
-				content: 'Se ha añadido el botón exitosamente.'
+				embeds: await this.simpleEmbed( {
+					color: Colors.green.s800,
+					key: 'roleAddButtonSuccess',
+					target: interaction
+				} )
 			} )
 		} catch {
 			void interaction.editReply( {
-				content: 'Ha ocurrido un error al intentar editar el mensaje.'
+				embeds: await this.simpleEmbed( {
+					color: Colors.red.s800,
+					key: 'roleAddButtonError',
+					target: interaction
+				} )
 			} )
 		}
 	}
 
 	public async removeButtonExecute( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<void> {
-		const role = interaction.options.getRole( 'rol', true )
+		const role = interaction.options.getRole( SubcommandOptions.Role, true )
 
 		const rolesMessage = await this.getRolesMessage( interaction )
 		if ( !rolesMessage ) return
@@ -312,12 +413,21 @@ export class UserCommand extends Command {
 		const buttons = this.getButtons( rolesMessage.components )
 		if ( buttons.length === 0 ) {
 			void interaction.editReply( {
-				content: 'El mensaje no tiene botones para eliminar.'
+				embeds: await this.simpleEmbed( {
+					color: Colors.red.s800,
+					key: 'roleNoButtons',
+					target: interaction
+				} )
 			} )
 			return
 		} else if ( !buttons.find( i => i.role === role.id ) ) {
 			void interaction.editReply( {
-				content: `No hay ningún botón configurado para <@&${ role.id }>.`
+				embeds: await this.simpleEmbed( {
+					color: Colors.red.s800,
+					key: 'roleRemoveButtonNoRole',
+					replace: { role: role.id },
+					target: interaction
+				} )
 			} )
 			return
 		}
@@ -332,28 +442,47 @@ export class UserCommand extends Command {
 			} )
 
 			void interaction.editReply( {
-				content: 'Se ha eliminado el botón exitosamente.'
+				embeds: await this.simpleEmbed( {
+					color: Colors.green.s800,
+					key: 'roleRemoveButtonSuccess',
+					target: interaction
+				} )
 			} )
 		} catch {
 			void interaction.editReply( {
-				content: 'Ha ocurrido un error al intentar editar el mensaje.'
+				embeds: await this.simpleEmbed( {
+					color: Colors.red.s800,
+					key: 'roleRemoveButtonError',
+					target: interaction
+				} )
 			} )
 		}
 	}
 
-	protected async getInteractionMessage( interaction: CommandInteraction<'cached' | 'raw'> ): Promise<Message<boolean> | null> {
-		const [ messageId ] = interaction.options.getString( 'mensaje', true ).match( /\d+$/ ) ?? []
+	protected async getInteractionMessage( interaction: CommandInteraction<'cached' | 'raw'>, option: SubcommandOptions ): Promise<Message<boolean> | null> {
+		const [ messageId ] = interaction.options.getString( option, true ).match( /\d+$/ ) ?? []
 		if ( !messageId ) {
 			void interaction.editReply( {
-				content: 'No has especificado un identificador válido.'
+				embeds: await this.simpleEmbed( {
+					category: 'default',
+					color: Colors.amber.s800,
+					key: 'invalidIdentifier',
+					target: interaction
+				} )
 			} )
 			return null
 		}
 
 		const channel = await getInteractionChannel( interaction )
-		if ( !channel ) {
+		if ( !channel.permissionsFor( this.container.client.user?.id ?? '' )?.has( 'READ_MESSAGE_HISTORY' ) ) {
 			void interaction.editReply( {
-				content: 'No tengo acceso al canal donde has usado el comando.'
+				embeds: await this.simpleEmbed( {
+					category: 'default',
+					color: Colors.red.s800,
+					key: 'inaccessibleChannel',
+					replace: { channel: interaction.channelId },
+					target: interaction
+				} )
 			} )
 			return null
 		}
@@ -363,7 +492,13 @@ export class UserCommand extends Command {
 
 		if ( !message ) {
 			void interaction.editReply( {
-				content: `No he encontrado el mensaje en <#${ channel.id }>`
+				embeds: await this.simpleEmbed( {
+					category: 'default',
+					color: Colors.amber.s800,
+					key: 'messageNotFound',
+					replace: { channel: interaction.channelId },
+					target: interaction
+				} )
 			} )
 			return null
 		}
@@ -381,7 +516,11 @@ export class UserCommand extends Command {
 			if ( channel?.isText() && channel.type !== 'GUILD_VOICE' ) return channel
 		}
 		void interaction.editReply( {
-			content: 'No has configurado el canal de roles.'
+			embeds: await this.simpleEmbed( {
+				color: Colors.amber.s800,
+				key: 'roleChannelNotSet',
+				target: interaction
+			} )
 		} )
 		return null
 	}
@@ -398,7 +537,11 @@ export class UserCommand extends Command {
 			}
 		}
 		void interaction.editReply( {
-			content: 'No hay seleccionado un mensaje para modificar.'
+			embeds: await this.simpleEmbed( {
+				color: Colors.amber.s800,
+				key: 'roleMessageNotSet',
+				target: interaction
+			} )
 		} )
 		return null
 	}
@@ -427,7 +570,7 @@ export class UserCommand extends Command {
 		const rawButtons: MessageButtonOptions[] = []
 		for ( const role of buttons ) {
 			const button: MessageButtonOptions = {
-				customId: `role-${ role.role }`,
+				customId: `${ ButtonIds.Role }-${ role.role }`,
 				style: role.buttonStyle,
 				type: 'BUTTON'
 			}

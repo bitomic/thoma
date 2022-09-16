@@ -1,10 +1,8 @@
-import type { ModelStatic, Model as SequelizeModel } from 'sequelize'
+import { type ApplicationCommandRegistry, RegisterBehavior } from '@sapphire/framework'
+import { DataTypes, type ModelStatic, type Model as SequelizeModel } from 'sequelize'
 import type { PieceContext, PieceOptions } from '@sapphire/pieces'
-import type { ApplicationCommandRegistry } from '@sapphire/framework'
-import { DataTypes } from 'sequelize'
 import { env } from '../lib'
 import { Model } from '../framework'
-import { RegisterBehavior } from '@sapphire/framework'
 
 interface ICommand {
 	entryType: 'guild' | 'idHint'

@@ -1,0 +1,10 @@
+{
+	"fandomVerifyAlreadyVerified": "Ya te habías verificado anteriormente y tienes el rol de <@&{{ role }}>.",
+	"fandomVerifyLogEntry": ":ballot_box_with_check:  <@!{{ userId }}> ({{ tag }}) acaba de verificarse con su cuenta de Fandom: **{{ username }}**",
+	"fandomVerifyMissingTag": "La cuenta de **{{ username }}** en Fandom no tiene asociado un tag de Discord.",
+	"fandomVerifyNoRole": "Este servidor no tiene configurado un rol para usuarios verificados con su cuenta de Fandom.",
+	"fandomVerifySuccess": "Te has verificado exitosamente y se te ha asignado el rol <@&{{ role }}>.",
+	"fandomVerifyTagMismatch": "La información no coincide. La cuenta de **{{ username }}** tiene asociado el tag **{{ expectedTag }}**, mientras que tu tag actual es **{{ actualTag }}**.",
+	"fandomVerifyTitle": "Verifícate usando tu cuenta de Fandom",
+	"fandomVerifyUsername": "Nombre de usuario"
+}

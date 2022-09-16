@@ -1,47 +1,64 @@
 import { ChannelTypes, RoleTypes } from '../constants'
-import type { GuildMember, MessageEmbedOptions } from 'discord.js'
+import type { GuildMember, Interaction, MessageEmbedOptions } from 'discord.js'
 import { container } from '@sapphire/framework'
+import Colors from '@bitomic/material-colors'
+import { simpleEmbed } from '../discord'
+import type { Target } from '@sapphire/plugin-i18next'
 
-export const fandomVerify = async ( { guildId, member, username }: { guildId: string, member: GuildMember, username: string } ): Promise<MessageEmbedOptions> => {
+export const fandomVerify = async ( { interaction, member, username }: { interaction: Interaction<'cached' | 'raw'>, member: GuildMember, username: string } ): Promise<MessageEmbedOptions> => {
 	const roles = container.stores.get( 'models' ).get( 'roles' )
-	const fandomRole = await roles.get( guildId, RoleTypes.Fandom )
+	const fandomRole = await roles.get( interaction.guildId, RoleTypes.Fandom )
 	if ( !fandomRole ) {
-		return {
-			color: 'YELLOW',
-			description: 'Este servidor no tiene configurado un rol para usuarios verificados con su cuenta de Fandom.'
-		}
+		const embeds = await simpleEmbed( {
+			category: 'modals',
+			color: Colors.amber.s800,
+			key: 'fandomVerifyNoRole',
+			target: interaction as Target
+		} )
+		return embeds[ 0 ]
 	}
 
 	if ( member.roles.cache.has( fandomRole ) ) {
-		return {
-			color: 'YELLOW',
-			description: `Ya te habías verificado anteriormente y tienes el rol de <@&${ fandomRole }>.`
-		}
+		const embeds = await simpleEmbed( {
+			category: 'modals',
+			color: Colors.amber.s800,
+			key: 'fandomVerifyAlreadyVerified',
+			replace: { role: fandomRole },
+			target: interaction as Target
+		} )
+		return embeds[ 0 ]
 	}
 
-	try {
-		await member.roles.add( fandomRole )
+	await member.roles.add( fandomRole )
 
-		const logsChannelId = await container.stores.get( 'models' ).get( 'channels' )
-			.get( guildId, ChannelTypes.Logs )
-		if ( logsChannelId ) {
-			const guild = await container.client.guilds.fetch( guildId )
-			const channel = await guild.channels.fetch( logsChannelId )
-			if ( channel && channel.type === 'GUILD_TEXT' ) {
-				void channel.send( {
-					content: `:ballot_box_with_check:  <@!${ member.user.id }> (${ member.user.tag }) acaba de verificarse con su cuenta de Fandom: **${ username }**`
+	const logsChannelId = await container.stores.get( 'models' ).get( 'channels' )
+		.get( interaction.guildId, ChannelTypes.Logs )
+	if ( logsChannelId ) {
+		const guild = await container.client.guilds.fetch( interaction.guildId )
+		const channel = await guild.channels.fetch( logsChannelId )
+		if ( channel && channel.type === 'GUILD_TEXT' ) {
+			void channel.send( {
+				embeds: await simpleEmbed( {
+					category: 'modals',
+					color: Colors.green.s800,
+					key: 'fandomVerifyLogEntry',
+					replace: {
+						tag: interaction.user.tag,
+						userId: interaction.user.id,
+						username
+					},
+					target: interaction as Target
 				} )
-			}
-		}
-
-		return {
-			color: 'DARK_RED',
-			description: `Te has verificado exitosamente y se te ha asignado el rol <@&${ fandomRole }>.`
-		}
-	} catch {
-		return {
-			color: 'RED',
-			description: 'Ha ocurrido un error inesperado.\nVuelve a intentarlo en unos segundos; si el problema persiste, contacta con un administrador.'
+			} )
 		}
 	}
+
+	const embeds = await simpleEmbed( {
+		category: 'modals',
+		color: Colors.green.s800,
+		key: 'fandomVerifySuccess',
+		replace: { role: fandomRole },
+		target: interaction as Target
+	} )
+	return embeds[ 0 ]
 }

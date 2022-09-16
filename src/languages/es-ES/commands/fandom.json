@@ -1,0 +1,42 @@
+{
+	"fandom": {
+		"name": "fandom",
+		"description": "Configuración de la verificación usando la cuenta de Fandom.",
+		"options": {
+			"logs": {
+				"name": "registros",
+				"description": "Envía a un canal un mensaje cada vez que alguien se verifica.",
+				"options": {
+					"channel": {
+						"name": "canal",
+						"description": "Canal de registros."
+					}
+				}
+			},
+			"message": {
+				"name": "mensaje",
+				"description": "Copia un mensaje para colocar el botón de verificaciones.",
+				"options": {
+					"message": {
+						"name": "mensaje",
+						"description": "Identificador del mensaje."
+					},
+					"style": {
+						"name": "estilo",
+						"description": "Estilo del botón."
+					}
+				}
+			},
+			"role": {
+				"name": "rol",
+				"description": "Configura el rol de verificados.",
+				"options": {
+					"role": {
+						"name": "rol",
+						"description": "Rol de usuarios verificados."
+					}
+				}
+			}
+		}
+	}
+}
