@@ -16,7 +16,7 @@ export class UserClient extends SapphireClient {
 					const lang = interactionGuildLocale
 						?? interactionLocale
 						?? ( user ? await languages.get( user.id ) : null )
-						?? ( guild ? await languages.get( guild.id ) : null )
+						?? guild?.preferredLocale
 					return lang && container.i18n.languages.has( lang ) ? lang : env.DEFAULT_LANGUAGE
 				},
 				i18next: {
