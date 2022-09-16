@@ -1,0 +1,10 @@
+{
+	"fandomVerifyAlreadyVerified": "You have already verified previously and have the <@&{{ role }}> role.",
+	"fandomVerifyLogEntry": ":ballot_box_with_check:  <@!{{ userId }}> ({{ tag }}) was verified using their Fandom account: **{{ username }}**",
+	"fandomVerifyMissingTag": "**{{ username }}** doesn't have an associated Discord tag in their Fandom profile.",
+	"fandomVerifyNoRole": "This server hasn't set a role for users who verify using their Fandom account.",
+	"fandomVerifySuccess": "You have verified yourself successfully and have received the <@&{{ role }}> role.",
+	"fandomVerifyTagMismatch": "The information doesn't match. **{{ username }}** in Fandom has **{{ expectedTag }}** as their associated tag, whilst your actual tag is **{{ actualTag }}**.",
+	"fandomVerifyTitle": "Verify yourself using your Fandom account",
+	"fandomVerifyUsername": "Username"
+}

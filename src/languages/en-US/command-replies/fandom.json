@@ -1,0 +1,8 @@
+{
+	"copyMessageError": "There was an unexpected error, try again later.",
+	"copyMessageSuccess": "The message was copied successfully.",
+	"setLogsChannelSuccess": "Configuration saved successfully. I'll send a test message in <#{{ channel }}>.",
+	"setLogsChannelTest": "Hi! <@!{{ user }}> has just set this channel for the verification logs.",
+	"setupError": "There was an unexpected error while trying to register the role. Try again later.",
+	"setupSuccess": "Setup completed. The users who verify using their Fandom account will get the <@&${ role }> role."
+}

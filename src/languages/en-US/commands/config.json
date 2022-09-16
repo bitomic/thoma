@@ -1,0 +1,84 @@
+{
+	"role": {
+		"name": "role",
+		"description": "Configure roles obtainable through buttons.",
+		"options": {
+			"add-button": {
+				"name": "add-button",
+				"description": "Add a button to assign/unassign a role.",
+				"options": {
+					"emoji": {
+						"name": "emoji",
+						"description": "Button emoji."
+					},
+					"label": {
+						"name": "label",
+						"description": "Button text."
+					},
+					"role": {
+						"name": "role",
+						"description": "Role to assign."
+					},
+					"style": {
+						"name": "style",
+						"description": "Button style."
+					}
+				}
+			},
+			"channel": {
+				"name": "channel",
+				"description": "Set the channel where the roles messsage is or will be.",
+				"options": {
+					"channel": {
+						"name": "channel",
+						"description": "Roles channel."
+					}
+				}
+			},
+			"copy-message": {
+				"name": "copy-message",
+				"description": "Copy an existing message in the roles channel.",
+				"options": {
+					"message": {
+						"name": "message",
+						"description": "Message identifier."
+					}
+				}
+			},
+			"edit-message": {
+				"name": "edit-message",
+				"description": "Edit the configured message using the contents of another message.",
+				"options": {
+					"message": {
+						"name": "message",
+						"description": "Message identifier."
+					}
+				}
+			},
+			"help": {
+				"name": "help",
+				"description": "Read the help message about how to configure roles and buttons."
+			},
+			"message": {
+				"name": "message",
+				"description": "Set the message that you want to add or remove roles to.",
+				"options": {
+					"message": {
+						"name": "message",
+						"description": "Message identifier."
+					}
+				}
+			},
+			"remove-button": {
+				"name": "remove-button",
+				"description": "Remove a button from the set message.",
+				"options": {
+					"role": {
+						"name": "role",
+						"description": "Role that you want to remove its button."
+					}
+				}
+			}
+		}
+	}
+}

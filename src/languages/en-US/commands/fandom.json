@@ -1,0 +1,42 @@
+{
+	"fandom": {
+		"name": "fandom",
+		"description": "Setup the verification using a Fandom account.",
+		"options": {
+			"logs": {
+				"name": "logs",
+				"description": "Sent a message to a channel every time someone is verified.",
+				"options": {
+					"channel": {
+						"name": "channel",
+						"description": "Logs channel."
+					}
+				}
+			},
+			"message": {
+				"name": "message",
+				"description": "Copy a message to set a button for verifications.",
+				"options": {
+					"message": {
+						"name": "message",
+						"description": "Message identifier."
+					},
+					"style": {
+						"name": "style",
+						"description": "Button style."
+					}
+				}
+			},
+			"role": {
+				"name": "role",
+				"description": "Configure the verified role.",
+				"options": {
+					"role": {
+						"name": "role",
+						"description": "Role for the verified users."
+					}
+				}
+			}
+		}
+	}
+}

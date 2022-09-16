@@ -1,0 +1,14 @@
+{
+	"commands-data": {
+		"name": "commands-data",
+		"description": "Update the commands information in the database."
+	},
+	"ping": {
+		"name": "ping",
+		"description": "Pong!"
+	},
+	"reload-commands": {
+		"name": "reload-commands",
+		"description": "Restart all application commands."
+	}
+}
