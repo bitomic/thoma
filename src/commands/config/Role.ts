@@ -513,7 +513,7 @@ export class UserCommand extends Command {
 			const guild = await getInteractionGuild( interaction )
 			const channel = await guild.channels.fetch( channelId )
 				.catch( () => null )
-			if ( channel?.isText() && channel.type !== 'GUILD_VOICE' ) return channel
+			if ( channel?.isText() && channel.type !== 'GUILD_VOICE' && !channel.isThread() ) return channel
 		}
 		void interaction.editReply( {
 			embeds: await this.simpleEmbed( {
