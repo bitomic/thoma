@@ -23,12 +23,24 @@ export class UserButton extends InteractionHandler {
 
 		if ( !tag ) {
 			void interaction.editReply( {
-				embeds: await simpleEmbed( interaction, Colors.red.s800, 'modals', 'fandomVerifyMissingTag', { username } )
+				embeds: await simpleEmbed( {
+					category: 'modals',
+					color: Colors.red.s800,
+					key: 'fandomVerifyMissingTag',
+					replace: { username },
+					target: interaction
+				} )
 			} )
 			return
 		} else if ( tag !== interaction.user.tag ) {
 			void interaction.editReply( {
-				embeds: await simpleEmbed( interaction, Colors.amber.s800, 'modals', 'fandomVerifyTagMismatch', { actualTag: interaction.user.tag, expectedTag: tag, username } )
+				embeds: await simpleEmbed( {
+					category: 'modals',
+					color: Colors.amber.s800,
+					key: 'fandomVerifyTagMismatch',
+					replace: { actualTag: interaction.user.tag, expectedTag: tag, username },
+					target: interaction
+				} )
 			} )
 			return
 		}

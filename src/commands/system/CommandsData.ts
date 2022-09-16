@@ -2,7 +2,6 @@ import { Command, type CommandOptions } from '../../framework'
 import { ApplyOptions } from '@sapphire/decorators'
 import type { CommandInteraction } from 'discord.js'
 import { env } from '../../lib'
-import { simpleEmbed } from '../../utilities'
 import Colors from '@bitomic/material-colors'
 
 @ApplyOptions<CommandOptions>( {
@@ -15,7 +14,11 @@ import Colors from '@bitomic/material-colors'
 export class UserCommand extends Command {
 	public override async chatInputRun( interaction: CommandInteraction ): Promise<void> {
 		void interaction.reply( {
-			embeds: await simpleEmbed( interaction, Colors.green.s800, 'system', 'commandsData' )
+			embeds: await this.simpleEmbed( {
+				color: Colors.green.s800,
+				key: 'commandsData',
+				target: interaction
+			} )
 		} )
 
 		const models = this.container.stores.get( 'models' )

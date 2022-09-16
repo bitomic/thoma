@@ -1,18 +1,32 @@
 import { ChannelTypes, RoleTypes } from '../constants'
 import type { GuildMember, Interaction, MessageEmbedOptions } from 'discord.js'
 import { container } from '@sapphire/framework'
-import { simpleEmbed } from '../discord'
 import Colors from '@bitomic/material-colors'
+import { simpleEmbed } from '../discord'
+import type { Target } from '@sapphire/plugin-i18next'
 
 export const fandomVerify = async ( { interaction, member, username }: { interaction: Interaction<'cached' | 'raw'>, member: GuildMember, username: string } ): Promise<MessageEmbedOptions> => {
 	const roles = container.stores.get( 'models' ).get( 'roles' )
 	const fandomRole = await roles.get( interaction.guildId, RoleTypes.Fandom )
 	if ( !fandomRole ) {
-		return ( await simpleEmbed( interaction, Colors.amber.s800, 'modals', 'fandomVerifyNoRole' ) )[ 0 ]
+		const embeds = await simpleEmbed( {
+			category: 'modals',
+			color: Colors.amber.s800,
+			key: 'fandomVerifyNoRole',
+			target: interaction as Target
+		} )
+		return embeds[ 0 ]
 	}
 
 	if ( member.roles.cache.has( fandomRole ) ) {
-		return ( await simpleEmbed( interaction, Colors.amber.s800, 'modals', 'fandomVerifyAlreadyVerified', { role: fandomRole } ) )[ 0 ]
+		const embeds = await simpleEmbed( {
+			category: 'modals',
+			color: Colors.amber.s800,
+			key: 'fandomVerifyAlreadyVerified',
+			replace: { role: fandomRole },
+			target: interaction as Target
+		} )
+		return embeds[ 0 ]
 	}
 
 	await member.roles.add( fandomRole )
@@ -24,14 +38,27 @@ export const fandomVerify = async ( { interaction, member, username }: { interac
 		const channel = await guild.channels.fetch( logsChannelId )
 		if ( channel && channel.type === 'GUILD_TEXT' ) {
 			void channel.send( {
-				embeds: await simpleEmbed( channel, Colors.green.s800, 'modals', 'fandomVerifyLogEntry', {
-					tag: interaction.user.tag,
-					userId: interaction.user.id,
-					username
+				embeds: await simpleEmbed( {
+					category: 'modals',
+					color: Colors.green.s800,
+					key: 'fandomVerifyLogEntry',
+					replace: {
+						tag: interaction.user.tag,
+						userId: interaction.user.id,
+						username
+					},
+					target: interaction as Target
 				} )
 			} )
 		}
 	}
 
-	return ( await simpleEmbed( interaction, Colors.green.s800, 'modals', 'fandomVerifySuccess', { role: fandomRole } ) )[ 0 ]
+	const embeds = await simpleEmbed( {
+		category: 'modals',
+		color: Colors.green.s800,
+		key: 'fandomVerifySuccess',
+		replace: { role: fandomRole },
+		target: interaction as Target
+	} )
+	return embeds[ 0 ]
 }

@@ -1,23 +1,21 @@
 import { type APIRole } from 'discord-api-types/v9'
-import { ButtonIds, ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, type MessageButtonStyle, MessageButtonStyles, RoleTypes, simpleEmbed } from '../../utilities'
+import { ButtonIds, ChannelTypes, copyMessage, getInteractionChannel, getInteractionGuild, type MessageButtonStyle, MessageButtonStyles, RoleTypes } from '../../utilities'
 import { Command, type CommandOptions } from '../../framework'
 import { type CommandInteraction, type Guild, type GuildTextBasedChannel, type Message, MessageActionRow, MessageButton, type MessageEmbedOptions, Permissions, type Role, type TextChannel } from 'discord.js'
 import { ApplyOptions } from '@sapphire/decorators'
 import Colors from '@bitomic/material-colors'
 
 enum Subcommands {
-	logs = 'logs',
-	message = 'message',
-	role = 'role'
+	Logs = 'logs',
+	Message = 'message',
+	Role = 'role'
 }
 
 enum SubcommandOptions {
-	'logs-channel' = 'logs-channel',
-
-	'message-message' = 'message-message',
-	'message-style' = 'message-style',
-
-	'role-role' = 'role-role'
+	Channel = 'channel',
+	Message = 'message',
+	Role = 'role',
+	Style = 'style'
 }
 
 @ApplyOptions<CommandOptions>( {
@@ -26,42 +24,42 @@ enum SubcommandOptions {
 	enabled: true,
 	name: 'fandom'
 } )
-export class UserCommand extends Command<Subcommands | SubcommandOptions> {
+export class UserCommand extends Command {
 	protected override setOptions(): void {
 		this.applicationCommandBase.options = [
 			this.createOption( {
-				name: Subcommands.role,
+				name: Subcommands.Role,
 				options: [ this.createOption( {
-					name: SubcommandOptions[ 'role-role' ],
+					name: SubcommandOptions.Role,
 					required: true,
 					type: 'ROLE'
-				} ) ],
+				}, `${ Subcommands.Role }.options.${ SubcommandOptions.Role }` ) ],
 				type: 'SUB_COMMAND'
 			} ),
 			this.createOption( {
-				name: Subcommands.message,
+				name: Subcommands.Message,
 				options: [
 					this.createOption( {
-						name: SubcommandOptions[ 'message-message' ],
+						name: SubcommandOptions.Message,
 						required: true,
 						type: 'STRING'
-					} ),
+					}, `${ Subcommands.Message }.options.${ SubcommandOptions.Message }` ),
 					this.createOption( {
 						choices: MessageButtonStyles,
-						name: SubcommandOptions[ 'message-style' ],
+						name: SubcommandOptions.Style,
 						type: 'STRING'
-					} )
+					}, `${ Subcommands.Message }.options.${ SubcommandOptions.Style }` )
 				],
 				type: 'SUB_COMMAND'
 			} ),
 			this.createOption( {
-				name: Subcommands.logs,
+				name: Subcommands.Logs,
 				options: [ this.createOption( {
 					channelTypes: [ 'GUILD_TEXT' ],
-					name: SubcommandOptions[ 'logs-channel' ],
+					name: SubcommandOptions.Channel,
 					required: true,
 					type: 'CHANNEL'
-				} ) ],
+				}, `${ Subcommands.Logs }.options.${ SubcommandOptions.Channel }` ) ],
 				type: 'SUB_COMMAND'
 			} )
 		]
@@ -74,13 +72,18 @@ export class UserCommand extends Command<Subcommands | SubcommandOptions> {
 
 		const subcommand = interaction.options.getSubcommand( true ) as Subcommands | null
 
-		if ( subcommand === Subcommands.message ) {
-			const [ messageId ] = this.getString( interaction, SubcommandOptions[ 'message-message' ], true ).match( /\d+$/ ) ?? []
-			const buttonStyle = this.getString( interaction, SubcommandOptions[ 'message-style' ] ) as MessageButtonStyle | null
+		if ( subcommand === Subcommands.Message ) {
+			const [ messageId ] = interaction.options.getString( SubcommandOptions.Message, true ).match( /\d+$/ ) ?? []
+			const buttonStyle = interaction.options.getString( SubcommandOptions.Style ) as MessageButtonStyle | null
 
 			if ( !messageId ) {
 				void interaction.editReply( {
-					embeds: await simpleEmbed( interaction, Colors.amber.s800, 'default', 'invalidIdentifier' )
+					embeds: await this.simpleEmbed( {
+						category: 'default',
+						color: Colors.amber.s800,
+						key: 'invalidIdentifier',
+						target: interaction
+					} )
 				} )
 				return
 			}
@@ -88,7 +91,13 @@ export class UserCommand extends Command<Subcommands | SubcommandOptions> {
 			const channel = await getInteractionChannel( interaction )
 			if ( !channel.permissionsFor( this.container.client.user?.id ?? '' )?.has( 'READ_MESSAGE_HISTORY' ) ) {
 				void interaction.editReply( {
-					embeds: await simpleEmbed( interaction, Colors.amber.s800, 'default', 'inaccessibleChannel', { channel: interaction.channelId } )
+					embeds: await this.simpleEmbed( {
+						category: 'default',
+						color: Colors.amber.s800,
+						key: 'inaccessibleChannel',
+						replace: { channel: interaction.channelId },
+						target: interaction
+					} )
 				} )
 				return
 			}
@@ -98,23 +107,34 @@ export class UserCommand extends Command<Subcommands | SubcommandOptions> {
 
 			const reply = await this.copyMessage( interaction, message, channel, buttonStyle )
 			void interaction.editReply( { embeds: reply } )
-		} else if ( subcommand === Subcommands.role ) {
+		} else if ( subcommand === Subcommands.Role ) {
 			const guild = await getInteractionGuild( interaction )
-			const role = this.getRole( interaction, SubcommandOptions[ 'role-role' ], true )
+			const role = interaction.options.getRole( SubcommandOptions.Role, true )
 			const reply = await this.setRole( interaction, guild, role )
 			void interaction.editReply( { embeds: reply } )
-		} else if ( subcommand === Subcommands.logs ) {
+		} else if ( subcommand === Subcommands.Logs ) {
 			if ( !this.container.client.user ) {
 				void interaction.editReply( {
-					embeds: await simpleEmbed( interaction, Colors.amber.s800, 'default', 'noBotUser' )
+					embeds: await this.simpleEmbed( {
+						category: 'default',
+						color: Colors.amber.s800,
+						key: 'noBotUser',
+						target: interaction
+					} )
 				} )
 				return
 			}
-			const channel = this.getChannel( interaction, SubcommandOptions[ 'logs-channel' ], true ) as TextChannel
+			const channel = interaction.options.getChannel( SubcommandOptions.Channel, true ) as TextChannel
 			const permissions = channel.permissionsFor( this.container.client.user, true )
 			if ( !permissions?.has( 'SEND_MESSAGES' ) ) {
 				void interaction.editReply( {
-					embeds: await simpleEmbed( interaction, Colors.amber.s800, 'default', 'inaccessibleChannel', { channel: interaction.channelId } )
+					embeds: await this.simpleEmbed( {
+						category: 'default',
+						color: Colors.amber.s800,
+						key: 'inaccessibleChannel',
+						replace: { channel: interaction.channelId },
+						target: interaction
+					} )
 				} )
 				return
 			}
@@ -126,21 +146,42 @@ export class UserCommand extends Command<Subcommands | SubcommandOptions> {
 				type: ChannelTypes.Logs
 			} )
 			void interaction.editReply( {
-				embeds: await simpleEmbed( interaction, Colors.green.s800, 'fandom', 'setLogsChannelSuccess', { channel: channel.id } )
+				embeds: await this.simpleEmbed( {
+					color: Colors.green.s800,
+					key: 'setLogsChannelSuccess',
+					replace: { channel: channel.id },
+					target: interaction
+				} )
 			} )
 			void channel.send( {
-				embeds: await simpleEmbed( interaction, Colors.green.s800, 'fandom', 'setLogsChannelTest', { user: interaction.user.id } )
+				embeds: await this.simpleEmbed( {
+					color: Colors.green.s800,
+					key: 'setLogsChannelTest',
+					replace: { user: interaction.user.id },
+					target: interaction
+				} )
 			} )
 		} else {
 			void interaction.editReply( {
-				embeds: await simpleEmbed( interaction, Colors.red.s800, 'default', 'unknownSubcommand' )
+				embeds: await this.simpleEmbed( {
+					category: 'default',
+					color: Colors.red.s800,
+					key: 'unknownSubcommand',
+					target: interaction
+				} )
 			} )
 		}
 	}
 
 	public async copyMessage( interaction: CommandInteraction, message: Message | null, channel: GuildTextBasedChannel, buttonStyle?: MessageButtonStyle | null ): Promise<[ MessageEmbedOptions ]> {
 		if ( !message ) {
-			return simpleEmbed( interaction, Colors.amber.s800, 'default', 'messageNotFound', { channel: channel.id } )
+			return this.simpleEmbed( {
+				category: 'default',
+				color: Colors.amber.s800,
+				key: 'messageNotFound',
+				replace: { channel: channel.id },
+				target: interaction
+			} )
 		}
 
 		try {
@@ -156,20 +197,40 @@ export class UserCommand extends Command<Subcommands | SubcommandOptions> {
 				components: [ new MessageActionRow( { components: [ button ] } ) ],
 				message
 			} )
-			return simpleEmbed( interaction, Colors.green.s800, 'fandom', 'copyMessageSuccess' )
+			return this.simpleEmbed( {
+				color: Colors.green.s800,
+				key: 'copyMessageSuccess',
+				target: interaction
+			} )
 		} catch {
-			return simpleEmbed( interaction, Colors.green.s800, 'fandom', 'copyMessageError' )
+			return this.simpleEmbed( {
+				color: Colors.red.s800,
+				key: 'copyMessageError',
+				target: interaction
+			} )
 		}
 	}
 
 	public async setRole( interaction: CommandInteraction, guild: Guild, role: Role | APIRole ): Promise<[MessageEmbedOptions]> {
 		if ( role.managed || role.position === 0 ) {
-			return simpleEmbed( interaction, Colors.red.s800, 'default', 'unassignableRole', { role: role.id } )
+			return this.simpleEmbed( {
+				category: 'default',
+				color: Colors.red.s800,
+				key: 'unassignableRole',
+				replace: { role: role.id },
+				target: interaction
+			} )
 		}
 
 		const highestRole = guild.me?.roles.highest
 		if ( highestRole && highestRole.position <= role.position ) {
-			return simpleEmbed( interaction, Colors.red.s800, 'default', 'unassignableRole', { role: highestRole.id } )
+			return this.simpleEmbed( {
+				category: 'default',
+				color: Colors.red.s800,
+				key: 'unassignableHigherRole',
+				replace: { role: highestRole.id },
+				target: interaction
+			} )
 		}
 
 		const roles = this.container.stores.get( 'models' ).get( 'roles' )
@@ -180,9 +241,18 @@ export class UserCommand extends Command<Subcommands | SubcommandOptions> {
 				role: role.id,
 				type: RoleTypes.Fandom
 			} )
-			return simpleEmbed( interaction, Colors.green.s800, 'fandom', 'setupSuccess', { role: role.id } )
+			return this.simpleEmbed( {
+				color: Colors.green.s800,
+				key: 'setupSuccess',
+				replace: { role: role.id },
+				target: interaction
+			} )
 		} catch {
-			return simpleEmbed( interaction, Colors.red.s800, 'fandom', 'setupError' )
+			return this.simpleEmbed( {
+				color: Colors.red.s800,
+				key: 'setupError',
+				target: interaction
+			} )
 		}
 	}
 }

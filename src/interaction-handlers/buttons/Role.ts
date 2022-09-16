@@ -27,17 +27,35 @@ export class UserButton extends InteractionHandler {
 			if ( hasRole ) {
 				await roles.remove( roleId )
 				void interaction.editReply( {
-					embeds: await simpleEmbed( interaction, role?.color ?? Colors.green.s800, 'buttons', 'roleAddsuccess', { role: roleId } )
+					embeds: await simpleEmbed( {
+						category: 'buttons',
+						color: role?.color ?? Colors.green.s800,
+						key: 'roleAddSuccess',
+						replace: { role: roleId },
+						target: interaction
+					} )
 				} )
 			} else {
 				await roles.add( roleId )
 				void interaction.editReply( {
-					embeds: await simpleEmbed( interaction, role?.color ?? Colors.green.s800, 'buttons', 'roleRemovesuccess', { role: roleId } )
+					embeds: await simpleEmbed( {
+						category: 'buttons',
+						color: role?.color ?? Colors.green.s800,
+						key: 'roleRemoveSuccess',
+						replace: { role: roleId },
+						target: interaction
+					} )
 				} )
 			}
 		} catch {
 			void interaction.editReply( {
-				embeds: await simpleEmbed( interaction, Colors.red.s800, 'buttons', 'roleError', { role: roleId } )
+				embeds: await simpleEmbed( {
+					category: 'buttons',
+					color: Colors.red.s800,
+					key: 'roleError',
+					replace: { role: roleId },
+					target: interaction
+				} )
 			} )
 		}
 	}
