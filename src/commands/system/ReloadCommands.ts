@@ -7,7 +7,7 @@ import { env } from '../../lib'
 	dm: false,
 	enabled: true,
 	guildIds: [ env.DISCORD_DEVELOPMENT_SERVER ],
-	name: 'commands-data',
+	name: 'reload-commands',
 	preconditions: [ 'OwnerOnly' ]
 } )
 export class UserCommand extends Command {

@@ -786,15 +786,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/fs-extra@npm:^9.0.13":
-  version: 9.0.13
-  resolution: "@types/fs-extra@npm:9.0.13"
-  dependencies:
-    "@types/node": "*"
-  checksum: add79e212acd5ac76b97b9045834e03a7996aef60a814185e0459088fd290519a3c1620865d588fa36c4498bf614210d2a703af5cf80aa1dbc125db78f6edac3
-  languageName: node
-  linkType: hard
-
 "@types/json-schema@npm:^7.0.9":
   version: 7.0.11
   resolution: "@types/json-schema@npm:7.0.11"
@@ -2159,7 +2150,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:^10.0.0, fs-extra@npm:^10.1.0":
+"fs-extra@npm:^10.0.0":
   version: 10.1.0
   resolution: "fs-extra@npm:10.1.0"
   dependencies:
@@ -4377,7 +4368,6 @@ __metadata:
     "@sapphire/plugin-scheduled-tasks": ^4.0.0
     "@sapphire/stopwatch": ^1.4.1
     "@sapphire/utilities": ^3.9.3
-    "@types/fs-extra": ^9.0.13
     "@types/node": ^16.11.58
     "@typescript-eslint/eslint-plugin": ^5.36.2
     "@typescript-eslint/parser": ^5.36.2
@@ -4385,7 +4375,6 @@ __metadata:
     discord-api-types: ^0.37.8
     discord.js: ^13.10.3
     eslint: ^8.23.0
-    fs-extra: ^10.1.0
     husky: ^8.0.1
     lint-staged: ^13.0.3
     mw.js: ^2.4.1

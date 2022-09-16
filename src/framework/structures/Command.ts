@@ -22,16 +22,15 @@ export abstract class Command<ApplicationCommand extends boolean = true> extends
 
 	protected createOption<D extends ApplicationCommandOptionData = ApplicationCommandOptionData>( option: DistributiveOmit<ApplicationCommandOptionData, 'description' | 'descriptionLocalizations' | 'nameLocalizations'>, key?: string ): D {
 		const i18nKey = `${ this.name }.options.${ key ?? option.name }`
+		const command = getCommand( { category: this.category, command: i18nKey } )
+		const localizations = {
+			descriptionLocalizations: getCommandI18n( this.category, i18nKey, 'description' ),
+			nameLocalizations: getCommandI18n( this.category, i18nKey, 'name' )
+		}
 		return Object.assign(
+			command,
 			option,
-			getCommand( {
-				category: this.category,
-				command: i18nKey
-			} ),
-			{
-				descriptionLocalizations: getCommandI18n( this.category, i18nKey, 'description' ),
-				nameLocalizations: getCommandI18n( this.category, i18nKey, 'name' )
-			}
+			localizations
 		) as unknown as D
 	}
 
