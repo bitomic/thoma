@@ -10,5 +10,11 @@ export class UserEvent extends Listener {
 		this.container.logger.info( 'Ready!' )
 
 		await this.container.sequelize.sync()
+		this.container.client.user?.setPresence( {
+			activities: [ {
+				name: 'alquimia',
+				type: 'PLAYING'
+			} ]
+		} )
 	}
 }
