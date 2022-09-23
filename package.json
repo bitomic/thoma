@@ -28,7 +28,7 @@
     "discord.js": "^13.11.0",
     "mw.js": "^2.4.1",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.23.0",
+    "sequelize": "^6.23.1",
     "ts-dotenv": "^0.8.3"
   },
   "devDependencies": {
