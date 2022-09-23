@@ -59,7 +59,7 @@ export class UserCommand extends Command {
 					name: SubcommandOptions.Message,
 					required: true,
 					type: 'STRING'
-				}, `${ Subcommands.Channel }.options.${ SubcommandOptions.Channel }` ) ],
+				}, `${ Subcommands.Message }.options.${ SubcommandOptions.Message }` ) ],
 				type: 'SUB_COMMAND'
 			} ),
 			this.createOption( {
