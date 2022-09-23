@@ -56,7 +56,7 @@ export abstract class Command<ApplicationCommand extends boolean = true> extends
 	protected simpleEmbed( options: { category?: string, color: number, key: string, replace?: Record<string, unknown>, target: Target } ): Promise<[MessageEmbedOptions]> {
 		return simpleEmbed( {
 			...options,
-			category: this.category ?? 'default'
+			category: options.category ?? this.category ?? 'default'
 		} )
 	}
 }
