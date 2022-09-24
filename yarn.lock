@@ -628,13 +628,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/plugin-scheduled-tasks@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@sapphire/plugin-scheduled-tasks@npm:4.0.0"
+"@sapphire/plugin-scheduled-tasks@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "@sapphire/plugin-scheduled-tasks@npm:4.0.1"
   dependencies:
-    "@sapphire/time-utilities": ^1.7.6
+    "@sapphire/stopwatch": ^1.4.1
+    "@sapphire/utilities": ^3.9.3
     tslib: ^2.4.0
-  checksum: addb8856842ec024c5d8bb3889c99f350aa26dc0fe3ad5ff6076c3fa36cffd1d37127b5432c885e85fe181540fd2e7e2f1172c63e4a70a567c36e261a9a42eb6
+  checksum: 5e3081885a12fd8fa960fb1897d742e09233541f82a9e86aab31af96cf52cd9da943746f11928ff3b3746c6bdc45bfea1f47abcefec4d1809d7adcfe98df052f
   languageName: node
   linkType: hard
 
@@ -831,10 +832,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.11.60":
-  version: 16.11.60
-  resolution: "@types/node@npm:16.11.60"
-  checksum: 8c9670801f736a06f5ec8dd4ade00cb8d822f1dd168ad255909af6f6439a50abc231fa684418810002fdcd4c282804f56ceee6e7d3cd3209736c4fad115f4b2c
+"@types/node@npm:^18.7.20":
+  version: 18.7.20
+  resolution: "@types/node@npm:18.7.20"
+  checksum: 83905b5528afe8c4e3f5f33de2699e1a12064d0e1b89310b179ab1801fca73157158ecf84c8dac3681afa77026f12440d34c37bc1107ca461da8df0f086b09e9
   languageName: node
   linkType: hard
 
@@ -1256,9 +1257,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bullmq@npm:^1.91.1":
-  version: 1.91.1
-  resolution: "bullmq@npm:1.91.1"
+"bullmq@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "bullmq@npm:2.1.0"
   dependencies:
     cron-parser: ^4.6.0
     get-port: 6.1.2
@@ -1269,7 +1270,7 @@ __metadata:
     semver: ^7.3.7
     tslib: ^2.0.0
     uuid: ^9.0.0
-  checksum: b433c4c69bde4f9dec8cf8e188bddfda33ae4f430ed3e58beb0bf233c9361e8380b99926fa38f355dd042449a7b4aa1e85c46441e0a9f905df30c81cab4be7c1
+  checksum: 252ac78d0480670660a6cd432c2c6efee1b0d33d461d4cf8c231d1d20d890a105ea8544f4aea17406091ad6be3979f1f8ab1ee3501fb9c2495ed627aefae1f62
   languageName: node
   linkType: hard
 
@@ -1710,17 +1711,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"discord-api-types@npm:^0.37.10":
+  version: 0.37.10
+  resolution: "discord-api-types@npm:0.37.10"
+  checksum: a09460953a02adf3c40a486e3946c6ca0dd6c76d279444a4595abecfe8b5b88ad49d48b5eeb85e2cb95256a0824ee075cb7550d371c13e64e37ec703206c092b
+  languageName: node
+  linkType: hard
+
 "discord-api-types@npm:^0.37.3":
   version: 0.37.3
   resolution: "discord-api-types@npm:0.37.3"
   checksum: 35451bfcac67c3c32fdc78eec79649a4a4c07132e14b661f797c61f30cedaf5202066aaf7f39d1ae1143262be07a93257b3c302699814884d2beed1572d1beff
-  languageName: node
-  linkType: hard
-
-"discord-api-types@npm:^0.37.8":
-  version: 0.37.8
-  resolution: "discord-api-types@npm:0.37.8"
-  checksum: c40ea3d4bda18d508978478ce3e0ef14c62ade1e5f0c21812bbcb81b81073118f4ded646b4eca9f88b636a7fc424e6eb1cc0e0d5189d327ec4014c079332f761
   languageName: node
   linkType: hard
 
@@ -4366,14 +4367,14 @@ __metadata:
     "@sapphire/framework": 3.1.1
     "@sapphire/pieces": 3.5.1
     "@sapphire/plugin-i18next": ^3.0.0
-    "@sapphire/plugin-scheduled-tasks": ^4.0.0
+    "@sapphire/plugin-scheduled-tasks": ^4.0.1
     "@sapphire/stopwatch": ^1.4.1
     "@sapphire/utilities": ^3.9.3
-    "@types/node": ^16.11.60
+    "@types/node": ^18.7.20
     "@typescript-eslint/eslint-plugin": ^5.38.0
     "@typescript-eslint/parser": ^5.38.0
-    bullmq: ^1.91.1
-    discord-api-types: ^0.37.8
+    bullmq: ^2.1.0
+    discord-api-types: ^0.37.10
     discord.js: ^13.11.0
     eslint: ^8.24.0
     husky: ^8.0.1
