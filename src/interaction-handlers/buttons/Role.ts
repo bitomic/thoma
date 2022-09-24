@@ -30,7 +30,7 @@ export class UserButton extends InteractionHandler {
 					embeds: await simpleEmbed( {
 						category: 'buttons',
 						color: role?.color ?? Colors.green.s800,
-						key: 'roleAddSuccess',
+						key: 'roleRemoveSuccess',
 						replace: { role: roleId },
 						target: interaction
 					} )
@@ -41,7 +41,7 @@ export class UserButton extends InteractionHandler {
 					embeds: await simpleEmbed( {
 						category: 'buttons',
 						color: role?.color ?? Colors.green.s800,
-						key: 'roleRemoveSuccess',
+						key: 'roleAddSuccess',
 						replace: { role: roleId },
 						target: interaction
 					} )
