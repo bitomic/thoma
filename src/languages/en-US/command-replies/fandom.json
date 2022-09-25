@@ -1,8 +1,12 @@
 {
 	"copyMessageError": "There was an unexpected error, try again later.",
 	"copyMessageSuccess": "The message was copied successfully.",
+	"inexistentWiki": "I couldn't access the wiki, it seems like it doesn't exist.\n<{{ url }}>",
+	"invalidInterwiki": "Your input isn't a valid interwiki.",
+	"noWikiSet": "This server doesn't have a wiki set.",
 	"setLogsChannelSuccess": "Configuration saved successfully. I'll send a test message in <#{{ channel }}>.",
 	"setLogsChannelTest": "Hi! <@!{{ user }}> has just set this channel for the verification logs.",
 	"setupError": "There was an unexpected error while trying to register the role. Try again later.",
-	"setupSuccess": "Setup completed. The users who verify using their Fandom account will get the <@&${ role }> role."
+	"setupSuccess": "Setup completed. The users who verify using their Fandom account will get the <@&${ role }> role.",
+	"setWikiSuccess": "You have successfully set the wiki for this server.\n<{{ url }}>"
 }

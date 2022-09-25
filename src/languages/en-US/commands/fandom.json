@@ -38,5 +38,25 @@
 				}
 			}
 		}
+	},
+	"wiki": {
+		"name": "wiki",
+		"description": "Set the default wiki for this server.",
+		"options": {
+			"interwiki": {
+				"name": "interwiki",
+				"description": "Interwiki of your wiki, not the full URL."
+			}
+		}
+	},
+	"wiki-search": {
+		"name": "wiki-search",
+		"description": "Search for a page in the wiki set for this server.",
+		"options": {
+			"search": {
+				"name": "search",
+				"description": "Term to search."
+			}
+		}
 	}
 }
