@@ -2150,7 +2150,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:^10.0.0":
+"fs-extra@npm:^10.0.0, fs-extra@npm:^10.1.0":
   version: 10.1.0
   resolution: "fs-extra@npm:10.1.0"
   dependencies:
@@ -3279,16 +3279,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mw.js@npm:^2.4.1":
-  version: 2.4.1
-  resolution: "mw.js@npm:2.4.1"
+"mw.js@npm:^3":
+  version: 3.0.1
+  resolution: "mw.js@npm:3.0.1"
   dependencies:
-    form-data: ^4.0.0
-    fs-extra: ^10.0.0
-    node-fetch: 2.6.7
+    fs-extra: ^10.1.0
     tmp-promise: ^3.0.3
-    tough-cookie: ^4.0.0
-  checksum: caa98a8c6711740a55f7f7c72ae7d33834716eeaacaa9237df6b7a4913fc96bf80fa09f15e7181b74452db7be6c8b643013093a7b26caf2af96e1ead65443f33
+    tough-cookie: ^4.1.0
+    undici: ^5.9.1
+  checksum: 92841ef31fca24c730ca92dfbaaa1ad5f4fad62d3c4d1a3c1c94bd5bf6a870adb75e3b93cba0ff44e79c99140b523d8a9513d7984f746cc5404b6da4f5fff2f5
   languageName: node
   linkType: hard
 
@@ -3331,7 +3330,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.7, node-fetch@npm:^2.6.7":
+"node-fetch@npm:^2.6.7":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
   dependencies:
@@ -4379,7 +4378,7 @@ __metadata:
     eslint: ^8.24.0
     husky: ^8.0.1
     lint-staged: ^13.0.3
-    mw.js: ^2.4.1
+    mw.js: ^3
     mysql2: ^2.3.3
     rimraf: ^3.0.2
     sequelize: ^6.23.1
@@ -4448,7 +4447,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tough-cookie@npm:^4.0.0":
+"tough-cookie@npm:^4.1.0":
   version: 4.1.2
   resolution: "tough-cookie@npm:4.1.2"
   dependencies:
