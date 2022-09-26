@@ -26,6 +26,7 @@
 		"bullmq": "^2.1.0",
 		"discord-api-types": "^0.37.10",
 		"discord.js": "^13.11.0",
+		"fuse.js": "^6.6.2",
 		"mw.js": "^2.4.1",
 		"mysql2": "^2.3.3",
 		"sequelize": "^6.23.1",

@@ -38,5 +38,15 @@
 				}
 			}
 		}
+	},
+	"vote": {
+		"name": "vote",
+		"description": "Vote for a The Binding of Isaac item.",
+		"options": {
+			"item": {
+				"name": "item",
+				"description": "Name of the item"
+			}
+		}
 	}
 }
