@@ -34,16 +34,21 @@ export class ItemVoteModel extends Model<IItemVoteInterface> {
 		)
 	}
 
-	public async canVote( user: string ): Promise<boolean> {
-		const lastVote = await this.model.findOne( { where: { user } } )
-		if ( !lastVote ) return true
-		return lastVote.date.getTime() + 1000 * 60 * 60 < Date.now()
-	}
-
 	public async addVote( user: string, item: string ): Promise<void> {
 		await this.model.upsert(
 			{ date: new Date(), item, user },
 		)
+	}
+
+	public async canVote( user: string ): Promise<boolean> {
+		const lastVote = await this.getLastVote( user )
+		if ( !lastVote ) return true
+		return lastVote.getTime() + 1000 * 60 * 60 < Date.now()
+	}
+
+	public async getLastVote( user: string ): Promise<Date | null> {
+		const lastVote = await this.model.findOne( { where: { user } } )
+		return lastVote?.date ?? null
 	}
 }
 
