@@ -23,7 +23,7 @@
 		"@sapphire/plugin-scheduled-tasks": "^5.0.0",
 		"@sapphire/stopwatch": "^1.4.1",
 		"@sapphire/utilities": "^3.9.3",
-		"bullmq": "^2.1.1",
+		"bullmq": "^2.1.2",
 		"discord-api-types": "^0.37.11",
 		"discord.js": "^13.11.0",
 		"fuse.js": "^6.6.2",
