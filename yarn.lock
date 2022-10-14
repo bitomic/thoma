@@ -1754,6 +1754,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"discord-api-types@npm:^0.37.13":
+  version: 0.37.13
+  resolution: "discord-api-types@npm:0.37.13"
+  checksum: ff3fe9cc1bdeee93b76f6ac4fd76a5e204298cbb1e71b72bb0e21039a970689d675a6a935e45265287ff756a0973e1e8635829d719d9a01d95ab5b0c772e5d47
+  languageName: node
+  linkType: hard
+
 "discord.js@npm:^13.12.0":
   version: 13.12.0
   resolution: "discord.js@npm:13.12.0"
@@ -4402,7 +4409,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.40.0
     "@typescript-eslint/parser": ^5.40.0
     bullmq: ^2.3.1
-    discord-api-types: ^0.37.12
+    discord-api-types: ^0.37.13
     discord.js: ^13.12.0
     eslint: ^8.25.0
     fuse.js: ^6.6.2
