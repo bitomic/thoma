@@ -30,7 +30,7 @@
 		"mw.js": "^2.4.1",
 		"mysql2": "^2.3.3",
 		"sequelize": "^6.25.5",
-		"ts-dotenv": "^0.8.3"
+		"ts-dotenv": "^0.9.0"
 	},
 	"devDependencies": {
 		"@bitomic/eslint-config": "1.2.0",
