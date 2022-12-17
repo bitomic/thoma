@@ -635,16 +635,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/plugin-i18next@npm:^4.0.2":
-  version: 4.0.2
-  resolution: "@sapphire/plugin-i18next@npm:4.0.2"
+"@sapphire/plugin-i18next@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "@sapphire/plugin-i18next@npm:4.0.3"
   dependencies:
     "@sapphire/utilities": ^3.11.0
     "@skyra/i18next-backend": ^2.0.1
     chokidar: ^3.5.3
-    i18next: ^22.4.1
+    i18next: ^22.4.5
     tslib: ^2.4.1
-  checksum: 85c4ffdbbcb98835d4ae05d4f5bae29d3ea828f2385b975ab42ab2279e6820a09f7d249693576c27a0ec36211364939227e4287d327a0121f343f7efb37f4f62
+  checksum: d6564dd06d59e9b051daaae2a25253cc69a940eced34dabfc705525816b0591801bea5dd0e282b3878178fa8e4f403fefde67659e05bb12ed8263660f27196ac
   languageName: node
   linkType: hard
 
@@ -2506,12 +2506,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^22.4.1":
-  version: 22.4.1
-  resolution: "i18next@npm:22.4.1"
+"i18next@npm:^22.4.5":
+  version: 22.4.5
+  resolution: "i18next@npm:22.4.5"
   dependencies:
     "@babel/runtime": ^7.20.6
-  checksum: 5be493cb7036cd3bfa40605ccaa6e534ffe036c4d74eebd3a1bbdf10ca1a389aa0227c531066e3d27cf8d14c3b2d74b2e9586e5b09875222c4130c190d0b49bb
+  checksum: 37942b6ef1dcc9a6451fda9ed18d9ecc55954bd40b615b6f9b27772ae70a8cb2b140344de75fd02069ca72f8e337ba9f2ebca162170e33cc0af55ea42169ebf7
   languageName: node
   linkType: hard
 
@@ -4481,7 +4481,7 @@ __metadata:
     "@sapphire/decorators": ^5.0.0
     "@sapphire/framework": 3.1.4
     "@sapphire/pieces": 3.6.0
-    "@sapphire/plugin-i18next": ^4.0.2
+    "@sapphire/plugin-i18next": ^4.0.3
     "@sapphire/plugin-scheduled-tasks": ^6.0.0
     "@sapphire/stopwatch": ^1.5.0
     "@sapphire/utilities": ^3.11.0
