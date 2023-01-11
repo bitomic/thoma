@@ -601,9 +601,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/framework@npm:4.0.0":
-  version: 4.0.0
-  resolution: "@sapphire/framework@npm:4.0.0"
+"@sapphire/framework@npm:4.0.1":
+  version: 4.0.1
+  resolution: "@sapphire/framework@npm:4.0.1"
   dependencies:
     "@discordjs/builders": ^1.4.0
     "@sapphire/discord-utilities": ^3.0.0
@@ -614,7 +614,7 @@ __metadata:
     "@sapphire/result": ^2.6.0
     "@sapphire/stopwatch": ^1.5.0
     "@sapphire/utilities": ^3.11.0
-  checksum: 228eee392a58a68fdc5f6382bbbafb8b060583450b08b17e6f37c4c6f6b897498db32ac1a2e117ce62f69b7be89892f0def13b97bd097597dd2101ed5d0c05e7
+  checksum: 97cda09441c9911924493e6f3ad3c554713c0383166373af03e2a4acf1f547dfe421eaa52422298ebf1abb847a62e59c53cf74b48d5bb5ad54ba9973fdc3efaf
   languageName: node
   linkType: hard
 
@@ -4517,7 +4517,7 @@ __metadata:
     "@commitlint/config-conventional": ^17.4.0
     "@discordjs/rest": ^1.5.0
     "@sapphire/decorators": ^6.0.0
-    "@sapphire/framework": 4.0.0
+    "@sapphire/framework": 4.0.1
     "@sapphire/pieces": 3.6.0
     "@sapphire/plugin-i18next": ^5.0.0
     "@sapphire/plugin-scheduled-tasks": ^6.0.0
