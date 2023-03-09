@@ -29,7 +29,7 @@
 		"fuse.js": "^6.6.2",
 		"mw.js": "^2.4.1",
 		"mysql2": "^2.3.3",
-		"sequelize": "^6.29.1",
+		"sequelize": "^6.29.2",
 		"ts-dotenv": "^0.9.1"
 	},
 	"devDependencies": {
