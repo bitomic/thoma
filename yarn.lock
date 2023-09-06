@@ -55,10 +55,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bitomic/material-colors@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@bitomic/material-colors@npm:1.0.0"
-  checksum: bda3034ec5f4877f30bc04267e4a756675bd4e0e254c0c6dbb424c269bf4f5324bac8aeccc92abaab44d890b02aeeffcbf5bfd2f50ee4a0603fba0998ea2b793
+"@bitomic/material-colors@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@bitomic/material-colors@npm:1.1.0"
+  checksum: cc5e03d6124f8641e37c3e4f221ff32d779b12efd9a9a6da64cde606497a024705049bc60e2a8e9f07c08e310b0247827aef71a87e28d3ed1c029f8d23952a01
   languageName: node
   linkType: hard
 
@@ -4644,7 +4644,7 @@ __metadata:
   resolution: "thoma@workspace:."
   dependencies:
     "@bitomic/eslint-config": 1.3.0
-    "@bitomic/material-colors": ^1.0.0
+    "@bitomic/material-colors": ^1.1.0
     "@bitomic/utilities": ^1.0.0
     "@commitlint/cli": ^17.7.1
     "@commitlint/config-conventional": ^17.7.0
