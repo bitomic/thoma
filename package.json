@@ -14,7 +14,7 @@
 	},
 	"dependencies": {
 		"@bitomic/material-colors": "^1.1.0",
-		"@bitomic/utilities": "^1.0.0",
+		"@bitomic/utilities": "^1.1.0",
 		"@discordjs/rest": "^1.7.1",
 		"@sapphire/decorators": "^5.0.0",
 		"@sapphire/framework": "3.2.0",
