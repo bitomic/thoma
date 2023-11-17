@@ -666,14 +666,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/plugin-scheduled-tasks@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "@sapphire/plugin-scheduled-tasks@npm:6.0.0"
+"@sapphire/plugin-scheduled-tasks@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "@sapphire/plugin-scheduled-tasks@npm:8.1.0"
   dependencies:
     "@sapphire/stopwatch": ^1.5.0
-    "@sapphire/utilities": ^3.11.0
-    tslib: ^2.4.0
-  checksum: 9658953cd0b5da239007438b33573f9041215c17c6e7ed686a1e2f79468b303d41442b3769b77e2250d4bd21bafdeded26f7bd8fb28a46fa8fd808ba0bb65c44
+    "@sapphire/utilities": ^3.13.0
+    bullmq: 3.15.8
+    tslib: ^2.6.2
+  checksum: ed2239fa8b73e29ef1a919223af3aca36e085ab5ccd3bbbc5620ca5495b553c94a170241c61dc77f787a5d638f56666f67d701b4458e470ecfebbf158efd1de8
   languageName: node
   linkType: hard
 
@@ -755,6 +756,13 @@ __metadata:
   version: 3.11.0
   resolution: "@sapphire/utilities@npm:3.11.0"
   checksum: 3c8521038b8879524e8114f39eefc8b3b06cf825995f709684238b5cb14bd7df06d232a26a88f79160df290a66f9aa3133f5ce4ff8e2398033db9f301ad31e0d
+  languageName: node
+  linkType: hard
+
+"@sapphire/utilities@npm:^3.13.0":
+  version: 3.13.0
+  resolution: "@sapphire/utilities@npm:3.13.0"
+  checksum: c2f901c104459e01a24af71871294b700ff188925cf050558880486de6564792df2b7549796dd9fd6f309c12af7d4e2b2d2f4069ec9d4c27d9c3998eca3ac9a9
   languageName: node
   linkType: hard
 
@@ -1266,6 +1274,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bullmq@npm:3.15.8":
+  version: 3.15.8
+  resolution: "bullmq@npm:3.15.8"
+  dependencies:
+    cron-parser: ^4.6.0
+    glob: ^8.0.3
+    ioredis: ^5.3.2
+    lodash: ^4.17.21
+    msgpackr: ^1.6.2
+    semver: ^7.3.7
+    tslib: ^2.0.0
+    uuid: ^9.0.0
+  checksum: bca20de291acbb97c67736c2d29b88b4f99e372ffd818b2041d4629ffba126a8c75ba6e25a1d181053c6e03ee4e260020e67fbb91412908040273187146493a4
+  languageName: node
+  linkType: hard
+
 "bullmq@npm:^2.4.0":
   version: 2.4.0
   resolution: "bullmq@npm:2.4.0"
@@ -1671,6 +1695,13 @@ __metadata:
   version: 2.0.1
   resolution: "denque@npm:2.0.1"
   checksum: ec398d1e3c6c8d4f5213dcf9ad74d7faa3b461e29a0019c9742b49a97ac5e16aa7134db45fa9d841e318e7722dd1ba670a474fde9a5b0d870b3a5fc6fe914c30
+  languageName: node
+  linkType: hard
+
+"denque@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "denque@npm:2.1.0"
+  checksum: 1d4ae1d05e59ac3a3481e7b478293f4b4c813819342273f3d5b826c7ffa9753c520919ba264f377e09108d24ec6cf0ec0ac729a5686cbb8f32d797126c5dae74
   languageName: node
   linkType: hard
 
@@ -2664,6 +2695,23 @@ __metadata:
     redis-parser: ^3.0.0
     standard-as-callback: ^2.1.0
   checksum: 2cb7f0f4217e6774accad3620af1b7114722721c1d1824be2c9f0c2a77ab9629f2e0848d18b1a7208bc37796ae1207cb3e0898fce61900cfe797da0382724ad1
+  languageName: node
+  linkType: hard
+
+"ioredis@npm:^5.3.2":
+  version: 5.3.2
+  resolution: "ioredis@npm:5.3.2"
+  dependencies:
+    "@ioredis/commands": ^1.1.1
+    cluster-key-slot: ^1.1.0
+    debug: ^4.3.4
+    denque: ^2.1.0
+    lodash.defaults: ^4.2.0
+    lodash.isarguments: ^3.1.0
+    redis-errors: ^1.2.0
+    redis-parser: ^3.0.0
+    standard-as-callback: ^2.1.0
+  checksum: 9a23559133e862a768778301efb68ae8c2af3c33562174b54a4c2d6574b976e85c75a4c34857991af733e35c48faf4c356e7daa8fb0a3543d85ff1768c8754bc
   languageName: node
   linkType: hard
 
@@ -4583,7 +4631,7 @@ __metadata:
     "@sapphire/framework": 3.2.0
     "@sapphire/pieces": 3.6.0
     "@sapphire/plugin-i18next": ^4.0.3
-    "@sapphire/plugin-scheduled-tasks": ^6.0.0
+    "@sapphire/plugin-scheduled-tasks": ^8.1.0
     "@sapphire/stopwatch": ^1.5.0
     "@sapphire/utilities": ^3.11.0
     "@types/node": ^20.9.1
@@ -4730,6 +4778,13 @@ __metadata:
   version: 2.5.0
   resolution: "tslib@npm:2.5.0"
   checksum: ae3ed5f9ce29932d049908ebfdf21b3a003a85653a9a140d614da6b767a93ef94f460e52c3d787f0e4f383546981713f165037dc2274df212ea9f8a4541004e1
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.6.2":
+  version: 2.6.2
+  resolution: "tslib@npm:2.6.2"
+  checksum: 329ea56123005922f39642318e3d1f0f8265d1e7fcb92c633e0809521da75eeaca28d2cf96d7248229deb40e5c19adf408259f4b9640afd20d13aecc1430f3ad
   languageName: node
   linkType: hard
 
