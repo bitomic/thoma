@@ -28,8 +28,8 @@ export class UserButton extends InteractionHandler {
 			} )
 			await interaction.editReply( { embeds: [ embed ] } )
 		} else {
-			const title = await resolveKey( interaction, 'modals:fandomVerifyTitle' )
-			const label = await resolveKey( interaction, 'modals:fandomVerifyUsername' )
+			const title = await resolveKey( interaction, 'command-replies/modals:fandomVerifyTitle' )
+			const label = await resolveKey( interaction, 'command-replies/modals:fandomVerifyUsername' )
 			const modal = new Modal( {
 				components: [
 					{
