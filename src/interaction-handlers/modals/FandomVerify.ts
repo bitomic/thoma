@@ -21,6 +21,10 @@ export class UserButton extends InteractionHandler {
 		const username = interaction.fields.getTextInputValue( ModalIds.FieldUsername )
 		const tag = await new Fandom().getUserDiscordTag( username )
 
+		const tagsMatch = interaction.user.discriminator === '0'
+			? interaction.user.username === tag?.replace( /#\d+/, '' )
+			: interaction.user.tag === tag
+
 		if ( !tag ) {
 			void interaction.editReply( {
 				embeds: await simpleEmbed( {
@@ -32,7 +36,7 @@ export class UserButton extends InteractionHandler {
 				} )
 			} )
 			return
-		} else if ( tag !== interaction.user.tag ) {
+		} else if ( !tagsMatch ) {
 			void interaction.editReply( {
 				embeds: await simpleEmbed( {
 					category: 'modals',
