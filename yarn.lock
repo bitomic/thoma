@@ -840,12 +840,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.10.4":
-  version: 22.10.4
-  resolution: "@types/node@npm:22.10.4"
+"@types/node@npm:^22.10.5":
+  version: 22.10.5
+  resolution: "@types/node@npm:22.10.5"
   dependencies:
     undici-types: ~6.20.0
-  checksum: df4afd23fee6f75f9ae6558794ca7b9fb92e5ff817e9ffcd26c67cd9a366dcb4f34f83184513b66646a54e2659adbd46cd4839d3268be11e2d74fde2d09c5f66
+  checksum: 3b0e966df4e130edac3ad034f1cddbe134e70f11556062468c9fbd749a3b07a44445a3a75a7eec68a104930bf05d4899f1a418c4ae48493d2c8c1544d8594bcc
   languageName: node
   linkType: hard
 
@@ -4302,7 +4302,7 @@ __metadata:
     "@sapphire/plugin-scheduled-tasks": ^6.0.0
     "@sapphire/stopwatch": ^1.5.0
     "@sapphire/utilities": ^3.11.0
-    "@types/node": ^22.10.4
+    "@types/node": ^22.10.5
     "@typescript-eslint/eslint-plugin": ^5.54.1
     "@typescript-eslint/parser": ^5.54.1
     bullmq: ^2.4.0
