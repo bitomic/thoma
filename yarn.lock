@@ -2761,9 +2761,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:^16.2.1":
-  version: 16.2.1
-  resolution: "lint-staged@npm:16.2.1"
+"lint-staged@npm:^16.2.2":
+  version: 16.2.2
+  resolution: "lint-staged@npm:16.2.2"
   dependencies:
     commander: ^14.0.1
     listr2: ^9.0.4
@@ -2774,7 +2774,7 @@ __metadata:
     yaml: ^2.8.1
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: 95e44bbd28f6dd2d6377940044a3d9b6dccb3d820e641e9d14ccb4bca3bebf37bd33f051a07a652789a6d8c417697613beb6418be044c58f9b3c9e302d1c81a8
+  checksum: c909ab245c6a00931c67878d46f35065c869a7e02151a445e540fcea075bfc570e9a4bba0033c0b84ecfb23aec517d02ac366fbab6da5faf7e9e30f833a51be5
   languageName: node
   linkType: hard
 
@@ -4198,7 +4198,7 @@ __metadata:
     eslint: ^8.57.1
     fuse.js: ^6.6.2
     husky: ^9.1.7
-    lint-staged: ^16.2.1
+    lint-staged: ^16.2.2
     mw.js: ^2.4.1
     mysql2: ^2.3.3
     rimraf: ^6.0.1
