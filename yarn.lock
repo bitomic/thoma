@@ -3737,9 +3737,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sequelize@npm:^6.37.7":
-  version: 6.37.7
-  resolution: "sequelize@npm:6.37.7"
+"sequelize@npm:^6.37.8":
+  version: 6.37.8
+  resolution: "sequelize@npm:6.37.8"
   dependencies:
     "@types/debug": ^4.1.8
     "@types/validator": ^13.7.17
@@ -3776,7 +3776,7 @@ __metadata:
       optional: true
     tedious:
       optional: true
-  checksum: fcca0993defbaed7a9727ae72a4dd00c1c8ec72ca0dd7bd9eab16626420f6719169a46bba18036b0d582599465c4e126547794c9b4b7485d1c2574be0d7d1f23
+  checksum: 8a733c7ee2df11f6bf852a496ee118c3d812d34e7cf3dc94c34bdb26c8fd3ef862a042ce568c7d9d2529676cf43f5e40dd786cad27b88e7518ca8fdb5fd525be
   languageName: node
   linkType: hard
 
@@ -4051,7 +4051,7 @@ __metadata:
     mw.js: ^2.4.1
     mysql2: ^2.3.3
     rimraf: ^6.1.3
-    sequelize: ^6.37.7
+    sequelize: ^6.37.8
     ts-dotenv: ^0.9.1
     typescript: ^5.9.3
   languageName: unknown
