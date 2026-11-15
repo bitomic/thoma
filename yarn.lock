@@ -744,6 +744,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sapphire/stopwatch@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@sapphire/stopwatch@npm:2.0.0"
+  checksum: 4d6bfb22ae7fec72da039b68ed3d3b2b0cdd494019130a266020b3f8d7f5e7dacc267ee48e47f80194700d4384560e318f8700dba01a5c6c3597242b7932a620
+  languageName: node
+  linkType: hard
+
 "@sapphire/time-utilities@npm:^1.7.4":
   version: 1.7.4
   resolution: "@sapphire/time-utilities@npm:1.7.4"
@@ -3791,7 +3798,7 @@ __metadata:
     "@sapphire/pieces": 3.6.0
     "@sapphire/plugin-i18next": ^4.0.3
     "@sapphire/plugin-scheduled-tasks": ^6.0.0
-    "@sapphire/stopwatch": ^1.5.0
+    "@sapphire/stopwatch": ^2.0.0
     "@sapphire/utilities": ^3.11.0
     "@types/node": ^22.20.5
     "@typescript-eslint/eslint-plugin": ^5.54.1
