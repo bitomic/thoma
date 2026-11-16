@@ -774,6 +774,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sapphire/utilities@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@sapphire/utilities@npm:4.0.0"
+  checksum: c31edfc4139f879ab1ce5c8819d798c854c6fdcc66e99c4aab5c821bbf073b11d0c22071de0491aac09b3ae04855cd1bff48cc810d5bddec5f02d2c2516127bb
+  languageName: node
+  linkType: hard
+
 "@simple-libs/child-process-utils@npm:^2.0.0":
   version: 2.0.0
   resolution: "@simple-libs/child-process-utils@npm:2.0.0"
@@ -3792,7 +3799,7 @@ __metadata:
     "@sapphire/plugin-i18next": ^4.0.3
     "@sapphire/plugin-scheduled-tasks": ^6.0.0
     "@sapphire/stopwatch": ^1.5.0
-    "@sapphire/utilities": ^3.11.0
+    "@sapphire/utilities": ^4.0.0
     "@types/node": ^22.20.5
     "@typescript-eslint/eslint-plugin": ^5.54.1
     "@typescript-eslint/parser": ^5.54.1
